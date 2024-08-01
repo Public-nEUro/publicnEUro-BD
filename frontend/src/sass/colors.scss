@@ -1,0 +1,231 @@
+//Computerome color palette
+$blue-dark: #1b365f;
+$blue-dust: #086e95;
+$blue-mid: #075faa;
+$blue-light: #43a4d9;
+$teal-dark: #125b53;
+$teal-dark-hover: #76a09d;
+$teal-light: #d2dedd;
+$teal-light-hover: #c1cdcc;
+$red: #da1e28;
+$red-dark: #5b1212;
+$red-light: #f6c9bf;
+$orange: #fa832b;
+$yellow: #f1c12a;
+$yellow-light: #fef4be;
+$black: #000;
+$white: #fff;
+$grey: #ccc;
+$green: #0ca678;
+$muted: rgb(126, 126, 126);
+
+$dark-grey: #3c3c3b;
+$light-grey: #e6e6e6;
+
+//PrimeNg Color overwrites
+$primary-color: $teal-dark;
+$primary-color-text: $white;
+
+.bg-blue-dark {
+    background-color: $blue-dark;
+    color: $white;
+}
+.bg-blue-dark-nh {
+    background-color: $blue-dark;
+    color: $white;
+}
+.bg-blue-dark:hover {
+    background-color: rgba($blue-dark, 0.8);
+    color: $white;
+}
+.bg-blue-dust {
+    background-color: $blue-dust;
+    color: $white;
+}
+.bg-blue-dust-nh {
+    background-color: $blue-dust;
+    color: $white;
+}
+.bg-blue-dust:hover {
+    background-color: rgba($blue-dust, 0.8);
+    color: $white;
+}
+.bg-blue-mid {
+    background-color: $blue-mid;
+    color: $white;
+}
+.bg-blue-mid:hover {
+    background-color: rgba($blue-mid, 0.8);
+    color: $white;
+}
+.bg-blue-light {
+    background-color: $blue-light;
+    color: $white;
+}
+.bg-blue-light:hover {
+    background-color: rgba($blue-light, 0.8);
+    color: $white;
+}
+.bg-teal-dark {
+    background-color: $teal-dark;
+    color: $white;
+}
+.bg-teal-dark-nh {
+    background-color: $teal-dark;
+    color: $white;
+}
+.bg-teal-dark:hover {
+    background-color: $teal-dark-hover;
+    color: $white;
+}
+.bg-teal-light {
+    background-color: $teal-light;
+    color: $black;
+}
+.bg-teal-light-nh {
+    background-color: $teal-light;
+    color: $black;
+}
+.bg-teal-light:hover {
+    background-color: $teal-light-hover;
+}
+.bg-red {
+    background-color: $red;
+    color: $white;
+}
+.bg-red:hover {
+    background-color: rgba($red, 0.8);
+    color: $white;
+}
+.bg-orange {
+    background-color: $orange;
+    color: $white;
+}
+.bg-orange:hover {
+    background-color: rgba($orange, 0.8);
+    color: $white;
+}
+.bg-yellow {
+    background-color: $yellow;
+    color: $black;
+}
+.bg-yellow:hover {
+    background-color: rgba($yellow, 0.8);
+    color: $black;
+}
+.bg-yellow-light {
+    background-color: $yellow-light;
+    color: $black;
+}
+.bg-yellow-light:hover {
+    background-color: rgba($yellow, 0.8);
+    color: $black;
+}
+.bg-green {
+    background-color: $green;
+    color: $white;
+}
+.bg-green:hover {
+    background-color: rgba($green, 0.8);
+    color: $white;
+}
+.bg-black {
+    background-color: $black;
+    color: $white;
+}
+.bg-black:hover {
+    background-color: rgba($black, 0.8);
+    color: $white;
+}
+
+.bg-white {
+    background-color: $white;
+}
+.bg-teal-dark-nh {
+    background-color: $teal-dark;
+    color: $white;
+}
+
+.blue-dark {
+    color: $blue-dark;
+}
+.blue-dust {
+    color: $blue-dust;
+}
+.blue-mid {
+    color: $blue-mid;
+}
+.blue-light {
+    color: $blue-light;
+}
+.teal-dark,
+.teal-dark a,
+.teal-dark a:visited {
+    color: $teal-dark !important;
+}
+.teal-light {
+    color: $teal-light;
+}
+.red {
+    color: $red;
+}
+.red-dark {
+    color: $red-dark;
+}
+.orange {
+    color: $orange;
+}
+.yellow {
+    color: $yellow;
+}
+.black {
+    color: $black;
+}
+.white {
+    color: $white;
+}
+.muted {
+    color: $muted;
+}
+.green {
+    color: $green;
+}
+
+.even {
+    background-color: $white;
+}
+.odd {
+    background-color: $grey;
+}
+
+.red-checkbox > .p-checkbox-box.p-highlight {
+    background: $red !important;
+    background-color: $red !important;
+    border-color: darken($red, 0.4) !important;
+}
+
+/* NICE you found Hirokis easter egg!!! */
+.jkr {
+    -webkit-animation: Japanese-Killer-Robot 0.5s infinite; /* Safari 4+ */
+    -moz-animation: Japanese-Killer-Robot 0.5s infinite; /* Fx 5+ */
+    -o-animation: Japanese-Killer-Robot 0.5s infinite; /* Opera 12+ */
+    animation: Japanese-Killer-Robot 0.5s infinite; /* IE 10+, Fx 29+ */
+}
+
+@keyframes Japanese-Killer-Robot {
+    0%,
+    33.3333% {
+        background-color: rgb(117, 209, 63);
+        border: 3px solid #e50000;
+    }
+    33.3334%,
+    66.6666% {
+        background-color: #f5f10f;
+        border: 3px solid rgb(117, 209, 63);
+    }
+    66.6664%,
+    100% {
+        background-color: #e50000;
+        border: 3px solid #f5f10f;
+    }
+}
