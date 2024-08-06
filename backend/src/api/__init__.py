@@ -1,5 +1,5 @@
 from flask import request, Response
-from .test_endpoint import test_endpoint
+from .example_endpoint import example_endpoint
 
 def docstring(description, input_schema, response_description, response_schema):
     doc = f"""
@@ -170,4 +170,4 @@ def endpoint_file_download(app, function, description, response_description, aut
 
 
 def init_endpoints(app):
-    endpoint(app, test_endpoint, "Test endpoint", "")
+    endpoint(app, example_endpoint, "Test endpoint", "")
