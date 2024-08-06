@@ -12,5 +12,5 @@ class User(Model):
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=False)
     approved_at = Column(DateTime, nullable=False)
-    password_hash = Column(String(64))
-    password_salt = Column(String(32))
+    password_hash = Column(String(64), nullable=False)
+    password_salt = Column(String(32), nullable=False)
