@@ -87,6 +87,9 @@ def create_app(name):
     def openAPIdoc():
         return jsonify(api_spec(app))
 
+    with app.app_context():
+        db.create_all()
+
     return app
 
 

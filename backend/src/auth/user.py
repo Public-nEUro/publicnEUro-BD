@@ -1,9 +1,11 @@
-from flask_sqlalchemy import Model
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.dialects.postgresql import UUID
+from ..database import db
 
 
-class User(Model):
+class User(db.Model):
+    __tablename__ = "user"
+    
     id = Column(UUID, primary_key=True)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)

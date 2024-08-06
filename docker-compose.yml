@@ -11,6 +11,7 @@ services:
       - SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ADDRESS}:${POSTGRES_PORT}/${POSTGRES_DB}
     volumes:
       - ./backend:/backend
+    network_mode: "host"
   db:
     container_name: db
     image: postgres:16.3-alpine
@@ -22,6 +23,7 @@ services:
       - '5432:${POSTGRES_PORT}'
     volumes:
       - db_hpc:/var/lib/postgresql/data
+    network_mode: "host"
 volumes:
   db_hpc:
     driver: local
