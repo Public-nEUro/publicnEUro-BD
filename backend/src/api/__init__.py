@@ -170,4 +170,4 @@ def endpoint_file_download(app, function, description, response_description, aut
 
 
 def init_endpoints(app):
-    endpoint(app, example_endpoint, "Test endpoint", "")
+    endpoint(app, example_endpoint, "Example endpoint", "")
