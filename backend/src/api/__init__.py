@@ -1,6 +1,7 @@
 from flask import request, Response
 from .example_endpoint import example_endpoint
 
+
 def docstring(description, input_schema, response_description, response_schema):
     doc = f"""
         {description}
@@ -97,7 +98,7 @@ def change_name(name):
     return _decorator
 
 
-def endpoint(app, function, description, response_description):
+def endpoint(app, function, description="", response_description=""):
     @app.post(f"/{function.__name__}")
     @docstring(
         description,
@@ -170,4 +171,7 @@ def endpoint_file_download(app, function, description, response_description, aut
 
 
 def init_endpoints(app):
-    endpoint(app, example_endpoint, "Example endpoint", "")
+    func_list = [example_endpoint]
+
+    for func in func_list:
+        endpoint(app, func)
