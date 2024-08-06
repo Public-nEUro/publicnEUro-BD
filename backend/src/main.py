@@ -8,11 +8,6 @@ from logging.config import dictConfig
 from .database import db, ma
 from .api import init_endpoints as init_api
 from .config import LOG_LEVEL
-from .auth.password import gen_hash_and_salt, check_password
-
-print("gen_hash_and_salt")
-hash, salt = gen_hash_and_salt("password123")
-print(check_password("password123", hash, salt))
 
 dictConfig(
     {

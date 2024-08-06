@@ -11,4 +11,4 @@ class TestResponseSchema(Schema):
 
 
 def example_endpoint(request: TestRequestSchema) -> TestResponseSchema:
-    current_app.logger.info("test endpoint called")
+    current_app.logger.info("example endpoint called")
