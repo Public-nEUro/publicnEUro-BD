@@ -8,6 +8,11 @@ from logging.config import dictConfig
 from .database import db, ma
 from .api import init_endpoints as init_api
 from .config import LOG_LEVEL
+from .user import gen_hash_and_salt, check_password
+
+print("gen_hash_and_salt")
+hash, salt = gen_hash_and_salt("password123")
+print(check_password("password123", hash, salt))
 
 dictConfig(
     {
@@ -57,7 +62,7 @@ def api_spec(app: Flask):
     spec = APISpec(
         title="Usage API",
         version="0.1.0",
-        openapi_version="3.1.0",
+        openapi_version="3.0.0",
         servers=app.config["OPENAPI_SERVER_LIST"],
         security=[{"JWTbearer": []}],
         plugins=[FlaskPlugin(), MarshmallowPlugin()],
