@@ -14,4 +14,4 @@ WORKDIR /backend
 
 CMD printenv >> /etc/environment \
     && pip3.10 install -r requirements.txt \
-    && gunicorn -w 4 --reload --bind 0.0.0.0:8080 --limit-request-line 1000000 'src.main:app'
+    && gunicorn -w 1 --reload --bind 0.0.0.0:8080 --limit-request-line 1000000 'src.main:app'
