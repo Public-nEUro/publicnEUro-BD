@@ -22,12 +22,6 @@ dictConfig(
             }
         },
         "handlers": {
-            "wsgi": {
-                "class": "logging.StreamHandler",
-                "level": LOG_LEVEL,
-                "formatter": "basic",
-                "stream": "ext://flask.logging.wsgi_errors_stream",
-            },
             "log": {
                 "class": "logging.StreamHandler",
                 "level": LOG_LEVEL,
@@ -49,7 +43,6 @@ dictConfig(
             },
             "src.main": {"level": LOG_LEVEL, "handlers": ["log"]},
         },
-        "root": {"level": LOG_LEVEL, "handlers": ["wsgi"]},
     }
 )
 
