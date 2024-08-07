@@ -2,6 +2,7 @@ from flask import request, Response
 from .example_endpoint import example_endpoint
 from .register import register
 from .login import login
+from .get_user_info import get_user_info
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -110,16 +111,9 @@ def endpoint(app, function, description="", response_description=""):
     )
     @change_name(f"api_{function.__name__}")
     def func():
-        try:
-            input_data = function.__annotations__["request"]().load(request.json)
-            response = function(input_data)
-            return function.__annotations__["return"]().jsonify(response)
-        except Exception as e:
-            app.logger.exception(e)
-            return Response(
-                str(e),
-                status=500,
-            )
+        input_data = function.__annotations__["request"]().load(request.json)
+        response = function(input_data)
+        return function.__annotations__["return"]().jsonify(response)
 
     return func
 
@@ -130,18 +124,12 @@ def endpoint_file_upload(app, function, auth):
     @change_name(f"api_{function.__name__}")
     @auth
     def func():
-        try:
-            print(type(request.files["file"]), flush=True)
-            input_data = function.__annotations__["request"]().load(
-                {"file": request.files["file"]}
-            )
-            response = function(input_data)
-            return function.__annotations__["return"]().jsonify(response)
-        except Exception as e:
-            return Response(
-                str(e),
-                status=500,
-            )
+        print(type(request.files["file"]), flush=True)
+        input_data = function.__annotations__["request"]().load(
+            {"file": request.files["file"]}
+        )
+        response = function(input_data)
+        return function.__annotations__["return"]().jsonify(response)
 
     return func
 
@@ -173,7 +161,7 @@ def endpoint_file_download(app, function, description, response_description, aut
 
 
 def init_endpoints(app):
-    func_list = [example_endpoint, register, login]
+    func_list = [example_endpoint, register, login, get_user_info]
 
     for func in func_list:
         endpoint(app, func)

@@ -6,6 +6,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from logging.config import dictConfig
 from .database import db, ma
+from .errorhandlers import register_errorhandlers
 from .api import init_endpoints as init_api
 from .config import LOG_LEVEL
 
@@ -76,6 +77,7 @@ def api_spec(app: Flask):
 def create_app(name):
     app = Flask(name)
     app.config.from_pyfile("config.py")
+    register_errorhandlers(app)
     CORS(app, resources={r"/*": {"origins": "*"}})
 
     db.init_app(app)

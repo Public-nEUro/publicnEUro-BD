@@ -1,7 +1,8 @@
+from typing import Union
 import os
 import jwt
 from datetime import datetime, timedelta, timezone
-from flask import request
+from flask import request, abort
 
 EXPIRE_HOURS = 8
 SKEW_MINUTES = 5
@@ -50,5 +51,13 @@ def get_verified_payload():
     return get_verified_payload_from_token(token, os.environ["CLIENT_SECRET"])
 
 
-def get_auth_user_id() -> str:
-    return get_verified_payload()["sub"]
+def get_auth_user_id() -> Union[str, None]:
+    try:
+        return get_verified_payload()["sub"]
+    except Exception:
+        return None
+
+
+def assert_is_logged_in():
+    if get_auth_user_id() is None:
+        abort(401)
