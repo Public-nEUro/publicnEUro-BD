@@ -42,18 +42,11 @@ def create_token(user_id):
     return create_token_from_client_secret(user_id, os.environ["CLIENT_SECRET"])
 
 
-def get_verified_payload():
-    try:
-        token = request.headers["authorization"].split(" ")[1]
-    except Exception:
-        raise jwt.exceptions.InvalidTokenError("No token")
-
-    return get_verified_payload_from_token(token, os.environ["CLIENT_SECRET"])
-
-
 def get_auth_user_id() -> Union[str, None]:
     try:
-        return get_verified_payload()["sub"]
+        token = request.headers["authorization"].split(" ")[1]
+        payload = get_verified_payload_from_token(token, os.environ["CLIENT_SECRET"])
+        return payload["sub"]
     except Exception:
         return None
 
