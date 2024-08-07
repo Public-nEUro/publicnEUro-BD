@@ -3,7 +3,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database import db
 from ..auth.password import check_password
-from ..auth.user import User
+from ..database.user import User
 from ..auth.token import create_token
 
 

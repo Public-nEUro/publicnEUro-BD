@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, DateTime, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
-from ..database import db
+from . import db
 
 
 class User(db.Model):

@@ -1,7 +1,7 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database import db
-from ..auth.user import User
+from ..database.user import User
 from ..auth.token import get_auth_user_id, assert_is_logged_in
 
 

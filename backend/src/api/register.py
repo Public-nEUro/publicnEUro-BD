@@ -4,7 +4,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database import db
 from ..auth.password import gen_hash_and_salt
-from ..auth.user import User
+from ..database.user import User
 
 
 class RegisterRequestSchema(Schema):

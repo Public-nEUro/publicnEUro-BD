@@ -6,7 +6,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from logging.config import dictConfig
 from .database import db
-from .schema import ma
+from .api.schema import ma
 from .errorhandlers import register_errorhandlers
 from .api import init_endpoints as init_api
 from .config import LOG_LEVEL
