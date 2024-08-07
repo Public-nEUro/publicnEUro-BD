@@ -20,6 +20,9 @@ class RegisterResponseSchema(Schema):
 
 
 def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
+    if db.session.query(User).filter(User.email == request["email"]).count() > 0:
+        return
+
     hash, salt = gen_hash_and_salt(request["password"])
 
     user = User()

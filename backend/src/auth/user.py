@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from ..database import db
 
@@ -16,3 +16,5 @@ class User(db.Model):
     approved_at = Column(DateTime, nullable=True)
     password_hash = Column(String(64), nullable=False)
     password_salt = Column(String(32), nullable=False)
+
+    __table_args__ = (UniqueConstraint("email", name="user_unique_email"),)
