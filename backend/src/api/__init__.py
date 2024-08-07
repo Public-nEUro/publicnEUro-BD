@@ -1,6 +1,7 @@
 from flask import request, Response
 from .example_endpoint import example_endpoint
 from .register import register
+from .login import login
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -172,7 +173,7 @@ def endpoint_file_download(app, function, description, response_description, aut
 
 
 def init_endpoints(app):
-    func_list = [example_endpoint, register]
+    func_list = [example_endpoint, register, login]
 
     for func in func_list:
         endpoint(app, func)
