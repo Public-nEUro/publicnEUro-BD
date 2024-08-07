@@ -1,9 +1,8 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database import db
 from ..auth.password import check_password
-from ..database.user import User
+from ..database.user import get_user_by_email
 from ..auth.token import create_token
 
 
@@ -17,7 +16,7 @@ class LoginResponseSchema(Schema):
 
 
 def login(request: LoginRequestSchema) -> LoginResponseSchema:
-    user: User = db.session.query(User).filter(User.email == request["email"]).first()
+    user = get_user_by_email(request["email"])
 
     if user is None:
         abort(401)

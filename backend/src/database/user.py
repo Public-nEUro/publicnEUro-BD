@@ -1,3 +1,4 @@
+from typing import Union
 from sqlalchemy import Column, String, DateTime, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from . import db
@@ -18,3 +19,20 @@ class User(db.Model):
     password_salt = Column(String(32), nullable=False)
 
     __table_args__ = (UniqueConstraint("email", name="user_unique_email"),)
+
+
+def get_user(id: str) -> User:
+    return db.session.query(User).get(id)
+
+
+def get_user_by_email(email: str) -> Union[User, None]:
+    return db.session.query(User).filter(User.email == email).first()
+
+
+def user_exists(email: str) -> bool:
+    return get_user_by_email(email) is not None
+
+
+def create_user(user: User) -> None:
+    db.session.add(user)
+    db.session.commit()

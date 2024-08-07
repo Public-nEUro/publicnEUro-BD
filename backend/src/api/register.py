@@ -2,9 +2,8 @@ from uuid import uuid4
 from datetime import datetime
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database import db
 from ..auth.password import gen_hash_and_salt
-from ..database.user import User
+from ..database.user import User, create_user, user_exists
 
 
 class RegisterRequestSchema(Schema):
@@ -20,7 +19,7 @@ class RegisterResponseSchema(Schema):
 
 
 def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
-    if db.session.query(User).filter(User.email == request["email"]).count() > 0:
+    if user_exists(request["email"]):
         return
 
     hash, salt = gen_hash_and_salt(request["password"])
@@ -37,5 +36,4 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.password_hash = hash
     user.password_salt = salt
 
-    db.session.add(user)
-    db.session.commit()
+    create_user(user)
