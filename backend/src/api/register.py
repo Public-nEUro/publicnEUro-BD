@@ -1,6 +1,5 @@
 from uuid import uuid4
 from datetime import datetime
-from flask import current_app
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database import db
