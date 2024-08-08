@@ -25,12 +25,13 @@ import { DatePipe } from "./_pipes/date.pipe";
 import { DatetimePipe } from "./_pipes/datetime.pipe";
 import { ErrorInterceptor, JwtInterceptor } from "./_helpers";
 import { CommonModule } from "@angular/common";
+import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, StoragePipe, DatePipe, DatetimePipe],
+    declarations: [AppComponent, HomeComponent, LoginComponent, StoragePipe, DatePipe, DatetimePipe],
     imports: [
         CommonModule,
         BrowserModule,

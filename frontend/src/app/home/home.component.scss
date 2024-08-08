@@ -1,0 +1,18 @@
+@import '../../sass/colors.scss';
+
+.flex-container {
+    display: flex;
+    height: 100%;
+    min-height: 100%;
+    margin-top: -70px;
+    width: 100%;
+    position: absolute;
+    font-family: sans-serif;
+    flex-direction: column;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
