@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "@services/authentication.service";
 import { InternalToastService } from "@services/internaltoast.service";
@@ -14,11 +14,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         email: new UntypedFormControl(""),
         password: new UntypedFormControl("")
     });
-    mfaForm: UntypedFormGroup = new UntypedFormGroup({ mfaCode: new UntypedFormControl("") });
     submitted = false;
     error = "";
-    token: string = "";
-    expireToken!: Date | undefined;
+
     constructor(
         private formBuilder: UntypedFormBuilder,
         private authenticationService: AuthenticationService,
