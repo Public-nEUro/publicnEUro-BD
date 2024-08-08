@@ -1,8 +1,10 @@
-from flask import request, Response
+from flask import request, Response, current_app
 from .example_endpoint import example_endpoint
 from .register import register
 from .login import login
 from .get_user_info import get_user_info
+from ..auth.token import get_auth_user_id
+from ..database.api_call import create_api_call_log
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -101,6 +103,27 @@ def change_name(name):
     return _decorator
 
 
+def hide_password(data):
+    if not isinstance(data, dict):
+        return data
+
+    try:
+        result = {**data}
+        if "password" in result:
+            result["password"] = "__HIDDEN__"
+        if "share_auth" in result:
+            result["share_auth"] = "__HIDDEN__"
+        return result
+    except Exception as e:
+        current_app.logger.exception(str(e))
+        return data
+
+
+def log_api_call(url, data):
+    user_id = get_auth_user_id()
+    create_api_call_log(user_id, url, data)
+
+
 def endpoint(app, function, description="", response_description=""):
     @app.post(f"/{function.__name__}")
     @docstring(
@@ -112,6 +135,7 @@ def endpoint(app, function, description="", response_description=""):
     @change_name(f"api_{function.__name__}")
     def func():
         input_data = function.__annotations__["request"]().load(request.json)
+        log_api_call(request.url, hide_password(input_data))
         response = function(input_data)
         return function.__annotations__["return"]().jsonify(response)
 
