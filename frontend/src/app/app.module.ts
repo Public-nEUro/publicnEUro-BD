@@ -5,7 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { environment as env } from "../environments/environment";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
@@ -25,10 +24,15 @@ import { StoragePipe } from "./_pipes/storage.pipe";
 import { DatePipe } from "./_pipes/date.pipe";
 import { DatetimePipe } from "./_pipes/datetime.pipe";
 import { ErrorInterceptor, JwtInterceptor } from "./_helpers";
+import { CommonModule } from "@angular/common";
+import { LoginComponent } from "./login/login.component";
+import { BASE_PATH } from "@services/api-client";
+import { environment } from "@environments/environment";
 
 @NgModule({
-    declarations: [AppComponent, StoragePipe, DatePipe, DatetimePipe],
+    declarations: [AppComponent, LoginComponent, StoragePipe, DatePipe, DatetimePipe],
     imports: [
+        CommonModule,
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
@@ -50,7 +54,8 @@ import { ErrorInterceptor, JwtInterceptor } from "./_helpers";
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: BASE_PATH, useValue: environment.API_BASE_URL }
     ],
     bootstrap: [AppComponent]
 })
