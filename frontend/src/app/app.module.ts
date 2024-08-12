@@ -23,6 +23,7 @@ import { FileUploadModule } from "primeng/fileupload";
 import { StoragePipe } from "./_pipes/storage.pipe";
 import { DatePipe } from "./_pipes/date.pipe";
 import { DatetimePipe } from "./_pipes/datetime.pipe";
+import { UserInfoToSortedEntriesPipe } from "./_pipes/userInfo.pipe";
 import { ErrorInterceptor, JwtInterceptor } from "./_helpers";
 import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home/home.component";
@@ -32,7 +33,16 @@ import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, StoragePipe, DatePipe, DatetimePipe],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        RegisterComponent,
+        LoginComponent,
+        StoragePipe,
+        DatePipe,
+        DatetimePipe,
+        UserInfoToSortedEntriesPipe
+    ],
     imports: [
         CommonModule,
         BrowserModule,

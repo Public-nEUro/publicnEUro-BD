@@ -8,12 +8,12 @@ import {
     Validators
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, RegisterRequest } from "@services/api-client";
 
 type FieldKey = keyof RegisterRequest;
 
 type FieldInfo = {
-    label: string;
     type: string;
     autocomplete: string;
     validators: ((control: AbstractControl) => ValidationErrors | null)[];
@@ -25,33 +25,30 @@ type FieldInfo = {
     styleUrls: ["./register.component.scss"]
 })
 export class RegisterComponent implements OnInit {
+    fieldKeyToLabel = fieldKeyToLabel;
+
     field_infos: Record<FieldKey, FieldInfo> = {
         first_name: {
-            label: "First name",
             type: "text",
             autocomplete: "given-name",
             validators: [Validators.required]
         },
         last_name: {
-            label: "Last name",
             type: "text",
             autocomplete: "family-name",
             validators: [Validators.required]
         },
         email: {
-            label: "Email",
             type: "text",
             autocomplete: "email",
             validators: [Validators.required, Validators.email]
         },
         address: {
-            label: "Address",
             type: "text",
             autocomplete: "address-line1",
             validators: [Validators.required]
         },
         password: {
-            label: "Password",
             type: "password",
             autocomplete: "new-password",
             validators: [Validators.required]

@@ -4,8 +4,8 @@
             <div class="text-3xl font-medium teal-dark mb-3">Register</div>
         </div>
         <div class="form-content">
-            <div class="field" *ngFor="let field_info of field_infos | keyvalue">
-                <label for="{{field_info.key}}" class="field-label">{{field_info.value.label}}</label>
+            <div class="field" *ngFor="let field_info of field_infos | userInfoToSortedEntries">
+                <label for="{{field_info.key}}" class="field-label">{{fieldKeyToLabel[field_info.key]}}</label>
                 <input id="{{field_info.key}}" type="{{field_info.value.type}}"
                     autocomplete="field_info.value.autocomplete" pInputText formControlName="{{field_info.key}}"
                     [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }" class="field-input" />
