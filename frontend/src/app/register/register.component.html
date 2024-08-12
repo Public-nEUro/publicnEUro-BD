@@ -4,14 +4,14 @@
             <div class="text-3xl font-medium teal-dark mb-3">Register</div>
         </div>
         <div class="form-content">
-            <div class="field" *ngFor="let field_key of field_keys">
-                <label for="{{field_key}}" class="field-label">{{field_info[field_key].label}}</label>
-                <input id="{{field_key}}" type="{{field_info[field_key].type}}" autocomplete="field_info[field_key].autocomplete"
-                    pInputText formControlName="{{field_key}}"
-                    [ngClass]="{ 'is-invalid': submitted && f[field_key].errors }" class="field-input" />
-                <div *ngIf="submitted && f[field_key].errors" class="p-error mb-2 mt-2">
-                    <div *ngIf="(f[field_key].errors ?? {})['required']">Required</div>
-                    <div *ngIf="(f[field_key].errors ?? {})['email']">Not a valid email</div>
+            <div class="field" *ngFor="let field_info of field_infos | keyvalue">
+                <label for="{{field_info.key}}" class="field-label">{{field_info.value.label}}</label>
+                <input id="{{field_info.key}}" type="{{field_info.value.type}}"
+                    autocomplete="field_info.value.autocomplete" pInputText formControlName="{{field_info.key}}"
+                    [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }" class="field-input" />
+                <div *ngIf="submitted && f[field_info.key].errors" class="p-error mb-2 mt-2">
+                    <div *ngIf="(f[field_info.key].errors ?? {})['required']">Required</div>
+                    <div *ngIf="(f[field_info.key].errors ?? {})['email']">Not a valid email</div>
                 </div>
             </div>
             <div class="field">

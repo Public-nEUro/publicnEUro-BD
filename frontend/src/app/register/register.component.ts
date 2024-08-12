@@ -16,8 +16,7 @@ type FieldInfo = {
     styleUrls: ["./register.component.scss"]
 })
 export class RegisterComponent implements OnInit {
-    field_keys: FieldKey[] = ["first_name", "last_name", "email", "address", "password"];
-    field_info: Record<FieldKey, FieldInfo> = {
+    field_infos: Record<FieldKey, FieldInfo> = {
         first_name: { label: "First name", type: "text", autocomplete: "given-name" },
         last_name: { label: "Last name", type: "text", autocomplete: "family-name" },
         email: { label: "Email", type: "text", autocomplete: "email" },
@@ -26,7 +25,7 @@ export class RegisterComponent implements OnInit {
     };
 
     registerForm: UntypedFormGroup = new UntypedFormGroup(
-        Object.fromEntries(this.field_keys.map(key => [key, new FormControl("")]))
+        Object.fromEntries(Object.keys(this.field_infos).map(key => [key, new FormControl("")]))
     );
     submitted = false;
 
@@ -37,7 +36,7 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         this.registerForm = this.formBuilder.group(
             Object.fromEntries(
-                this.field_keys.map(key => [
+                Object.keys(this.field_infos).map(key => [
                     key,
                     ["", key === "email" ? [Validators.required, Validators.email] : [Validators.required]]
                 ])
@@ -52,7 +51,7 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.registerForm.invalid) return;
-        const entries = this.field_keys.map(key => [key, this.f[key].value]);
+        const entries = Object.keys(this.field_infos).map(key => [key, this.f[key].value]);
         this.service.registerPost(Object.fromEntries(entries)).subscribe(res => {
             console.log(res);
         });
