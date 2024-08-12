@@ -1,9 +1,13 @@
 version: "3.5"
 services:
+  frontend:
+    build: frontend
+    container_name: "frontend"
+    ports:
+      - "80:4200"
+    network_mode: "host"
   backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
+    build: backend
     container_name: "backend"
     ports:
       - "8080:8080"

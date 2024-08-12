@@ -9,8 +9,8 @@ RUN apt-get update \
     && pip3 install watchdog \
     && pip3 install gunicorn
 
-COPY ./backend /backend
-WORKDIR /backend
+WORKDIR /app
+COPY . .
 
 CMD printenv >> /etc/environment \
     && pip3.10 install -r requirements.txt \
