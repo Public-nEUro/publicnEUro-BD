@@ -1,0 +1,23 @@
+<div class="flex-container align-items-center justify-content-center">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="text-center mb-5">
+            <div class="text-3xl font-medium teal-dark mb-3">Register</div>
+        </div>
+        <div class="form-content">
+            <div class="field" *ngFor="let field_key of field_keys">
+                <label for="{{field_key}}" class="field-label">{{field_labels[field_key]}}</label>
+                <input id="{{field_key}}" type="{{field_types[field_key]}}" autocomplete="field_autocomplete[field_key]"
+                    pInputText formControlName="{{field_key}}"
+                    [ngClass]="{ 'is-invalid': submitted && f[field_key].errors }" class="field-input" />
+                <div *ngIf="submitted && f[field_key].errors" class="p-error mb-2 mt-2">
+                    <div *ngIf="(f[field_key].errors ?? {})['required']">Required</div>
+                    <div *ngIf="(f[field_key].errors ?? {})['email']">Not a valid email</div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="field-label"></div>
+                <p-button type="submit" label="Sign up" icon="fal fa-arrow-circle-right"></p-button>
+            </div>
+        </div>
+    </form>
+</div>
