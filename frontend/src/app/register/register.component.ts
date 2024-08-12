@@ -4,6 +4,12 @@ import { DefaultService, RegisterRequest } from "@services/api-client";
 
 type FieldKey = keyof RegisterRequest;
 
+type FieldInfo = {
+    label: string;
+    type: string;
+    autocomplete: string;
+};
+
 @Component({
     selector: "app-register",
     templateUrl: "./register.component.html",
@@ -11,26 +17,12 @@ type FieldKey = keyof RegisterRequest;
 })
 export class RegisterComponent implements OnInit {
     field_keys: FieldKey[] = ["first_name", "last_name", "email", "address", "password"];
-    field_labels: Record<FieldKey, string> = {
-        first_name: "First name",
-        last_name: "Last name",
-        email: "Email",
-        address: "Address",
-        password: "Password"
-    };
-    field_types: Record<FieldKey, string> = {
-        first_name: "text",
-        last_name: "text",
-        email: "text",
-        address: "text",
-        password: "password"
-    };
-    field_autocomplete: Record<FieldKey, string> = {
-        first_name: "given-name",
-        last_name: "family-name",
-        email: "email",
-        address: "address-line1",
-        password: "new-password"
+    field_info: Record<FieldKey, FieldInfo> = {
+        first_name: { label: "First name", type: "text", autocomplete: "given-name" },
+        last_name: { label: "Last name", type: "text", autocomplete: "family-name" },
+        email: { label: "Email", type: "text", autocomplete: "email" },
+        address: { label: "Address", type: "text", autocomplete: "address-line1" },
+        password: { label: "Password", type: "password", autocomplete: "new-password" }
     };
 
     registerForm: UntypedFormGroup = new UntypedFormGroup(

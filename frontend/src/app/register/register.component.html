@@ -5,8 +5,8 @@
         </div>
         <div class="form-content">
             <div class="field" *ngFor="let field_key of field_keys">
-                <label for="{{field_key}}" class="field-label">{{field_labels[field_key]}}</label>
-                <input id="{{field_key}}" type="{{field_types[field_key]}}" autocomplete="field_autocomplete[field_key]"
+                <label for="{{field_key}}" class="field-label">{{field_info[field_key].label}}</label>
+                <input id="{{field_key}}" type="{{field_info[field_key].type}}" autocomplete="field_info[field_key].autocomplete"
                     pInputText formControlName="{{field_key}}"
                     [ngClass]="{ 'is-invalid': submitted && f[field_key].errors }" class="field-input" />
                 <div *ngIf="submitted && f[field_key].errors" class="p-error mb-2 mt-2">
