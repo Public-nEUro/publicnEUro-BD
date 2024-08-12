@@ -1,5 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import {
+    AbstractControl,
+    FormControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    ValidationErrors,
+    Validators
+} from "@angular/forms";
 import { DefaultService, RegisterRequest } from "@services/api-client";
 
 type FieldKey = keyof RegisterRequest;
@@ -8,6 +15,7 @@ type FieldInfo = {
     label: string;
     type: string;
     autocomplete: string;
+    validators: ((control: AbstractControl) => ValidationErrors | null)[];
 };
 
 @Component({
@@ -17,11 +25,36 @@ type FieldInfo = {
 })
 export class RegisterComponent implements OnInit {
     field_infos: Record<FieldKey, FieldInfo> = {
-        first_name: { label: "First name", type: "text", autocomplete: "given-name" },
-        last_name: { label: "Last name", type: "text", autocomplete: "family-name" },
-        email: { label: "Email", type: "text", autocomplete: "email" },
-        address: { label: "Address", type: "text", autocomplete: "address-line1" },
-        password: { label: "Password", type: "password", autocomplete: "new-password" }
+        first_name: {
+            label: "First name",
+            type: "text",
+            autocomplete: "given-name",
+            validators: [Validators.required]
+        },
+        last_name: {
+            label: "Last name",
+            type: "text",
+            autocomplete: "family-name",
+            validators: [Validators.required]
+        },
+        email: {
+            label: "Email",
+            type: "text",
+            autocomplete: "email",
+            validators: [Validators.required, Validators.email]
+        },
+        address: {
+            label: "Address",
+            type: "text",
+            autocomplete: "address-line1",
+            validators: [Validators.required]
+        },
+        password: {
+            label: "Password",
+            type: "password",
+            autocomplete: "new-password",
+            validators: [Validators.required]
+        }
     };
 
     registerForm: UntypedFormGroup = new UntypedFormGroup(
@@ -35,12 +68,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group(
-            Object.fromEntries(
-                Object.keys(this.field_infos).map(key => [
-                    key,
-                    ["", key === "email" ? [Validators.required, Validators.email] : [Validators.required]]
-                ])
-            )
+            Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
         );
     }
 
