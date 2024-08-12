@@ -1,13 +1,13 @@
 services:
   frontend:
     build: frontend
-    container_name: "frontend"
+    container_name: "data_manager_frontend"
     ports:
       - "80:4200"
     network_mode: "host"
   backend:
     build: backend
-    container_name: "backend"
+    container_name: "data_manager_backend"
     ports:
       - "8080:8080"
     environment:
@@ -26,8 +26,8 @@ services:
     ports:
       - '5432:${POSTGRES_PORT}'
     volumes:
-      - db_hpc:/var/lib/postgresql/data
+      - data_manager_db:/var/lib/postgresql/data
     network_mode: "host"
 volumes:
-  db_hpc:
+  data_manager_db:
     driver: local
