@@ -1,13 +1,23 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { GetUserInfoResponse } from "@services/api-client";
+import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
     selector: "app-home",
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.scss"]
 })
-export class HomeComponent {
-    constructor(private router: Router) {}
+export class HomeComponent implements OnInit {
+    constructor(private router: Router, private authenticationService: AuthenticationService) {}
+
+    userInfo: GetUserInfoResponse | undefined = undefined;
+
+    ngOnInit(): void {
+        this.authenticationService.userInfo.subscribe(res => {
+            this.userInfo = res;
+        });
+    }
 
     register() {
         this.router.navigate(["/register"]);
@@ -15,5 +25,9 @@ export class HomeComponent {
 
     login() {
         this.router.navigate(["/login"]);
+    }
+
+    logout() {
+        this.authenticationService.logout();
     }
 }

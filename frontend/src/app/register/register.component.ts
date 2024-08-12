@@ -7,6 +7,7 @@ import {
     ValidationErrors,
     Validators
 } from "@angular/forms";
+import { Router } from "@angular/router";
 import { DefaultService, RegisterRequest } from "@services/api-client";
 
 type FieldKey = keyof RegisterRequest;
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
     );
     submitted = false;
 
-    constructor(private formBuilder: UntypedFormBuilder, private service: DefaultService) {}
+    constructor(private router: Router, private formBuilder: UntypedFormBuilder, private service: DefaultService) {}
 
     ngAfterViewInit(): void {}
 
@@ -81,7 +82,7 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.invalid) return;
         const entries = Object.keys(this.field_infos).map(key => [key, this.f[key].value]);
         this.service.registerPost(Object.fromEntries(entries)).subscribe(res => {
-            console.log(res);
+            this.router.navigate(["/"]);
         });
     }
 }

@@ -12,6 +12,7 @@
 
 
 export interface LoginResponse { 
-    token: string;
+    error_message?: string;
+    token?: string;
 }
 

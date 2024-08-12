@@ -12,16 +12,19 @@ class LoginRequestSchema(Schema):
 
 
 class LoginResponseSchema(Schema):
-    token = fields.String(required=True)
+    token = fields.String()
+    error_message = fields.String()
 
 
 def login(request: LoginRequestSchema) -> LoginResponseSchema:
     user = get_user_by_email(request["email"])
 
+    error_res = {"error_message": "Invalid credentials"}
+
     if user is None:
-        abort(401)
+        return error_res
 
     if not check_password(request["password"], user.password_hash, user.password_salt):
-        abort(401)
+        return error_res
 
     return {"token": create_token(user.id)}
