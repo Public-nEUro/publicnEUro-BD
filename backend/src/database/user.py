@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Union, List
 from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
@@ -24,6 +25,12 @@ class User(db.Model):
 
 def get_user(id: str) -> User:
     return db.session.query(User).get(id)
+
+
+def approve_user(id: str) -> User:
+    user = db.session.query(User).get(id)
+    user.approved_at = datetime.now()
+    db.session.commit()
 
 
 def get_users() -> List[User]:

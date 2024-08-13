@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { DefaultService, GetUserInfoResponse, GetUsersResponse } from "@services/api-client";
+import { DefaultService, GetUsersResponse } from "@services/api-client";
 import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
@@ -24,10 +24,20 @@ export class UsersComponent implements OnInit {
                 this.router.navigate(["/"]);
                 return;
             }
-            this.service.getUsersPost({}).subscribe(res => {
-                console.log(res);
-                this.users = res.users;
-            });
+            this.refresh();
+        });
+    }
+
+    refresh() {
+        this.service.getUsersPost({}).subscribe(res => {
+            console.log(res);
+            this.users = res.users;
+        });
+    }
+
+    approve(userId: string) {
+        this.service.approveUserPost({ user_id: userId }).subscribe(() => {
+            this.refresh();
         });
     }
 }

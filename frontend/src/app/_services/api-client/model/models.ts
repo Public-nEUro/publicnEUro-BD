@@ -1,3 +1,4 @@
+export * from './approveUserRequest';
 export * from './getUserInfoResponse';
 export * from './getUsersResponse';
 export * from './loginRequest';
