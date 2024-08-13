@@ -3,6 +3,7 @@ from .example_endpoint import example_endpoint
 from .register import register
 from .login import login
 from .get_user_info import get_user_info
+from .get_users import get_users
 from ..auth.token import get_auth_user_id
 from ..database.api_call import create_api_call_log
 
@@ -91,7 +92,7 @@ def create_response(file, mime_type, file_name):
 
 
 def init_endpoints(app):
-    func_list = [example_endpoint, register, login, get_user_info]
+    func_list = [example_endpoint, register, login, get_user_info, get_users]
 
     for func in func_list:
         endpoint(app, func)

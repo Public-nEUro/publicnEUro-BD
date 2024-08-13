@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List
 from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from . import db
@@ -24,6 +24,10 @@ class User(db.Model):
 
 def get_user(id: str) -> User:
     return db.session.query(User).get(id)
+
+
+def get_users() -> List[User]:
+    return db.session.query(User).all()
 
 
 def get_user_by_email(email: str) -> Union[User, None]:

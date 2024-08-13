@@ -30,6 +30,7 @@ import { HomeComponent } from "./home/home.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { UsersComponent } from "./users/users.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -44,6 +45,7 @@ import { MatListModule } from "@angular/material/list";
         RegisterComponent,
         LoginComponent,
         ProfileComponent,
+        UsersComponent,
         StoragePipe,
         DatePipe,
         DatetimePipe,
