@@ -13,6 +13,7 @@
 
 export interface GetUserInfoResponse { 
     address: string;
+    approved: boolean;
     email: string;
     first_name: string;
     id: string;

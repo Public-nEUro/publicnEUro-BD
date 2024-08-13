@@ -14,6 +14,7 @@ class GetUserInfoResponseSchema(Schema):
     last_name = fields.String(required=True)
     email = fields.Email(required=True)
     address = fields.String(required=True)
+    approved = fields.Boolean(required=True)
 
 
 def get_user_info(request: GetUserInfoRequestSchema) -> GetUserInfoResponseSchema:
@@ -29,4 +30,5 @@ def get_user_info(request: GetUserInfoRequestSchema) -> GetUserInfoResponseSchem
         "last_name": user.last_name,
         "email": user.email,
         "address": user.address,
+        "approved": user.approved_at is not None
     }
