@@ -15,7 +15,7 @@ services:
       - CLIENT_SECRET=${CLIENT_SECRET}
     network_mode: "host"
   db:
-    container_name: db
+    container_name: data_manager_db
     image: postgres:16.3-alpine
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
