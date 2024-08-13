@@ -31,6 +31,10 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
     declarations: [
@@ -62,7 +66,11 @@ import { environment } from "@environments/environment";
         MenuModule,
         CalendarModule,
         ChartModule,
-        FileUploadModule
+        FileUploadModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
