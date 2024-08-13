@@ -5,10 +5,6 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "build:dev": "ng build --configuration development",
-        "build:test": "ng build --configuration test",
-        "build:prod": "ng build --configuration production",
-        "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "api": "export JAVA_OPTS=-'Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true' && openapi-generator-cli generate -i http://localhost:8080/swagger/swagger.json -g typescript-angular -c ./swagger-codegen.options  -o ./src/app/_services/api-client --reserved-words-mappings abstract=abstract"
     },

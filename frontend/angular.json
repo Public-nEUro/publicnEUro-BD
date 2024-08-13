@@ -40,17 +40,8 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
-                        "production": {
-                            "browserTarget": "frontend:build:production"
-                        },
-                        "test": {
-                            "browserTarget": "frontend:build:test"
-                        },
-                        "development": {
-                            "browserTarget": "frontend:build:development"
-                        },
                         "local": {
-                            "browserTarget": "frontend:build:local"
+                            "browserTarget": "frontend:build"
                         }
                     },
                     "defaultConfiguration": "local"
