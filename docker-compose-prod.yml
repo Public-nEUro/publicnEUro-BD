@@ -1,9 +1,13 @@
 services:
+  frontend:
+    build: frontend
+    container_name: "data_manager_frontend"
+    ports:
+      - "80:4200"
+    network_mode: "host"
   backend:
     build: backend
     container_name: "data_manager_backend"
-    volumes:
-      - ./backend:/app
     ports:
       - "8080:8080"
     environment:
