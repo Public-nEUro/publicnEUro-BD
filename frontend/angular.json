@@ -32,45 +32,7 @@
                     },
                     "configurations": {
                         "production": {
-                            "outputHashing": "all",
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ]
-                        },
-                        "test": {
-                            "outputHashing": "all",
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.test.ts"
-                                }
-                            ]
-                        },
-                        "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
-                            "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true,
-                            "outputHashing": "all",
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.dev.ts"
-                                }
-                            ]
-                        },
-                        "local": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
-                            "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true
+                            "outputHashing": "all"
                         }
                     },
                     "defaultConfiguration": "production"
