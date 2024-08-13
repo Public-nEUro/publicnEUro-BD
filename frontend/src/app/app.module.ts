@@ -29,6 +29,7 @@ import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home/home.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
+import { ProfileComponent } from "./profile/profile.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -42,6 +43,7 @@ import { MatListModule } from "@angular/material/list";
         HomeComponent,
         RegisterComponent,
         LoginComponent,
+        ProfileComponent,
         StoragePipe,
         DatePipe,
         DatetimePipe,

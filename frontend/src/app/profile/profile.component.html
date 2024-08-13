@@ -1,0 +1,14 @@
+<div *ngIf="userInfo !== undefined" class="flex-container align-items-center justify-content-center">
+    <h1>Profile</h1>
+    <div *ngIf="!userInfo.approved" class="p-error mb-2 mt-2">Waiting for approval</div>
+    <div *ngIf="userInfo.is_admin" class="mb-2 mt-2">Admin</div>
+    <p-table [value]="userInfo | userInfoToSortedEntries">
+        <ng-template pTemplate="body" let-info>
+            <tr *ngIf="fieldKeyToLabel[info.key] !== undefined">
+                <td><b>{{fieldKeyToLabel[info.key]}}</b></td>
+                <td>{{info.value}}</td>
+            </tr>
+        </ng-template>
+    </p-table><br />
+    <p-button label="Logout" icon="fal fa-arrow-circle-right" (onClick)="logout()" class="field"></p-button>
+</div>

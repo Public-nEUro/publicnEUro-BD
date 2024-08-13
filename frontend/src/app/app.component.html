@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container *ngIf="userInfo !== undefined" autosize="true">
     <mat-sidenav mode="side" opened>
         <mat-toolbar>Data Manager</mat-toolbar>
         <mat-nav-list class="list-horizontal">
@@ -10,3 +10,5 @@
         </router-outlet>
     </div>
 </mat-sidenav-container>
+
+<router-outlet *ngIf="userInfo === undefined"></router-outlet>

@@ -48,12 +48,13 @@ export class AuthenticationService {
             }
             this.setToken(res.token);
             this.refreshUserInfo();
-            this.router.navigate(["/"]);
+            this.router.navigate(["/profile"]);
         });
     }
 
     logout() {
         this.setToken(null);
         this.refreshUserInfo();
+        this.router.navigate(["/"]);
     }
 }

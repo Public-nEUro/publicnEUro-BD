@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { GetUserInfoResponse } from "@services/api-client";
+import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
     selector: "app-root",
@@ -6,7 +8,13 @@ import { Component } from "@angular/core";
     styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-    constructor() {}
+    constructor(private authenticationService: AuthenticationService) {}
 
-    ngOnInit() {}
+    userInfo: GetUserInfoResponse | undefined = undefined;
+
+    ngOnInit(): void {
+        this.authenticationService.userInfo.subscribe(res => {
+            this.userInfo = res;
+        });
+    }
 }
