@@ -1,5 +1,5 @@
 from typing import Union
-from sqlalchemy import Column, String, DateTime, UniqueConstraint
+from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from . import db
 
@@ -17,6 +17,7 @@ class User(db.Model):
     approved_at = Column(DateTime, nullable=True)
     password_hash = Column(String(64), nullable=False)
     password_salt = Column(String(32), nullable=False)
+    is_admin = Column(Boolean, nullable=False)
 
     __table_args__ = (UniqueConstraint("email", name="user_unique_email"),)
 

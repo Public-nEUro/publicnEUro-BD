@@ -6,6 +6,7 @@
 <div *ngIf="userInfo !== undefined" class="flex-container align-items-center justify-content-center">
     <h1>Profile</h1>
     <div *ngIf="!userInfo.approved" class="p-error">Waiting for approval</div>
+    <div *ngIf="userInfo.is_admin">Admin</div>
     <p-table [value]="userInfo | userInfoToSortedEntries">
         <ng-template pTemplate="body" let-info>
             <tr *ngIf="fieldKeyToLabel[info.key] !== undefined">

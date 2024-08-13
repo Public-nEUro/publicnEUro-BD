@@ -35,5 +35,6 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.approved_at = None
     user.password_hash = hash
     user.password_salt = salt
+    user.is_admin = False
 
     create_user(user)

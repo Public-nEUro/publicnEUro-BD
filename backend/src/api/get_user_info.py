@@ -15,6 +15,7 @@ class GetUserInfoResponseSchema(Schema):
     email = fields.Email(required=True)
     address = fields.String(required=True)
     approved = fields.Boolean(required=True)
+    is_admin = fields.Boolean(required=True)
 
 
 def get_user_info(request: GetUserInfoRequestSchema) -> GetUserInfoResponseSchema:
@@ -30,5 +31,6 @@ def get_user_info(request: GetUserInfoRequestSchema) -> GetUserInfoResponseSchem
         "last_name": user.last_name,
         "email": user.email,
         "address": user.address,
-        "approved": user.approved_at is not None
+        "approved": user.approved_at is not None,
+        "is_admin": user.is_admin,
     }
