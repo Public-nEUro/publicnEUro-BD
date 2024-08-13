@@ -2,6 +2,7 @@
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { DefaultService, GetUserInfoResponse } from "./api-client";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -25,11 +26,18 @@ export class AuthenticationService {
     }
 
     refreshUserInfo() {
-        if (this.getToken() === null) this.userInfoSubject.next(undefined);
-        else
-            this.service.getUserInfoPost({}).subscribe(res => {
+        if (this.getToken() === null) {
+            this.userInfoSubject.next(undefined);
+            return;
+        }
+        this.service.getUserInfoPost({}).subscribe({
+            next: res => {
                 this.userInfoSubject.next(res);
-            });
+            },
+            error: (err: HttpErrorResponse) => {
+                if (err.status === 401) this.logout();
+            }
+        });
     }
 
     login(email: string, password: string) {

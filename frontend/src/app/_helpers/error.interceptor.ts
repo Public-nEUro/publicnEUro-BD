@@ -11,26 +11,19 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             catchError(err => {
-                let status = "";
                 switch (err.status) {
                     case 400:
-                        status = "warn";
                         break;
                     case 401:
-                        status = "warn";
-                        window.alert("Unauthorized");
-                        this.router.navigate(["/"]);
                         break;
                     case 403:
-                        status = "error";
-                        this.router.navigate(["/"]);
+                        window.alert("Unauthorized");
                         break;
                     case 404:
-                        status = "error";
-                        this.router.navigate(["/page-not-found"]);
+                        window.alert("Not found");
                         break;
                     case 500: // Internal Server Error
-                        window.alert(`Internal Server Error: ${err.error}`);
+                        window.alert("Internal server error");
                         break;
                     //fallthrough for common error codes
                     case 501: // Not Implemented
@@ -43,13 +36,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 508: // Loop Detected (WebDAV; RFC 5842)
                     case 510: // Not Extended (RFC 2774)
                     case 511: // Network Authentication Required (RFC 6585)
-                        status = "error";
                         break;
                     default: //fallthrough for error codes we let pass
                         break;
                 }
 
-                return throwError(() => new Error(err.error.error));
+                return throwError(() => err);
             })
         );
     }
