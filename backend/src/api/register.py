@@ -5,6 +5,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import gen_hash_and_salt
 from ..database.user import User, create_user, user_exists
+from ..mail import send_mail
 
 
 class RegisterRequestSchema(Schema):
@@ -37,5 +38,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.password_hash = hash
     user.password_salt = salt
     user.is_admin = False
+
+    send_mail("registration", {"link": "http://example.com"}, user.email)
 
     create_user(user)
