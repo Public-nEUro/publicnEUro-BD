@@ -1,8 +1,7 @@
-from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database.user import get_user, get_users as get_users_from_db
-from ..auth.token import get_auth_user_id, assert_is_logged_in
+from ..database.user import get_db_approved_users, get_db_non_approved_users
+from .utils import assert_is_admin
 
 
 class GetUsersRequestSchema(Schema):
@@ -15,24 +14,13 @@ class UserSchema(Schema):
     last_name = fields.String(required=True)
     email = fields.Email(required=True)
     address = fields.String(required=True)
-    approved = fields.Boolean(required=True)
-    is_admin = fields.Boolean(required=True)
 
 
 class GetUsersResponseSchema(Schema):
     users = fields.Nested(UserSchema, required=True, many=True)
 
 
-def get_users(request: GetUsersRequestSchema) -> GetUsersResponseSchema:
-    assert_is_logged_in()
-
-    user_id = get_auth_user_id()
-
-    if not get_user(user_id).is_admin:
-        abort(403)
-
-    users = get_users_from_db()
-
+def db_users_to_response(users):
     return {
         "users": [
             {
@@ -41,9 +29,19 @@ def get_users(request: GetUsersRequestSchema) -> GetUsersResponseSchema:
                 "last_name": user.last_name,
                 "email": user.email,
                 "address": user.address,
-                "approved": user.approved_at is not None,
-                "is_admin": user.is_admin,
             }
             for user in users
         ]
     }
+
+
+def get_approved_users(request: GetUsersRequestSchema) -> GetUsersResponseSchema:
+    assert_is_admin()
+
+    return db_users_to_response(get_db_approved_users())
+
+
+def get_non_approved_users(request: GetUsersRequestSchema) -> GetUsersResponseSchema:
+    assert_is_admin()
+
+    return db_users_to_response(get_db_non_approved_users())

@@ -1,14 +1,13 @@
-<div *ngIf="users !== undefined" class="flex-container align-items-center justify-content-center">
-    <h1>Users</h1>
-    <p-table [value]="users">
+<div *ngIf="nonApprovedUsers !== undefined" class="flex-container align-items-center justify-content-center">
+    <h1>Users waiting for approval</h1>
+    <p-table [value]="nonApprovedUsers">
         <ng-template pTemplate="header">
             <tr>
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Admin</th>
-                <th>Approved</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
@@ -17,8 +16,29 @@
                 <td>{{user.last_name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.address}}</td>
-                <td><i *ngIf="user.is_admin" class="pi pi-check"></i></td>
-                <td><i *ngIf="user.approved" class="pi pi-check"></i><p-button *ngIf="!user.approved" (onClick)="approve(user.id)">Approve</p-button></td>
+                <td><p-button (onClick)="approve(user.id)">Approve</p-button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div *ngIf="approvedUsers !== undefined" class="flex-container align-items-center justify-content-center">
+    <h1>Approved users</h1>
+    <p-table [value]="approvedUsers">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Address</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.address}}</td>
             </tr>
         </ng-template>
     </p-table>

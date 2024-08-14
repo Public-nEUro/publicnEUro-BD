@@ -15,7 +15,8 @@ export class UsersComponent implements OnInit {
         private service: DefaultService
     ) {}
 
-    users: GetUsersResponse["users"] | undefined = undefined;
+    approvedUsers: GetUsersResponse["users"] | undefined = undefined;
+    nonApprovedUsers: GetUsersResponse["users"] | undefined = undefined;
 
     ngOnInit(): void {
         this.authenticationService.userInfo.subscribe(user => {
@@ -29,9 +30,11 @@ export class UsersComponent implements OnInit {
     }
 
     refresh() {
-        this.service.getUsersPost({}).subscribe(res => {
-            console.log(res);
-            this.users = res.users;
+        this.service.getApprovedUsersPost({}).subscribe(res => {
+            this.approvedUsers = res.users;
+        });
+        this.service.getNonApprovedUsersPost({}).subscribe(res => {
+            this.nonApprovedUsers = res.users;
         });
     }
 

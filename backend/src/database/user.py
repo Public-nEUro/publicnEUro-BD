@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Union, List
 from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql.expression import null
 from . import db
 
 
@@ -33,8 +34,16 @@ def approve_user(id: str) -> User:
     db.session.commit()
 
 
-def get_users() -> List[User]:
-    return db.session.query(User).all()
+def get_users_query():
+    return db.session.query(User).filter(User.is_admin == False)
+
+
+def get_db_approved_users() -> List[User]:
+    return get_users_query().filter(User.approved_at != null()).all()
+
+
+def get_db_non_approved_users() -> List[User]:
+    return get_users_query().filter(User.approved_at == null()).all()
 
 
 def get_user_by_email(email: str) -> Union[User, None]:

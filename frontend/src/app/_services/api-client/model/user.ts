@@ -13,11 +13,9 @@
 
 export interface User { 
     address: string;
-    approved: boolean;
     email: string;
     first_name: string;
     id: string;
-    is_admin: boolean;
     last_name: string;
 }
 
