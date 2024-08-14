@@ -39,11 +39,21 @@ def get_users_query():
 
 
 def get_db_approved_users() -> List[User]:
-    return get_users_query().filter(User.approved_at != null()).all()
+    return (
+        get_users_query()
+        .filter(User.approved_at != null())
+        .order_by(User.approved_at.desc())
+        .all()
+    )
 
 
 def get_db_non_approved_users() -> List[User]:
-    return get_users_query().filter(User.approved_at == null()).all()
+    return (
+        get_users_query()
+        .filter(User.approved_at == null())
+        .order_by(User.created_at.desc())
+        .all()
+    )
 
 
 def get_user_by_email(email: str) -> Union[User, None]:
