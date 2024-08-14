@@ -14,6 +14,7 @@ class UserSchema(Schema):
     last_name = fields.String(required=True)
     email = fields.Email(required=True)
     address = fields.String(required=True)
+    created_at = fields.DateTime(required=True)
     approved_at = fields.DateTime(required=True)
 
 
@@ -30,6 +31,7 @@ def db_users_to_response(users):
                 "last_name": user.last_name,
                 "email": user.email,
                 "address": user.address,
+                "created_at": user.created_at,
                 "approved_at": user.approved_at,
             }
             for user in users

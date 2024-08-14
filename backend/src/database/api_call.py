@@ -9,7 +9,7 @@ class ApiCall(db.Model):
 
     id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True))
-    timestamp = db.Column(db.DateTime, nullable=False)
+    timestamp = db.Column(db.DateTime(timezone=True), nullable=False)
     url = db.Column(db.String, nullable=False)
     data = db.Column(JSON(none_as_null=True))
 

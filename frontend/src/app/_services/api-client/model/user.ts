@@ -14,6 +14,7 @@
 export interface User { 
     address: string;
     approved_at: string;
+    created_at: string;
     email: string;
     first_name: string;
     id: string;

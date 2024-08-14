@@ -7,6 +7,7 @@
                 <th>Last name</th>
                 <th>Email</th>
                 <th>Address</th>
+                <th>Created at</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -16,6 +17,7 @@
                 <td>{{user.last_name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.address}}</td>
+                <td>{{user.created_at | datetime}}</td>
                 <td><p-button (onClick)="approve(user.id)">Approve</p-button></td>
             </tr>
         </ng-template>

@@ -1,5 +1,6 @@
 from uuid import uuid4
 from datetime import datetime
+import pytz
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import gen_hash_and_salt
@@ -30,8 +31,8 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.last_name = request["last_name"]
     user.email = request["email"]
     user.address = request["address"]
-    user.created_at = datetime.now()
-    user.updated_at = datetime.now()
+    user.created_at = datetime.now(tz=pytz.timezone("UTC"))
+    user.updated_at = datetime.now(tz=pytz.timezone("UTC"))
     user.approved_at = None
     user.password_hash = hash
     user.password_salt = salt
