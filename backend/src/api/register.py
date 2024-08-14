@@ -1,9 +1,10 @@
+import os
 from uuid import uuid4
 from datetime import datetime
 import pytz
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..auth.password import gen_hash_and_salt
+from ..auth.password import gen_hash_and_salt, hash_passkey
 from ..database.user import User, create_user, user_exists
 from ..mail import send_mail
 
@@ -25,6 +26,8 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
         return
 
     hash, salt = gen_hash_and_salt(request["password"])
+    approver_passkey = str(uuid4())
+    approver_passkey_hash = hash_passkey(approver_passkey)
 
     user = User()
     user.id = uuid4()
@@ -38,7 +41,12 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.password_hash = hash
     user.password_salt = salt
     user.is_admin = False
+    user.approver_passkey_hash = approver_passkey_hash
 
-    send_mail("registration", {"link": "http://example.com"}, user.email)
+    send_mail(
+        "registration",
+        {"link": f"{os.environ['BACKEND_URL']}/{approver_passkey}"},
+        os.environ["APPROVER_EMAIL"],
+    )
 
     create_user(user)

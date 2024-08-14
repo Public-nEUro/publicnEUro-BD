@@ -12,6 +12,8 @@ services:
       - SMTP_ADDRESS=${SMTP_ADDRESS}
       - SMTP_PORT=${SMTP_PORT}
       - SMTP_SENDER=${SMTP_SENDER}
+      - APPROVER_EMAIL=${APPROVER_EMAIL}
+      - BACKEND_URL=${BACKEND_URL}
     network_mode: "host"
   db:
     container_name: data_manager_db

@@ -20,6 +20,7 @@ class User(db.Model):
     password_hash = Column(String(64), nullable=False)
     password_salt = Column(String(32), nullable=False)
     is_admin = Column(Boolean, nullable=False)
+    approver_passkey_hash = Column(String(64), nullable=False)
 
     __table_args__ = (UniqueConstraint("email", name="user_unique_email"),)
 
