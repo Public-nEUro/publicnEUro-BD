@@ -1,11 +1,22 @@
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database.user import get_user
+from .schema import EmptySchema
+from ..database.user import get_user, get_user_from_approver_passkey_hash
 from ..auth.token import get_auth_user_id, assert_is_logged_in
+from ..auth.password import hash_passkey
 
 
-class GetUserInfoRequestSchema(Schema):
-    pass
+def db_user_to_response(user):
+    return {
+        "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+        "address": user.address,
+        "approved": user.approved_at is not None,
+        "is_admin": user.is_admin,
+    }
 
 
 class GetUserInfoResponseSchema(Schema):
@@ -18,19 +29,31 @@ class GetUserInfoResponseSchema(Schema):
     is_admin = fields.Boolean(required=True)
 
 
-def get_user_info(request: GetUserInfoRequestSchema) -> GetUserInfoResponseSchema:
+def get_user_info(request: EmptySchema) -> GetUserInfoResponseSchema:
     assert_is_logged_in()
 
     user_id = get_auth_user_id()
 
     user = get_user(user_id)
 
-    return {
-        "id": user.id,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "email": user.email,
-        "address": user.address,
-        "approved": user.approved_at is not None,
-        "is_admin": user.is_admin,
-    }
+    if user is None:
+        abort(404)
+
+    return db_user_to_response(user)
+
+
+class GetUserInfoFromPasskeyRequestSchema(Schema):
+    passkey = fields.String(required=True)
+
+
+def get_user_info_from_passkey(
+    request: GetUserInfoFromPasskeyRequestSchema,
+) -> GetUserInfoResponseSchema:
+    passkey_hash = hash_passkey(request["passkey"])
+
+    user = get_user_from_approver_passkey_hash(passkey_hash)
+
+    if user is None:
+        abort(404)
+
+    return db_user_to_response(user)

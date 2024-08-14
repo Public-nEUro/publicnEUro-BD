@@ -31,6 +31,7 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { ApprovalComponent } from "./approval/approval.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -46,6 +47,7 @@ import { MatListModule } from "@angular/material/list";
         LoginComponent,
         ProfileComponent,
         UsersComponent,
+        ApprovalComponent,
         StoragePipe,
         DatePipe,
         DatetimePipe,

@@ -1,4 +1,6 @@
 export * from './approveUserRequest';
+export * from './approveUserWithPasskeyRequest';
+export * from './getUserInfoFromPasskeyRequest';
 export * from './getUserInfoResponse';
 export * from './getUsersResponse';
 export * from './loginRequest';

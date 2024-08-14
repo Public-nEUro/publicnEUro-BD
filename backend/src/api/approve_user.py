@@ -1,19 +1,21 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database.user import get_user, approve_user as approve_user_in_db
+from .schema import EmptySchema
+from ..database.user import (
+    get_user,
+    approve_user as approve_user_in_db,
+    reject_user as reject_user_in_db,
+)
 from ..auth.token import get_auth_user_id, assert_is_logged_in
+from ..auth.password import check_passkey
 
 
 class ApproveUserRequestSchema(Schema):
     user_id = fields.String(required=True)
 
 
-class ApproveUserResponseSchema(Schema):
-    pass
-
-
-def approve_user(request: ApproveUserRequestSchema) -> ApproveUserResponseSchema:
+def approve_user(request: ApproveUserRequestSchema) -> EmptySchema:
     assert_is_logged_in()
 
     user_id = get_auth_user_id()
@@ -22,3 +24,42 @@ def approve_user(request: ApproveUserRequestSchema) -> ApproveUserResponseSchema
         abort(403)
 
     approve_user_in_db(request["user_id"])
+
+
+def reject_user(request: ApproveUserRequestSchema) -> EmptySchema:
+    assert_is_logged_in()
+
+    user_id = get_auth_user_id()
+
+    if not get_user(user_id).is_admin:
+        abort(403)
+
+    reject_user_in_db(request["user_id"])
+
+
+def assert_correct_passkey(user_id, passkey):
+    user = get_user(user_id)
+
+    if not check_passkey(passkey, user.approver_passkey_hash):
+        abort(403)
+
+
+class ApproveUserWithPasskeyRequestSchema(Schema):
+    user_id = fields.String(required=True)
+    passkey = fields.String(required=True)
+
+
+def approve_user_with_passkey(
+    request: ApproveUserWithPasskeyRequestSchema,
+) -> EmptySchema:
+    assert_correct_passkey(request["user_id"], request["passkey"])
+
+    approve_user_in_db(request["user_id"])
+
+
+def reject_user_with_passkey(
+    request: ApproveUserWithPasskeyRequestSchema,
+) -> EmptySchema:
+    assert_correct_passkey(request["user_id"], request["passkey"])
+
+    reject_user_in_db(request["user_id"])

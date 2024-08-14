@@ -20,7 +20,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                         window.alert("Unauthorized");
                         break;
                     case 404:
-                        window.alert("Not found");
                         break;
                     case 500: // Internal Server Error
                         window.alert("Internal server error");

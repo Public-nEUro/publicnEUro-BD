@@ -45,7 +45,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
 
     send_mail(
         "registration",
-        {"link": f"{os.environ['BACKEND_URL']}/{approver_passkey}"},
+        {"link": f"{os.environ['BACKEND_URL']}/approval/{approver_passkey}"},
         os.environ["APPROVER_EMAIL"],
     )
 

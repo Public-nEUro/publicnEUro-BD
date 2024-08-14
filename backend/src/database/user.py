@@ -29,9 +29,22 @@ def get_user(id: str) -> User:
     return db.session.query(User).get(id)
 
 
+def get_user_from_approver_passkey_hash(passkey_hash: str) -> User:
+    return (
+        db.session.query(User)
+        .filter(User.approver_passkey_hash == passkey_hash)
+        .first()
+    )
+
+
 def approve_user(id: str) -> User:
     user = db.session.query(User).get(id)
     user.approved_at = datetime.now()
+    db.session.commit()
+
+
+def reject_user(id: str) -> User:
+    db.session.query(User).filter(User.id == id).delete()
     db.session.commit()
 
 
