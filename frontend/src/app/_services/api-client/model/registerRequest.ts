@@ -13,6 +13,7 @@
 
 export interface RegisterRequest { 
     address: string;
+    captcha_response: string;
     email: string;
     first_name: string;
     last_name: string;

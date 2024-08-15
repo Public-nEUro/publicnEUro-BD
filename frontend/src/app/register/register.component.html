@@ -16,7 +16,13 @@
             </div>
             <div class="field">
                 <div class="field-label"></div>
-                <p-button type="submit" label="Sign up" icon="fal fa-arrow-circle-right"></p-button>
+                <re-captcha (resolved)="onCaptchaResolved($event)"
+                    siteKey="{{recaptchaSiteKey}}"></re-captcha>
+            </div>
+            <div class="field">
+                <div class="field-label"></div>
+                <p-button type="submit" [disabled]="captchaResponse === null" label="Sign up"
+                    icon="fal fa-arrow-circle-right"></p-button>
             </div>
         </div>
     </form>

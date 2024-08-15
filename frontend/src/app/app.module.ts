@@ -38,6 +38,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 
 @NgModule({
     declarations: [
@@ -76,12 +77,14 @@ import { MatListModule } from "@angular/material/list";
         MatSidenavModule,
         MatToolbarModule,
         MatIconModule,
-        MatListModule
+        MatListModule,
+        RecaptchaModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: BASE_PATH, useValue: environment.API_BASE_URL }
+        { provide: BASE_PATH, useValue: environment.API_BASE_URL },
+        { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.RECAPTCHA_V3_SITE_KEY }
     ],
     bootstrap: [AppComponent]
 })

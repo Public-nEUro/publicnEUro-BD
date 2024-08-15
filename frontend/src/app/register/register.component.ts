@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import {
     AbstractControl,
     FormControl,
@@ -10,6 +10,7 @@ import {
 import { Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, RegisterRequest } from "@services/api-client";
+import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 
 type FieldKey = keyof RegisterRequest;
 
@@ -19,6 +20,10 @@ type FieldInfo = {
     validators: ((control: AbstractControl) => ValidationErrors | null)[];
 };
 
+type FieldInfos = Omit<Record<FieldKey, FieldInfo>, "captcha_response">;
+
+type RegisterRequestWithoutCaptcha = Omit<RegisterRequest, "captcha_response">;
+
 @Component({
     selector: "app-register",
     templateUrl: "./register.component.html",
@@ -27,7 +32,7 @@ type FieldInfo = {
 export class RegisterComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
 
-    field_infos: Record<FieldKey, FieldInfo> = {
+    field_infos: FieldInfos = {
         first_name: {
             type: "text",
             autocomplete: "given-name",
@@ -59,8 +64,17 @@ export class RegisterComponent implements OnInit {
         Object.fromEntries(Object.keys(this.field_infos).map(key => [key, new FormControl("")]))
     );
     submitted = false;
+    recaptchaSiteKey: string;
+    captchaResponse: string | null = null;
 
-    constructor(private router: Router, private formBuilder: UntypedFormBuilder, private service: DefaultService) {}
+    constructor(
+        private router: Router,
+        private formBuilder: UntypedFormBuilder,
+        private service: DefaultService,
+        @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string
+    ) {
+        this.recaptchaSiteKey = recaptchaSiteKey;
+    }
 
     ngAfterViewInit(): void {}
 
@@ -74,11 +88,21 @@ export class RegisterComponent implements OnInit {
         return this.registerForm.controls;
     }
 
+    onCaptchaResolved(captchaResponse: string | null) {
+        this.captchaResponse = captchaResponse;
+    }
+
     onSubmit() {
         this.submitted = true;
         if (this.registerForm.invalid) return;
+        if (this.captchaResponse === null) return;
         const entries = Object.keys(this.field_infos).map(key => [key, this.f[key].value]);
-        this.service.registerPost(Object.fromEntries(entries)).subscribe(res => {
+        const registerRequestWithoutCaptcha: RegisterRequestWithoutCaptcha = Object.fromEntries(entries);
+        const registerRequest: RegisterRequest = {
+            ...registerRequestWithoutCaptcha,
+            captcha_response: this.captchaResponse
+        };
+        this.service.registerPost(registerRequest).subscribe(res => {
             this.router.navigate(["/"]);
         });
     }

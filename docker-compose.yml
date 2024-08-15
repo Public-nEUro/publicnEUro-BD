@@ -14,6 +14,7 @@ services:
       - SMTP_SENDER=${SMTP_SENDER}
       - APPROVER_EMAIL=${APPROVER_EMAIL}
       - BACKEND_URL=${BACKEND_URL}
+      - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
     network_mode: "host"
   db:
     container_name: data_manager_db

@@ -2,11 +2,13 @@ import os
 from uuid import uuid4
 from datetime import datetime
 import pytz
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import gen_hash_and_salt, hash_passkey
 from ..database.user import User, create_user, user_exists
 from ..mail import send_mail
+from ..captcha import validate_captcha_response
 
 
 class RegisterRequestSchema(Schema):
@@ -15,6 +17,7 @@ class RegisterRequestSchema(Schema):
     email = fields.Email(required=True)
     address = fields.String(required=True)
     password = fields.String(required=True)
+    captcha_response = fields.String(required=True)
 
 
 class RegisterResponseSchema(Schema):
@@ -22,6 +25,9 @@ class RegisterResponseSchema(Schema):
 
 
 def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
+    if not validate_captcha_response(request["captcha_response"]):
+        abort(403)
+
     if user_exists(request["email"]):
         return
 
