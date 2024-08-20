@@ -1,8 +1,16 @@
 <div class="flex-container align-items-center justify-content-center">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="text-center mb-5">
-            <div class="text-3xl font-medium teal-dark mb-3">Register</div>
-        </div>
+    <div class="description">
+        <h1>User registration form to Public-nEUro</h1>
+        <p>Public-nEUro is a repository for sharing brain imaging research data. Such data are considered personal and
+            thus the EU general data protection rules apply. Upon registration, your personal information will be stored
+            in our database on a basis of service for contract. Unless you register but never downloaded data, we cannot
+            remove your personal information from this database, as it is mandatory that we can provide audits of who
+            downloaded data. By registering, you accept those terms. Further information on your rights can be found in
+            the information notice on our website.</p>
+        <p>Proof of Identity: we will contact you for a video call checking your ID - you will have to show us either a
+            passport, or ID card or driver license. A screen shot will be taken as a proof of verification.</p>
+    </div>
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-content">
             <div class="field" *ngFor="let field_info of field_infos | userInfoToSortedEntries">
                 <label for="{{field_info.key}}" class="field-label">{{fieldKeyToLabel[field_info.key]}}</label>
@@ -16,8 +24,7 @@
             </div>
             <div class="field">
                 <div class="field-label"></div>
-                <re-captcha (resolved)="onCaptchaResolved($event)"
-                    siteKey="{{recaptchaSiteKey}}"></re-captcha>
+                <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="{{recaptchaSiteKey}}"></re-captcha>
             </div>
             <div class="field">
                 <div class="field-label"></div>
