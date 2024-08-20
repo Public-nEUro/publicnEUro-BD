@@ -4,6 +4,7 @@ from .register import register
 from .login import login
 from .get_user_info import get_user_info, get_user_info_from_passkey
 from .get_users import get_approved_users, get_non_approved_users
+from .confirm_email import confirm_email_with_passkey
 from .approve_user import (
     approve_user,
     reject_user,
@@ -108,6 +109,7 @@ def init_endpoints(app):
         get_non_approved_users,
         approve_user,
         reject_user,
+        confirm_email_with_passkey,
         approve_user_with_passkey,
         reject_user_with_passkey,
     ]

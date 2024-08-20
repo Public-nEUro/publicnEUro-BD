@@ -1,4 +1,3 @@
-from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import check_password

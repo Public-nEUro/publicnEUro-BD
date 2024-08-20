@@ -5,6 +5,7 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
     {
         path: "users",
         component: UsersComponent
+    },
+    {
+        path: "confirmation/:email_confirmation_passkey",
+        component: ConfirmationComponent
     },
     {
         path: "approval/:approver_passkey",

@@ -9,6 +9,8 @@ git_push.sh
 index.ts
 model/approveUserRequest.ts
 model/approveUserWithPasskeyRequest.ts
+model/confirmEmailWithPasskeyRequest.ts
+model/confirmEmailWithPasskeyResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUserInfoResponse.ts
 model/getUsersResponse.ts

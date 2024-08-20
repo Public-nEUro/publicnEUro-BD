@@ -32,8 +32,8 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
         return
 
     hash, salt = gen_hash_and_salt(request["password"])
-    approver_passkey = str(uuid4())
-    approver_passkey_hash = hash_passkey(approver_passkey)
+    email_confirmation_passkey = str(uuid4())
+    email_confirmation_passkey_hash = hash_passkey(email_confirmation_passkey)
 
     user = User()
     user.id = uuid4()
@@ -43,16 +43,20 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.address = request["address"]
     user.created_at = datetime.now(tz=pytz.timezone("UTC"))
     user.updated_at = datetime.now(tz=pytz.timezone("UTC"))
+    user.email_confirmation_passkey_hash = email_confirmation_passkey_hash
+    user.email_confirmed_at = None
+    user.approver_passkey_hash = None
     user.approved_at = None
     user.password_hash = hash
     user.password_salt = salt
     user.is_admin = False
-    user.approver_passkey_hash = approver_passkey_hash
 
     send_mail(
-        "approval",
-        {"link": f"{os.environ['BACKEND_URL']}/approval/{approver_passkey}"},
-        os.environ["APPROVER_EMAIL"],
+        "confirmation",
+        {
+            "link": f"{os.environ['BACKEND_URL']}/confirmation/{email_confirmation_passkey}"
+        },
+        user.email,
     )
 
     create_user(user)

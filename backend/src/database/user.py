@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Union, List
 from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.sql.expression import null
+from sqlalchemy.sql.expression import null, false
 from . import db
 
 
@@ -16,11 +16,13 @@ class User(db.Model):
     address = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False)
     updated_at = Column(DateTime(timezone=True), nullable=False)
+    email_confirmation_passkey_hash = Column(String(64), nullable=False)
+    email_confirmed_at = Column(DateTime(timezone=True), nullable=True)
+    approver_passkey_hash = Column(String(64), nullable=True)
     approved_at = Column(DateTime(timezone=True), nullable=True)
     password_hash = Column(String(64), nullable=False)
     password_salt = Column(String(32), nullable=False)
     is_admin = Column(Boolean, nullable=False)
-    approver_passkey_hash = Column(String(64), nullable=False)
 
     __table_args__ = (UniqueConstraint("email", name="user_unique_email"),)
 
@@ -37,6 +39,18 @@ def get_user_from_approver_passkey_hash(passkey_hash: str) -> User:
     )
 
 
+def confirm_email(id: str) -> User:
+    user = db.session.query(User).get(id)
+    user.email_confirmed_at = datetime.now()
+    db.session.commit()
+
+
+def set_user_approver_passkey_hash(id: str, passkey_hash: str) -> User:
+    user = db.session.query(User).get(id)
+    user.approver_passkey_hash = passkey_hash
+    db.session.commit()
+
+
 def approve_user(id: str) -> User:
     user = db.session.query(User).get(id)
     user.approved_at = datetime.now()
@@ -49,7 +63,7 @@ def reject_user(id: str) -> User:
 
 
 def get_users_query():
-    return db.session.query(User).filter(User.is_admin == False)
+    return db.session.query(User).filter(User.is_admin == false())
 
 
 def get_db_approved_users() -> List[User]:
@@ -72,6 +86,16 @@ def get_db_non_approved_users() -> List[User]:
 
 def get_user_by_email(email: str) -> Union[User, None]:
     return db.session.query(User).filter(User.email == email).first()
+
+
+def get_user_by_email_confirmation_passkey_hash(
+    email_confirmation_passkey_hash: str,
+) -> Union[User, None]:
+    return (
+        db.session.query(User)
+        .filter(User.email_confirmation_passkey_hash == email_confirmation_passkey_hash)
+        .first()
+    )
 
 
 def user_exists(email: str) -> bool:
