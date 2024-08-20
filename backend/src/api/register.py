@@ -50,7 +50,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.approver_passkey_hash = approver_passkey_hash
 
     send_mail(
-        "registration",
+        "approval",
         {"link": f"{os.environ['BACKEND_URL']}/approval/{approver_passkey}"},
         os.environ["APPROVER_EMAIL"],
     )
