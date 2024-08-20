@@ -28,7 +28,7 @@
                     [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }" class="field-input" />
                 <textarea *ngIf="field_info.value.type === 'textarea'" id="{{field_info.key}}"
                     autocomplete="field_info.value.autocomplete" formControlName="{{field_info.key}}"
-                    class="field-textarea"></textarea>
+                    class="field-textarea" rows=5></textarea>
                 <div *ngIf="submitted && f[field_info.key].errors" class="p-error mb-2 mt-2">
                     <div *ngIf="(f[field_info.key].errors ?? {})['required']">Required</div>
                     <div *ngIf="(f[field_info.key].errors ?? {})['email']">Not a valid email</div>
