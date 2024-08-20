@@ -17,6 +17,8 @@
                 <td>{{user.last_name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.address}}</td>
+                <td>{{user.storage_protection}}</td>
+                <td>{{user.access_protection}}</td>
                 <td>{{user.created_at | datetime}}</td>
                 <td><p-button (onClick)="approve(user.id)">Approve</p-button></td>
             </tr>
@@ -42,6 +44,8 @@
                 <td>{{user.last_name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.address}}</td>
+                <td>{{user.storage_protection}}</td>
+                <td>{{user.access_protection}}</td>
                 <td>{{user.approved_at | datetime}}</td>
             </tr>
         </ng-template>

@@ -13,10 +13,22 @@
     <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-content">
             <div class="field" *ngFor="let field_info of field_infos | userInfoToSortedEntries">
-                <label for="{{field_info.key}}" class="field-label">{{fieldKeyToLabel[field_info.key]}}</label>
-                <input id="{{field_info.key}}" type="{{field_info.value.type}}"
-                    autocomplete="field_info.value.autocomplete" pInputText formControlName="{{field_info.key}}"
+                <label for="{{field_info.key}}" class="field-label">{{fieldKeyToLabel[field_info.key]}}<span
+                        *ngIf="field_info.value.tooltip !== undefined" class="tooltip">
+                        ?
+                        <span class="tooltiptext">
+                            <p><b>{{field_info.value.tooltip.bold}}</b></p>
+                            <p><i>{{field_info.value.tooltip.italic}}</i></p>
+                            <p>{{field_info.value.tooltip.normal}}</p>
+                        </span>
+                    </span></label>
+                <input *ngIf="field_info.value.type !== 'textarea'" id="{{field_info.key}}"
+                    type="{{field_info.value.type}}" autocomplete="field_info.value.autocomplete" pInputText
+                    formControlName="{{field_info.key}}"
                     [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }" class="field-input" />
+                <textarea *ngIf="field_info.value.type === 'textarea'" id="{{field_info.key}}"
+                    autocomplete="field_info.value.autocomplete" formControlName="{{field_info.key}}"
+                    class="field-textarea"></textarea>
                 <div *ngIf="submitted && f[field_info.key].errors" class="p-error mb-2 mt-2">
                     <div *ngIf="(f[field_info.key].errors ?? {})['required']">Required</div>
                     <div *ngIf="(f[field_info.key].errors ?? {})['email']">Not a valid email</div>

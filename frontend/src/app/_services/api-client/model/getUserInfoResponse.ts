@@ -12,6 +12,7 @@
 
 
 export interface GetUserInfoResponse { 
+    access_protection: string;
     address: string;
     approved: boolean;
     email: string;
@@ -19,5 +20,6 @@ export interface GetUserInfoResponse {
     id: string;
     is_admin: boolean;
     last_name: string;
+    storage_protection: string;
 }
 

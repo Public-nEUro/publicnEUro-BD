@@ -14,15 +14,26 @@ import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 
 type FieldKey = keyof RegisterRequest;
 
+type Tooltip = {
+    bold: string;
+    italic: string;
+    normal: string;
+};
+
 type FieldInfo = {
     type: string;
     autocomplete: string;
     validators: ((control: AbstractControl) => ValidationErrors | null)[];
+    tooltip?: Tooltip;
 };
 
 type FieldInfos = Omit<Record<FieldKey, FieldInfo>, "captcha_response">;
 
 type RegisterRequestWithoutCaptcha = Omit<RegisterRequest, "captcha_response">;
+
+const boldProtectionText = "Data Protection Impact Assessment";
+const italicProtectionText =
+    "As personal data are being transfered, some authors need to assess what impact this can have.";
 
 @Component({
     selector: "app-register",
@@ -57,6 +68,26 @@ export class RegisterComponent implements OnInit {
             type: "password",
             autocomplete: "new-password",
             validators: [Validators.required]
+        },
+        storage_protection: {
+            type: "textarea",
+            autocomplete: "",
+            validators: [Validators.required],
+            tooltip: {
+                bold: boldProtectionText,
+                italic: italicProtectionText,
+                normal: "Where will the data be stored and what security systems are in place to prevent data leaks? (e.g. on our university server which sits behind firewalls and requires user logging, on my institution desktop which requires user logging, on my laptop which has hard drive encryption and user logging)"
+            }
+        },
+        access_protection: {
+            type: "textarea",
+            autocomplete: "",
+            validators: [Validators.required],
+            tooltip: {
+                bold: boldProtectionText,
+                italic: italicProtectionText,
+                normal: "Only people who have signed the data user agreement related to a given dataset can use this dataset ; which measures are in place to ensure no one else will access and process data? (e.g. the data will be on my personal desktop that only I can log into, the data will be in a folder on the server with access management and only I can access)"
+            }
         }
     };
 

@@ -14,6 +14,8 @@ class User(db.Model):
     last_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     address = Column(String, nullable=False)
+    storage_protection = Column(String, nullable=False)
+    access_protection = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False)
     updated_at = Column(DateTime(timezone=True), nullable=False)
     email_confirmation_passkey_hash = Column(String(64), nullable=False)

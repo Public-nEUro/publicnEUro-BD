@@ -14,6 +14,8 @@ def db_user_to_response(user):
         "last_name": user.last_name,
         "email": user.email,
         "address": user.address,
+        "storage_protection": user.storage_protection,
+        "access_protection": user.access_protection,
         "approved": user.approved_at is not None,
         "is_admin": user.is_admin,
     }
@@ -25,6 +27,8 @@ class GetUserInfoResponseSchema(Schema):
     last_name = fields.String(required=True)
     email = fields.Email(required=True)
     address = fields.String(required=True)
+    storage_protection = fields.String(required=True)
+    access_protection = fields.String(required=True)
     approved = fields.Boolean(required=True)
     is_admin = fields.Boolean(required=True)
 

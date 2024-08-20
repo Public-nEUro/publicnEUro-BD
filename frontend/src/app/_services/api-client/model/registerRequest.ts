@@ -12,11 +12,13 @@
 
 
 export interface RegisterRequest { 
+    access_protection: string;
     address: string;
     captcha_response: string;
     email: string;
     first_name: string;
     last_name: string;
     password: string;
+    storage_protection: string;
 }
 

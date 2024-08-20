@@ -16,6 +16,8 @@ class RegisterRequestSchema(Schema):
     last_name = fields.String(required=True)
     email = fields.Email(required=True)
     address = fields.String(required=True)
+    storage_protection = fields.String(required=True)
+    access_protection = fields.String(required=True)
     password = fields.String(required=True)
     captcha_response = fields.String(required=True)
 
@@ -41,6 +43,8 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.last_name = request["last_name"]
     user.email = request["email"]
     user.address = request["address"]
+    user.storage_protection = request["storage_protection"]
+    user.access_protection = request["access_protection"]
     user.created_at = datetime.now(tz=pytz.timezone("UTC"))
     user.updated_at = datetime.now(tz=pytz.timezone("UTC"))
     user.email_confirmation_passkey_hash = email_confirmation_passkey_hash

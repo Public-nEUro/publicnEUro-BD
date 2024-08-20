@@ -12,6 +12,7 @@
 
 
 export interface User { 
+    access_protection: string;
     address: string;
     approved_at: string;
     created_at: string;
@@ -19,5 +20,6 @@ export interface User {
     first_name: string;
     id: string;
     last_name: string;
+    storage_protection: string;
 }
 
