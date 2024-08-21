@@ -3,8 +3,7 @@ services:
     build: frontend
     container_name: "data_manager_frontend"
     ports:
-      - "80:4200"
-    network_mode: "host"
+      - "80:80"
   backend:
     build: backend
     container_name: "data_manager_backend"
@@ -13,7 +12,6 @@ services:
     environment:
       - SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ADDRESS}:${POSTGRES_PORT}/${POSTGRES_DB}
       - CLIENT_SECRET=${CLIENT_SECRET}
-    network_mode: "host"
   db:
     container_name: data_manager_db
     image: postgres:16.3-alpine
@@ -25,7 +23,6 @@ services:
       - '5432:${POSTGRES_PORT}'
     volumes:
       - data_manager_db:/var/lib/postgresql/data
-    network_mode: "host"
 volumes:
   data_manager_db:
     driver: local
