@@ -31,7 +31,7 @@ services:
     image: schickling/mailcatcher
     ports:
       - "1080:1080" # MailCatcher web interface
-      - "25:1025" # SMTP server
+      - "1025:1025" # SMTP server
 volumes:
   data_manager_db:
     driver: local
