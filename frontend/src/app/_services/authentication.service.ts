@@ -30,7 +30,7 @@ export class AuthenticationService {
             this.userInfoSubject.next(undefined);
             return;
         }
-        this.service.getUserInfoPost({}).subscribe({
+        this.service.apiGetUserInfoPost({}).subscribe({
             next: res => {
                 this.userInfoSubject.next(res);
             },
@@ -41,7 +41,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        this.service.loginPost({ email, password }).subscribe(res => {
+        this.service.apiLoginPost({ email, password }).subscribe(res => {
             if (res.token === undefined) {
                 alert(res.error_message);
                 return;

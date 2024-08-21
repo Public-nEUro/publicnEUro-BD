@@ -133,7 +133,7 @@ export class RegisterComponent implements OnInit {
             ...registerRequestWithoutCaptcha,
             captcha_response: this.captchaResponse
         };
-        this.service.registerPost(registerRequest).subscribe(res => {
+        this.service.apiRegisterPost(registerRequest).subscribe(res => {
             this.router.navigate(["/"]);
         });
     }

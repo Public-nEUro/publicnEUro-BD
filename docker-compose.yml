@@ -13,7 +13,7 @@ services:
       - SMTP_PORT=${SMTP_PORT}
       - SMTP_SENDER=${SMTP_SENDER}
       - APPROVER_EMAIL=${APPROVER_EMAIL}
-      - BACKEND_URL=${BACKEND_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
       - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
   db:
     container_name: data_manager_db
@@ -28,10 +28,12 @@ services:
       - data_manager_db:/var/lib/postgresql/data
   smtp_mock:
     container_name: "data_manager_smtp_mock"
-    image: schickling/mailcatcher
+    image: dockage/mailcatcher
     ports:
       - "1080:1080" # MailCatcher web interface
       - "1025:1025" # SMTP server
+    command:
+     - --http-path=/mail
 volumes:
   data_manager_db:
     driver: local

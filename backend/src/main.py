@@ -79,7 +79,7 @@ def create_app(name):
 
     init_api(app)
 
-    @app.route("/swagger/swagger.json")
+    @app.route("/api/swagger.json")
     def openAPIdoc():
         return jsonify(api_spec(app))
 

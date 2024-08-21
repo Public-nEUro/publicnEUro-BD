@@ -70,7 +70,7 @@ def log_api_call(url, data):
 
 
 def endpoint(app, function, description="", response_description=""):
-    @app.post(f"/{function.__name__}")
+    @app.post(f"/api/{function.__name__}")
     @docstring(
         description,
         function.__annotations__["request"],

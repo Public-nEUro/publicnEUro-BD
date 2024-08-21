@@ -28,7 +28,7 @@ export class ApprovalComponent implements OnInit {
     refresh() {
         const passkey = this.getPasskey();
         if (passkey === null) return;
-        this.service.getUserInfoFromPasskeyPost({ passkey }).subscribe({
+        this.service.apiGetUserInfoFromPasskeyPost({ passkey }).subscribe({
             next: res => {
                 this.userInfo = res;
             },
@@ -42,7 +42,7 @@ export class ApprovalComponent implements OnInit {
         if (!this.userInfo) return;
         const passkey = this.getPasskey();
         if (passkey === null) return;
-        this.service.approveUserWithPasskeyPost({ user_id: this.userInfo.id, passkey }).subscribe(() => {
+        this.service.apiApproveUserWithPasskeyPost({ user_id: this.userInfo.id, passkey }).subscribe(() => {
             this.refresh();
         });
     }
@@ -51,7 +51,7 @@ export class ApprovalComponent implements OnInit {
         if (!this.userInfo) return;
         const passkey = this.getPasskey();
         if (passkey === null) return;
-        this.service.rejectUserWithPasskeyPost({ user_id: this.userInfo.id, passkey }).subscribe(() => {
+        this.service.apiRejectUserWithPasskeyPost({ user_id: this.userInfo.id, passkey }).subscribe(() => {
             this.refresh();
         });
     }

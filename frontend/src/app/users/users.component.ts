@@ -30,16 +30,16 @@ export class UsersComponent implements OnInit {
     }
 
     refresh() {
-        this.service.getApprovedUsersPost({}).subscribe(res => {
+        this.service.apiGetApprovedUsersPost({}).subscribe(res => {
             this.approvedUsers = res.users;
         });
-        this.service.getNonApprovedUsersPost({}).subscribe(res => {
+        this.service.apiGetNonApprovedUsersPost({}).subscribe(res => {
             this.nonApprovedUsers = res.users;
         });
     }
 
     approve(userId: string) {
-        this.service.approveUserPost({ user_id: userId }).subscribe(() => {
+        this.service.apiApproveUserPost({ user_id: userId }).subscribe(() => {
             this.refresh();
         });
     }

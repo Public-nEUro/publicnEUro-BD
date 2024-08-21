@@ -115,10 +115,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public approveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public approveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public approveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public approveUserPost(approveUserRequest?: ApproveUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiApproveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiApproveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiApproveUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiApproveUserPost(approveUserRequest?: ApproveUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -167,7 +167,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/approve_user`;
+        let localVarPath = `/api/approve_user`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -186,10 +186,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public approveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public approveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public approveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public approveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiApproveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiApproveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiApproveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiApproveUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -238,7 +238,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/approve_user_with_passkey`;
+        let localVarPath = `/api/approve_user_with_passkey`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -257,10 +257,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public confirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ConfirmEmailWithPasskeyResponse>;
-    public confirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ConfirmEmailWithPasskeyResponse>>;
-    public confirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ConfirmEmailWithPasskeyResponse>>;
-    public confirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiConfirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ConfirmEmailWithPasskeyResponse>;
+    public apiConfirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ConfirmEmailWithPasskeyResponse>>;
+    public apiConfirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ConfirmEmailWithPasskeyResponse>>;
+    public apiConfirmEmailWithPasskeyPost(confirmEmailWithPasskeyRequest?: ConfirmEmailWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -309,7 +309,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/confirm_email_with_passkey`;
+        let localVarPath = `/api/confirm_email_with_passkey`;
         return this.httpClient.request<ConfirmEmailWithPasskeyResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -328,10 +328,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public exampleEndpointPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public exampleEndpointPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public exampleEndpointPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public exampleEndpointPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiExampleEndpointPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiExampleEndpointPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiExampleEndpointPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiExampleEndpointPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -380,7 +380,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/example_endpoint`;
+        let localVarPath = `/api/example_endpoint`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -399,10 +399,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getApprovedUsersPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUsersResponse>;
-    public getApprovedUsersPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUsersResponse>>;
-    public getApprovedUsersPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUsersResponse>>;
-    public getApprovedUsersPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetApprovedUsersPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUsersResponse>;
+    public apiGetApprovedUsersPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUsersResponse>>;
+    public apiGetApprovedUsersPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUsersResponse>>;
+    public apiGetApprovedUsersPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -451,7 +451,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/get_approved_users`;
+        let localVarPath = `/api/get_approved_users`;
         return this.httpClient.request<GetUsersResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -470,10 +470,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getNonApprovedUsersPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUsersResponse>;
-    public getNonApprovedUsersPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUsersResponse>>;
-    public getNonApprovedUsersPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUsersResponse>>;
-    public getNonApprovedUsersPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetNonApprovedUsersPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUsersResponse>;
+    public apiGetNonApprovedUsersPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUsersResponse>>;
+    public apiGetNonApprovedUsersPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUsersResponse>>;
+    public apiGetNonApprovedUsersPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -522,7 +522,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/get_non_approved_users`;
+        let localVarPath = `/api/get_non_approved_users`;
         return this.httpClient.request<GetUsersResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -541,10 +541,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserInfoResponse>;
-    public getUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserInfoResponse>>;
-    public getUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserInfoResponse>>;
-    public getUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserInfoResponse>;
+    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserInfoResponse>>;
+    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserInfoResponse>>;
+    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -593,7 +593,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/get_user_info_from_passkey`;
+        let localVarPath = `/api/get_user_info_from_passkey`;
         return this.httpClient.request<GetUserInfoResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -612,10 +612,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserInfoPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserInfoResponse>;
-    public getUserInfoPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserInfoResponse>>;
-    public getUserInfoPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserInfoResponse>>;
-    public getUserInfoPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetUserInfoPost(body?: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserInfoResponse>;
+    public apiGetUserInfoPost(body?: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserInfoResponse>>;
+    public apiGetUserInfoPost(body?: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserInfoResponse>>;
+    public apiGetUserInfoPost(body?: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -664,7 +664,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/get_user_info`;
+        let localVarPath = `/api/get_user_info`;
         return this.httpClient.request<GetUserInfoResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -683,10 +683,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public loginPost(loginRequest?: LoginRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoginResponse>;
-    public loginPost(loginRequest?: LoginRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoginResponse>>;
-    public loginPost(loginRequest?: LoginRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoginResponse>>;
-    public loginPost(loginRequest?: LoginRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiLoginPost(loginRequest?: LoginRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoginResponse>;
+    public apiLoginPost(loginRequest?: LoginRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoginResponse>>;
+    public apiLoginPost(loginRequest?: LoginRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoginResponse>>;
+    public apiLoginPost(loginRequest?: LoginRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -735,7 +735,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/login`;
+        let localVarPath = `/api/login`;
         return this.httpClient.request<LoginResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -754,10 +754,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public registerPost(registerRequest?: RegisterRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public registerPost(registerRequest?: RegisterRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public registerPost(registerRequest?: RegisterRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public registerPost(registerRequest?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiRegisterPost(registerRequest?: RegisterRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiRegisterPost(registerRequest?: RegisterRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiRegisterPost(registerRequest?: RegisterRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiRegisterPost(registerRequest?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -806,7 +806,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/register`;
+        let localVarPath = `/api/register`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -825,10 +825,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public rejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public rejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public rejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public rejectUserPost(approveUserRequest?: ApproveUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiRejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiRejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiRejectUserPost(approveUserRequest?: ApproveUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiRejectUserPost(approveUserRequest?: ApproveUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -877,7 +877,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/reject_user`;
+        let localVarPath = `/api/reject_user`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -896,10 +896,10 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public rejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public rejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public rejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public rejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiRejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiRejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiRejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiRejectUserWithPasskeyPost(approveUserWithPasskeyRequest?: ApproveUserWithPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -948,7 +948,7 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/reject_user_with_passkey`;
+        let localVarPath = `/api/reject_user_with_passkey`;
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

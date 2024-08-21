@@ -58,7 +58,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     send_mail(
         "confirmation",
         {
-            "link": f"{os.environ['BACKEND_URL']}/confirmation/{email_confirmation_passkey}"
+            "link": f"{os.environ['FRONTEND_URL']}/confirmation/{email_confirmation_passkey}"
         },
         user.email,
     )

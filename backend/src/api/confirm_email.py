@@ -39,7 +39,7 @@ def confirm_email_with_passkey(
 
     send_mail(
         "approval",
-        {"link": f"{os.environ['BACKEND_URL']}/approval/{approver_passkey}"},
+        {"link": f"{os.environ['FRONTEND_URL']}/approval/{approver_passkey}"},
         os.environ["APPROVER_EMAIL"],
     )
 
