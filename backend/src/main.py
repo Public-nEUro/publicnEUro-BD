@@ -83,9 +83,10 @@ def create_app(name):
     def openAPIdoc():
         return jsonify(api_spec(app))
 
-    @app.route("/")
-    def root():
-        return "Backend is running"
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<path:path>")
+    def default_response(path):
+        return f"/{path} is not implemented"
 
     with app.app_context():
         db.create_all()
