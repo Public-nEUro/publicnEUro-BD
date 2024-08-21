@@ -83,6 +83,10 @@ def create_app(name):
     def openAPIdoc():
         return jsonify(api_spec(app))
 
+    @app.route("/")
+    def root():
+        return "Backend is running"
+
     with app.app_context():
         db.create_all()
 
