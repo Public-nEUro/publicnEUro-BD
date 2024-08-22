@@ -1,4 +1,4 @@
-from flask import request, Response, current_app
+from flask import request, current_app
 from .example_endpoint import example_endpoint
 from .register import register
 from .login import login
@@ -85,17 +85,6 @@ def endpoint(app, function, description="", response_description=""):
         return function.__annotations__["return"]().jsonify(response)
 
     return func
-
-
-def create_response(file, mime_type, file_name):
-    return Response(
-        file,
-        mimetype=mime_type,
-        headers={
-            "Content-disposition": f"attachment; filename={file_name}",
-            "Access-Control-Expose-Headers": "Content-Disposition",
-        },
-    )
 
 
 def init_endpoints(app):
