@@ -1,5 +1,4 @@
 from flask import request, current_app
-from .example_endpoint import example_endpoint
 from .register import register
 from .login import login
 from .get_user_info import get_user_info, get_user_info_from_passkey
@@ -89,7 +88,6 @@ def endpoint(app, function, description="", response_description=""):
 
 def init_endpoints(app):
     func_list = [
-        example_endpoint,
         register,
         login,
         get_user_info,
