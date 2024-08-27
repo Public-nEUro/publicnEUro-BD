@@ -1,4 +1,3 @@
-from uuid import uuid4
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database.user import (
@@ -6,7 +5,7 @@ from ..database.user import (
     confirm_email as confirm_email_in_db,
     set_user_approver_passkey_hash,
 )
-from ..auth.passkey import hash_passkey
+from ..auth.passkey import generate_passkey, hash_passkey
 from ..email import send_approval_email
 
 
@@ -31,7 +30,7 @@ def confirm_email_with_passkey(
 
     confirm_email_in_db(user.id)
 
-    approver_passkey = str(uuid4())
+    approver_passkey = generate_passkey()
     approver_passkey_hash = hash_passkey(approver_passkey)
 
     set_user_approver_passkey_hash(user.id, approver_passkey_hash)

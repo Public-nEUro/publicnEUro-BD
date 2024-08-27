@@ -4,7 +4,7 @@ import pytz
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import gen_hash_and_salt
-from ..auth.passkey import hash_passkey
+from ..auth.passkey import generate_passkey, hash_passkey
 from ..database.user import User, create_user, user_exists
 from ..email import send_confirmation_email
 from .assertions import assert_correct_captcha_response
@@ -32,7 +32,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
         return
 
     hash, salt = gen_hash_and_salt(request["password"])
-    email_confirmation_passkey = str(uuid4())
+    email_confirmation_passkey = generate_passkey()
     email_confirmation_passkey_hash = hash_passkey(email_confirmation_passkey)
 
     user = User()

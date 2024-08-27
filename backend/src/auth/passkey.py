@@ -1,4 +1,9 @@
+from uuid import uuid4
 import hashlib
+
+
+def generate_passkey() -> str:
+    return str(uuid4())
 
 
 def hash_passkey(passkey: str) -> bool:
