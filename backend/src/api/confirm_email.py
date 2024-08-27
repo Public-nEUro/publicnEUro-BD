@@ -9,6 +9,7 @@ from ..database.user import (
 )
 from ..auth.password import hash_passkey
 from ..mail import send_mail
+from ..url import create_frontend_url
 
 
 class ConfirmEmailWithPasskeyRequestSchema(Schema):
@@ -39,7 +40,7 @@ def confirm_email_with_passkey(
 
     send_mail(
         "approval",
-        {"link": f"{os.environ['FRONTEND_URL']}/approval/{approver_passkey}"},
+        {"link": create_frontend_url(f"approval/{approver_passkey}")},
         os.environ["APPROVER_EMAIL"],
     )
 

@@ -1,4 +1,3 @@
-import os
 from uuid import uuid4
 from datetime import datetime
 import pytz
@@ -8,6 +7,7 @@ from ..auth.password import gen_hash_and_salt, hash_passkey
 from ..database.user import User, create_user, user_exists
 from ..mail import send_mail
 from .assertions import assert_correct_captcha_response
+from ..url import create_frontend_url
 
 
 class RegisterRequestSchema(Schema):
@@ -55,9 +55,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
 
     send_mail(
         "confirmation",
-        {
-            "link": f"{os.environ['FRONTEND_URL']}/confirmation/{email_confirmation_passkey}"
-        },
+        {"link": create_frontend_url(f"confirmation/{email_confirmation_passkey}")},
         user.email,
     )
 
