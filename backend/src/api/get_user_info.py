@@ -3,8 +3,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
 from .assertions import get_logged_in_user_or_abort
-from ..database.user import get_user, get_user_from_approver_passkey_hash
-from ..auth.token import get_auth_user_id
+from ..database.user import get_user_from_approver_passkey_hash
 from ..auth.password import hash_passkey
 
 
