@@ -15,5 +15,5 @@ def gen_hash_and_salt(password: str) -> Tuple[str, str]:
     return hash, salt
 
 
-def check_password(password: str, hash: str, salt: str) -> str:
+def check_password(password: str, hash: str, salt: str) -> bool:
     return hash_password(password, salt) == hash
