@@ -1,7 +1,8 @@
 from flask import request, current_app
 from .register import register
 from .login import login
-from .get_user_info import get_user_info, get_user_info_from_passkey
+from .get_user_info import get_user_info
+from .get_user_info_from_passkey import get_user_info_from_passkey
 from .get_users import get_approved_users, get_non_approved_users
 from .confirm_email import confirm_email_with_passkey
 from .approve_user import (
