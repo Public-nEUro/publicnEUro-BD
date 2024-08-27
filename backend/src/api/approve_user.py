@@ -7,7 +7,7 @@ from ..database.user import (
     approve_user as approve_user_in_db,
     reject_user as reject_user_in_db,
 )
-from ..auth.token import get_auth_user_id, assert_is_logged_in
+from .utils import assert_is_admin
 from ..auth.password import check_passkey
 
 
@@ -16,23 +16,13 @@ class ApproveUserRequestSchema(Schema):
 
 
 def approve_user(request: ApproveUserRequestSchema) -> EmptySchema:
-    assert_is_logged_in()
-
-    user_id = get_auth_user_id()
-
-    if not get_user(user_id).is_admin:
-        abort(403)
+    assert_is_admin()
 
     approve_user_in_db(request["user_id"])
 
 
 def reject_user(request: ApproveUserRequestSchema) -> EmptySchema:
-    assert_is_logged_in()
-
-    user_id = get_auth_user_id()
-
-    if not get_user(user_id).is_admin:
-        abort(403)
+    assert_is_admin()
 
     reject_user_in_db(request["user_id"])
 
