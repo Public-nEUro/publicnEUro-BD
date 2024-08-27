@@ -3,7 +3,8 @@ from datetime import datetime
 import pytz
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..auth.password import gen_hash_and_salt, hash_passkey
+from ..auth.password import gen_hash_and_salt
+from ..auth.passkey import hash_passkey
 from ..database.user import User, create_user, user_exists
 from ..email import send_confirmation_email
 from .assertions import assert_correct_captcha_response

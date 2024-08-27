@@ -6,7 +6,7 @@ from ..database.user import (
     confirm_email as confirm_email_in_db,
     set_user_approver_passkey_hash,
 )
-from ..auth.password import hash_passkey
+from ..auth.passkey import hash_passkey
 from ..email import send_approval_email
 
 

@@ -4,7 +4,7 @@ from marshmallow import fields
 from .common_schemas import EmptySchema
 from .assertions import get_logged_in_user_or_abort
 from ..database.user import get_user_from_approver_passkey_hash
-from ..auth.password import hash_passkey
+from ..auth.passkey import hash_passkey
 
 
 def db_user_to_response(user):
