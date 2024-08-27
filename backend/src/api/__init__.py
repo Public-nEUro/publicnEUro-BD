@@ -11,7 +11,7 @@ from .approve_user import (
     reject_user_with_passkey,
 )
 from ..auth.token import get_auth_user_id
-from ..database.api_call import create_api_call_log
+from ..database.api_call import log_api_call
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -63,11 +63,6 @@ def hide_password(data):
         return data
 
 
-def log_api_call(url, data):
-    user_id = get_auth_user_id()
-    create_api_call_log(user_id, url, data)
-
-
 def endpoint(app, function, description="", response_description=""):
     @app.post(f"/api/{function.__name__}")
     @docstring(
@@ -79,7 +74,7 @@ def endpoint(app, function, description="", response_description=""):
     @change_name(f"api_{function.__name__}")
     def func():
         input_data = function.__annotations__["request"]().load(request.json)
-        log_api_call(request.url, hide_password(input_data))
+        log_api_call(get_auth_user_id(), request.url, hide_password(input_data))
         response = function(input_data)
         return function.__annotations__["return"]().jsonify(response)
 

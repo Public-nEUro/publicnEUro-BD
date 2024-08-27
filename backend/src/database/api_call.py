@@ -14,7 +14,7 @@ class ApiCall(db.Model):
     data = db.Column(JSON(none_as_null=True))
 
 
-def create_api_call_log(user_id, url, data):
+def log_api_call(user_id, url, data):
     row = ApiCall()
     row.id = uuid4()
     row.user_id = user_id
