@@ -1,7 +1,7 @@
 from flask import abort
 from ..database.user import get_user
 from ..auth.token import get_auth_user_id
-from ..auth.password import check_passkey
+from ..auth.passkey import check_passkey
 from ..captcha import validate_captcha_response
 
 
