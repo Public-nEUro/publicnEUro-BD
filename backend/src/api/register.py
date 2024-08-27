@@ -5,7 +5,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import gen_hash_and_salt, hash_passkey
 from ..database.user import User, create_user, user_exists
-from ..mail import send_mail
+from ..email import send_email
 from .assertions import assert_correct_captcha_response
 from ..url import create_frontend_url
 
@@ -53,7 +53,7 @@ def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
     user.password_salt = salt
     user.is_admin = False
 
-    send_mail(
+    send_email(
         "confirmation",
         {"link": create_frontend_url(f"confirmation/{email_confirmation_passkey}")},
         user.email,

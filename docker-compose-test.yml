@@ -36,7 +36,7 @@ services:
       - "1080:1080" # MailCatcher web interface
       - "1025:1025" # SMTP server
     command:
-     - --http-path=/mail
+     - --http-path=/email
 
 volumes:
   data_manager_db:

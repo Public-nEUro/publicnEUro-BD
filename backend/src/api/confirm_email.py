@@ -8,7 +8,7 @@ from ..database.user import (
     set_user_approver_passkey_hash,
 )
 from ..auth.password import hash_passkey
-from ..mail import send_mail
+from ..email import send_email
 from ..url import create_frontend_url
 
 
@@ -38,7 +38,7 @@ def confirm_email_with_passkey(
 
     set_user_approver_passkey_hash(user.id, approver_passkey_hash)
 
-    send_mail(
+    send_email(
         "approval",
         {"link": create_frontend_url(f"approval/{approver_passkey}")},
         os.environ["APPROVER_EMAIL"],

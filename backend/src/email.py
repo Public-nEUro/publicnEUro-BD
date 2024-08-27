@@ -7,7 +7,7 @@ from flask import current_app, render_template
 SMTP_TIMEOUT = 30
 
 
-def send_mail(template, variables, recipients):
+def send_email(template, variables, recipients):
     message = EmailMessage()
 
     subject = render_template(template + "_subject.j2", **variables)
@@ -23,7 +23,7 @@ def send_mail(template, variables, recipients):
     html = render_template("html_container.j2", body_html=body_html)
     message.add_alternative(html, subtype="html")
 
-    current_app.logger.info(f"Sending mail: {message.items()}")
+    current_app.logger.info(f"Sending email: {message.items()}")
 
     with smtplib.SMTP(
         host=os.environ["SMTP_ADDRESS"],
