@@ -1,6 +1,7 @@
 from flask import abort
 from ..database.user import get_user
 from ..auth.token import get_auth_user_id
+from ..auth.password import check_passkey
 
 
 def assert_is_logged_in():
@@ -15,4 +16,11 @@ def assert_is_admin():
         abort(401)
 
     if not get_user(user_id).is_admin:
+        abort(403)
+
+
+def assert_correct_approver_passkey(user_id, passkey):
+    user = get_user(user_id)
+
+    if not check_passkey(passkey, user.approver_passkey_hash):
         abort(403)

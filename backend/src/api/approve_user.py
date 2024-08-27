@@ -1,14 +1,11 @@
-from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
 from ..database.user import (
-    get_user,
     approve_user as approve_user_in_db,
     reject_user as reject_user_in_db,
 )
-from .assertions import assert_is_admin
-from ..auth.password import check_passkey
+from .assertions import assert_is_admin, assert_correct_approver_passkey
 
 
 class ApproveUserRequestSchema(Schema):
@@ -27,13 +24,6 @@ def reject_user(request: ApproveUserRequestSchema) -> EmptySchema:
     reject_user_in_db(request["user_id"])
 
 
-def assert_correct_passkey(user_id, passkey):
-    user = get_user(user_id)
-
-    if not check_passkey(passkey, user.approver_passkey_hash):
-        abort(403)
-
-
 class ApproveUserWithPasskeyRequestSchema(Schema):
     user_id = fields.String(required=True)
     passkey = fields.String(required=True)
@@ -42,7 +32,7 @@ class ApproveUserWithPasskeyRequestSchema(Schema):
 def approve_user_with_passkey(
     request: ApproveUserWithPasskeyRequestSchema,
 ) -> EmptySchema:
-    assert_correct_passkey(request["user_id"], request["passkey"])
+    assert_correct_approver_passkey(request["user_id"], request["passkey"])
 
     approve_user_in_db(request["user_id"])
 
@@ -50,6 +40,6 @@ def approve_user_with_passkey(
 def reject_user_with_passkey(
     request: ApproveUserWithPasskeyRequestSchema,
 ) -> EmptySchema:
-    assert_correct_passkey(request["user_id"], request["passkey"])
+    assert_correct_approver_passkey(request["user_id"], request["passkey"])
 
     reject_user_in_db(request["user_id"])
