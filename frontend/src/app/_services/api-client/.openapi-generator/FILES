@@ -12,12 +12,11 @@ model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
-model/getUserInfoResponse.ts
 model/getUsersResponse.ts
 model/loginRequest.ts
 model/loginResponse.ts
 model/models.ts
 model/registerRequest.ts
-model/user.ts
+model/userInfo.ts
 param.ts
 variables.ts

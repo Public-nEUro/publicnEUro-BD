@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { GetUserInfoResponse } from "@services/api-client";
+import { UserInfo } from "@services/api-client";
 import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthenticationService } from "@services/authentication.service";
 export class AppComponent {
     constructor(private authenticationService: AuthenticationService) {}
 
-    userInfo: GetUserInfoResponse | undefined = undefined;
+    userInfo: UserInfo | undefined = undefined;
 
     ngOnInit(): void {
         this.authenticationService.userInfo.subscribe(res => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
-import { DefaultService, GetUserInfoResponse } from "@services/api-client";
+import { DefaultService, UserInfo } from "@services/api-client";
 
 @Component({
     selector: "app-approval",
@@ -13,7 +13,7 @@ export class ApprovalComponent implements OnInit {
 
     constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
 
-    userInfo: GetUserInfoResponse | null | undefined = undefined;
+    userInfo: UserInfo | null | undefined = undefined;
 
     ngOnInit(): void {
         this.refresh();

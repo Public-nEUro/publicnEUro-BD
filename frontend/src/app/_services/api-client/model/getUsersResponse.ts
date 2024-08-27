@@ -9,10 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { UserInfo } from './userInfo';
 
 
 export interface GetUsersResponse { 
-    users: Array<User>;
+    users: Array<UserInfo>;
 }
 

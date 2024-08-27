@@ -11,10 +11,11 @@
  */
 
 
-export interface GetUserInfoResponse { 
+export interface UserInfo { 
     access_protection: string;
     address: string;
-    approved: boolean;
+    approved_at: string;
+    created_at: string;
     email: string;
     first_name: string;
     id: string;

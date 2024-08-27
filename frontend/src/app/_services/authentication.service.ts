@@ -1,15 +1,15 @@
 ﻿import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
-import { DefaultService, GetUserInfoResponse } from "./api-client";
+import { DefaultService, UserInfo } from "./api-client";
 import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
-    private userInfoSubject: BehaviorSubject<GetUserInfoResponse | undefined> = new BehaviorSubject<
-        GetUserInfoResponse | undefined
-    >(undefined);
-    public userInfo: Observable<GetUserInfoResponse | undefined>;
+    private userInfoSubject: BehaviorSubject<UserInfo | undefined> = new BehaviorSubject<UserInfo | undefined>(
+        undefined
+    );
+    public userInfo: Observable<UserInfo | undefined>;
 
     constructor(private router: Router, private service: DefaultService) {
         this.userInfo = this.userInfoSubject.asObservable();

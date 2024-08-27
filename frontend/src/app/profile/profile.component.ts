@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
-import { GetUserInfoResponse } from "@services/api-client";
+import { UserInfo } from "@services/api-client";
 import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
 
     constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
-    userInfo: GetUserInfoResponse | undefined = undefined;
+    userInfo: UserInfo | undefined = undefined;
 
     ngOnInit(): void {
         this.authenticationService.userInfo.subscribe(res => {
