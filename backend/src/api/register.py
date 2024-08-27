@@ -7,6 +7,7 @@ from ..auth.password import gen_hash_and_salt
 from ..auth.passkey import generate_passkey_and_hash
 from ..database.user import User, create_user, user_exists
 from ..email import send_confirmation_email
+from .common_schemas import EmptySchema
 from .assertions import assert_correct_captcha_response
 
 
@@ -21,11 +22,7 @@ class RegisterRequestSchema(Schema):
     captcha_response = fields.String(required=True)
 
 
-class RegisterResponseSchema(Schema):
-    pass
-
-
-def register(request: RegisterRequestSchema) -> RegisterResponseSchema:
+def register(request: RegisterRequestSchema) -> EmptySchema:
     assert_correct_captcha_response(request["captcha_response"])
 
     if user_exists(request["email"]):
