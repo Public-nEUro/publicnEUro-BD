@@ -2,7 +2,7 @@ from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
-from .assertions import assert_is_logged_in
+from .assertions import get_logged_in_user_or_abort
 from ..database.user import get_user, get_user_from_approver_passkey_hash
 from ..auth.token import get_auth_user_id
 from ..auth.password import hash_passkey
@@ -35,14 +35,7 @@ class GetUserInfoResponseSchema(Schema):
 
 
 def get_user_info(request: EmptySchema) -> GetUserInfoResponseSchema:
-    assert_is_logged_in()
-
-    user_id = get_auth_user_id()
-
-    user = get_user(user_id)
-
-    if user is None:
-        abort(404)
+    user = get_logged_in_user_or_abort()
 
     return db_user_to_response(user)
 

@@ -5,7 +5,7 @@ from ..database.user import (
     approve_user as approve_user_in_db,
     reject_user as reject_user_in_db,
 )
-from .assertions import assert_is_admin, assert_correct_approver_passkey
+from .assertions import get_logged_in_admin_or_abort, assert_correct_approver_passkey
 
 
 class ApproveUserRequestSchema(Schema):
@@ -13,13 +13,13 @@ class ApproveUserRequestSchema(Schema):
 
 
 def approve_user(request: ApproveUserRequestSchema) -> EmptySchema:
-    assert_is_admin()
+    get_logged_in_admin_or_abort()
 
     approve_user_in_db(request["user_id"])
 
 
 def reject_user(request: ApproveUserRequestSchema) -> EmptySchema:
-    assert_is_admin()
+    get_logged_in_admin_or_abort()
 
     reject_user_in_db(request["user_id"])
 

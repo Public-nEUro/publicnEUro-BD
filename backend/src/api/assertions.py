@@ -4,18 +4,24 @@ from ..auth.token import get_auth_user_id
 from ..auth.password import check_passkey
 
 
-def assert_is_logged_in():
-    if get_auth_user_id() is None:
-        abort(401)
-
-
-def assert_is_admin():
+def get_logged_in_user_or_abort():
     user_id = get_auth_user_id()
 
     if user_id is None:
         abort(401)
 
-    if not get_user(user_id).is_admin:
+    user = get_user(user_id)
+
+    if user is None:
+        abort(404)
+
+    return user
+
+
+def get_logged_in_admin_or_abort():
+    user = get_logged_in_user_or_abort()
+
+    if not user.is_admin:
         abort(403)
 
 
