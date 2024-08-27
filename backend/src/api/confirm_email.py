@@ -5,7 +5,7 @@ from ..database.user import (
     confirm_email as confirm_email_in_db,
     set_user_approver_passkey_hash,
 )
-from ..auth.passkey import generate_passkey, hash_passkey
+from ..auth.passkey import generate_passkey_and_hash, hash_passkey
 from ..email import send_approval_email
 
 
@@ -30,10 +30,9 @@ def confirm_email_with_passkey(
 
     confirm_email_in_db(user.id)
 
-    approver_passkey = generate_passkey()
-    approver_passkey_hash = hash_passkey(approver_passkey)
+    approver_passkey, approver_hash = generate_passkey_and_hash()
 
-    set_user_approver_passkey_hash(user.id, approver_passkey_hash)
+    set_user_approver_passkey_hash(user.id, approver_hash)
 
     send_approval_email(approver_passkey)
 

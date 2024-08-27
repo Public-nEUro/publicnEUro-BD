@@ -12,5 +12,10 @@ def hash_passkey(passkey: str) -> bool:
     return hash_object.hexdigest()
 
 
+def generate_passkey_and_hash() -> str:
+    passkey = generate_passkey()
+    return passkey, hash_passkey(passkey)
+
+
 def check_passkey(passkey: str, hash: str) -> bool:
     return hash_passkey(passkey) == hash
