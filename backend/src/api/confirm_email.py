@@ -1,4 +1,3 @@
-import os
 from uuid import uuid4
 from flask_marshmallow import Schema
 from marshmallow import fields
@@ -8,8 +7,7 @@ from ..database.user import (
     set_user_approver_passkey_hash,
 )
 from ..auth.password import hash_passkey
-from ..email import send_email
-from ..url import create_frontend_url
+from ..email import send_approval_email
 
 
 class ConfirmEmailWithPasskeyRequestSchema(Schema):
@@ -38,10 +36,6 @@ def confirm_email_with_passkey(
 
     set_user_approver_passkey_hash(user.id, approver_passkey_hash)
 
-    send_email(
-        "approval",
-        {"link": create_frontend_url(f"approval/{approver_passkey}")},
-        os.environ["APPROVER_EMAIL"],
-    )
+    send_approval_email(approver_passkey)
 
     return {"message": "Your email has been confirmed!"}

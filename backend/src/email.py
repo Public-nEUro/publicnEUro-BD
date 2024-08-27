@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 import os
 from flask import current_app, render_template
-
+from .url import create_frontend_url
 
 SMTP_TIMEOUT = 30
 
@@ -31,3 +31,19 @@ def send_email(template, variables, recipients):
         timeout=SMTP_TIMEOUT,
     ) as mailer:
         mailer.send_message(message)
+
+
+def send_confirmation_email(user_email, email_confirmation_passkey):
+    send_email(
+        "confirmation",
+        {"link": create_frontend_url(f"confirmation/{email_confirmation_passkey}")},
+        user_email,
+    )
+
+
+def send_approval_email(approver_passkey):
+    send_email(
+        "approval",
+        {"link": create_frontend_url(f"approval/{approver_passkey}")},
+        os.environ["APPROVER_EMAIL"],
+    )
