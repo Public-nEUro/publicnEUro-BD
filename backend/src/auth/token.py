@@ -2,7 +2,7 @@ from typing import Union
 import os
 import jwt
 from datetime import datetime, timedelta, timezone
-from flask import request, abort
+from flask import request
 
 EXPIRE_HOURS = 8
 SKEW_MINUTES = 5
@@ -49,8 +49,3 @@ def get_auth_user_id() -> Union[str, None]:
         return payload["sub"]
     except Exception:
         return None
-
-
-def assert_is_logged_in():
-    if get_auth_user_id() is None:
-        abort(401)
