@@ -2,7 +2,7 @@ from typing import List
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database.user import User, get_db_approved_users, get_db_non_approved_users
-from .utils import assert_is_admin
+from .assertions import assert_is_admin
 
 
 class GetUsersRequestSchema(Schema):

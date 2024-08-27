@@ -7,7 +7,7 @@ from ..database.user import (
     approve_user as approve_user_in_db,
     reject_user as reject_user_in_db,
 )
-from .utils import assert_is_admin
+from .assertions import assert_is_admin
 from ..auth.password import check_passkey
 
 
