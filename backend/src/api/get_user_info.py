@@ -1,7 +1,7 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .schema import EmptySchema
+from .common_schemas import EmptySchema
 from .assertions import assert_is_logged_in
 from ..database.user import get_user, get_user_from_approver_passkey_hash
 from ..auth.token import get_auth_user_id

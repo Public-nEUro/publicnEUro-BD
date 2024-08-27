@@ -1,7 +1,7 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .schema import EmptySchema
+from .common_schemas import EmptySchema
 from ..database.user import (
     get_user,
     approve_user as approve_user_in_db,
