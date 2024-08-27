@@ -1,9 +1,9 @@
-from datetime import datetime
 from typing import Union, List
 from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql.expression import null, false
 from . import db
+from ..datetime import get_now
 
 
 class User(db.Model):
@@ -43,7 +43,7 @@ def get_user_from_approver_passkey_hash(passkey_hash: str) -> User:
 
 def confirm_email(id: str) -> User:
     user = db.session.query(User).get(id)
-    user.email_confirmed_at = datetime.now()
+    user.email_confirmed_at = get_now()
     db.session.commit()
 
 
@@ -55,7 +55,7 @@ def set_user_approver_passkey_hash(id: str, passkey_hash: str) -> User:
 
 def approve_user(id: str) -> User:
     user = db.session.query(User).get(id)
-    user.approved_at = datetime.now()
+    user.approved_at = get_now()
     db.session.commit()
 
 

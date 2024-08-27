@@ -1,15 +1,17 @@
 from typing import Union
 import os
 import jwt
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from flask import request
+from ..datetime import get_now
+
 
 EXPIRE_HOURS = 8
 SKEW_MINUTES = 5
 
 
 def create_token_from_client_secret(user_id, client_secret):
-    iat = datetime.now(timezone.utc)
+    iat = get_now()
     nbf = iat - timedelta(minutes=SKEW_MINUTES)
     exp = iat + timedelta(hours=EXPIRE_HOURS)
     iss = "Data Manager Backend"

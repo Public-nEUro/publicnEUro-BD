@@ -1,7 +1,7 @@
 from uuid import uuid4
-from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID, JSON
 from . import db
+from ..datetime import get_now
 
 
 class ApiCall(db.Model):
@@ -18,7 +18,7 @@ def log_api_call(user_id, url, data):
     row = ApiCall()
     row.id = uuid4()
     row.user_id = user_id
-    row.timestamp = datetime.now()
+    row.timestamp = get_now()
     row.url = url
     row.data = data
 
