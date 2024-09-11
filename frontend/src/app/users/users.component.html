@@ -11,6 +11,7 @@
                 <th>Access Protection</th>
                 <th>Created at</th>
                 <th></th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
@@ -22,7 +23,9 @@
                 <td>{{user.storage_protection}}</td>
                 <td>{{user.access_protection}}</td>
                 <td>{{user.created_at | datetime}}</td>
-                <td><p-button (onClick)="approve(user.id)">Approve</p-button></td>
+                <td><p-button label="Approve" (onClick)="approve(user.id)" styleClass="p-button-success"></p-button>
+                <td><p-button label="Delete" (onClick)="reject(user.id)" styleClass="p-button-danger"></p-button>
+                </td>
             </tr>
         </ng-template>
     </p-table>

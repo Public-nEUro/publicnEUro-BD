@@ -43,4 +43,10 @@ export class UsersComponent implements OnInit {
             this.refresh();
         });
     }
+
+    reject(userId: string) {
+        this.service.apiRejectUserPost({ user_id: userId }).subscribe(() => {
+            this.refresh();
+        });
+    }
 }
