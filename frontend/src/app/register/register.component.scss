@@ -2,90 +2,27 @@
 
 .flex-container {
     display: flex;
+    flex-wrap: wrap;
     height: 100%;
     width: 100%;
 }
 
 .description {
     flex: 1;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 50px;
 }
 
 .form {
-    flex: 1 0 100px;
-}
-
-.field {
+    flex: 1;
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    margin: 50px;
 }
 
-.field-label {
-    flex: 0 0 140px;
-    text-align: right;
+mat-card {
+    width: 100%;
 }
 
-.field-input {
-    flex: 0 0 100px;
-}
-
-.field-textarea {
-    flex: 0 0 280px;
-}
-
-.p-error {
-    flex: 0 0 200px;
-    text-align: right;
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    color: blue;
-    /* Color of the question mark or icon */
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 300px;
-    /* Increased width */
-    background-color: white;
-    /* White background */
-    color: black;
-    /* Black text */
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    /* Position above the question mark */
-    left: 50%;
-    margin-left: -150px;
-    /* Adjusted to center the tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
-    border: 2px solid black;
-    /* Black border */
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    /* Arrow pointing downwards */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-    /* Black arrow */
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+mat-form-field {
+    width: 100%;
 }
