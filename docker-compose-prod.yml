@@ -18,6 +18,12 @@ services:
       - APPROVER_EMAIL=${APPROVER_EMAIL}
       - FRONTEND_URL=${FRONTEND_URL}
       - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
+  datalad:
+    build: datalad
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./datalad/root:/root
   db:
     container_name: data_manager_db
     image: postgres:16.3-alpine
