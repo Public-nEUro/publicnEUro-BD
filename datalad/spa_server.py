@@ -6,7 +6,7 @@ class SPARequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         first_part = self.path.split("/")[1]
 
-        if not os.path.isdir(first_part):
+        if not os.path.exists(first_part):
             self.path = "/index.html"
 
         return super().do_GET()
