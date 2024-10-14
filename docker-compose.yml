@@ -31,7 +31,7 @@ services:
   datalad:
     build: datalad
     volumes:
-      - ./datalad/root:/root
+      - ./datalad/docker-mount:/root
   db:
     container_name: data_manager_db
     image: postgres:16.3-alpine
