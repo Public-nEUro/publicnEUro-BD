@@ -4,6 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql.expression import null, false
 from . import db
 from ..datetime import get_now
+from .db_util import add_row, save_row, delete_row
 
 
 class User(db.Model):
@@ -44,24 +45,24 @@ def get_user_from_approver_passkey_hash(passkey_hash: str) -> User:
 def confirm_email(id: str) -> User:
     user = db.session.query(User).get(id)
     user.email_confirmed_at = get_now()
-    db.session.commit()
+    save_row(user)
 
 
 def set_user_approver_passkey_hash(id: str, passkey_hash: str) -> User:
     user = db.session.query(User).get(id)
     user.approver_passkey_hash = passkey_hash
-    db.session.commit()
+    save_row(user)
 
 
 def approve_user(id: str) -> User:
     user = db.session.query(User).get(id)
     user.approved_at = get_now()
-    db.session.commit()
+    save_row(user)
 
 
 def reject_user(id: str) -> User:
-    db.session.query(User).filter(User.id == id).delete()
-    db.session.commit()
+    user = db.session.query(User).get(id)
+    delete_row(user)
 
 
 def get_users_query():
@@ -105,5 +106,4 @@ def user_exists(email: str) -> bool:
 
 
 def create_user(user: User) -> None:
-    db.session.add(user)
-    db.session.commit()
+    add_row(user)
