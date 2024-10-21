@@ -3,7 +3,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
 from ..database.dataset import get_db_datasets, Dataset, Accessibility, ApprovalType
-from .get_datasets import get_json_datasets, JsonDataset
+from ..get_datasets import get_json_datasets, JsonDataset
 from ..database.db_util import add_row
 
 
