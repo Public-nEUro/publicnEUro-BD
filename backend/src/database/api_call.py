@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSON
 from . import db
 from ..datetime import get_now
 from .db_util import add_row
+from .history import make_json_friendly
 
 
 class ApiCall(db.Model):
@@ -21,6 +22,6 @@ def log_api_call(user_id, url, data):
     row.user_id = user_id
     row.timestamp = get_now()
     row.url = url
-    row.data = data
+    row.data = make_json_friendly(data)
 
     add_row(row, False)
