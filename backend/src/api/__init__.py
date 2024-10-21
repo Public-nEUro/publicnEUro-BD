@@ -12,6 +12,7 @@ from .approve_user import (
     reject_user_with_passkey,
 )
 from .get_datasets import get_datasets
+from .country import add_country, get_countries
 from ..auth.token import get_auth_user_id
 from ..database.api_call import log_api_call
 
@@ -97,6 +98,8 @@ def init_endpoints(app):
         approve_user_with_passkey,
         reject_user_with_passkey,
         get_datasets,
+        add_country,
+        get_countries,
     ]
 
     for func in func_list:
