@@ -33,7 +33,6 @@ class History(db.Model):
 
 
 def add_history_row(object_id, object_data):
-    current_app.logger.info("qweASdasd")
     object_id = make_json_friendly(object_id)
     object_data = make_json_friendly(object_data)
 
