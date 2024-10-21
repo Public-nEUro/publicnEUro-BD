@@ -18,21 +18,6 @@ class InstitutionSchema(InstitutionWithoutIdSchema):
     id = fields.UUID(required=True)
 
 
-def db_insitutinos_to_response(institutions: List[Institution]):
-    return {
-        "institutions": [
-            {
-                "id": institution.id,
-                "name": institution.name,
-                "contact": institution.contact,
-                "country_id": institution.country_id,
-                "scc_acceptance": institution.scc_acceptance,
-            }
-            for institution in institutions
-        ]
-    }
-
-
 def add_institution(request: InstitutionWithoutIdSchema) -> EmptySchema:
     institution = Institution()
     institution.id = uuid4()
@@ -45,6 +30,23 @@ def add_institution(request: InstitutionWithoutIdSchema) -> EmptySchema:
 
 class GetInstitutionsResponseSchema(Schema):
     institutions = fields.Nested(InstitutionSchema, required=True, many=True)
+
+
+def db_insitutinos_to_response(
+    institutions: List[Institution],
+) -> GetInstitutionsResponseSchema:
+    return {
+        "institutions": [
+            {
+                "id": institution.id,
+                "name": institution.name,
+                "contact": institution.contact,
+                "country_id": institution.country_id,
+                "scc_acceptance": institution.scc_acceptance,
+            }
+            for institution in institutions
+        ]
+    }
 
 
 def get_institutions(request: EmptySchema) -> GetInstitutionsResponseSchema:
