@@ -1,18 +1,10 @@
+from typing import List
 import re
 import hashlib
 import requests
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
-
-
-class Dataset(Schema):
-    id = fields.String(required=True)
-    name = fields.String(required=True)
-
-
-class GetDatasetsResponseSchema(Schema):
-    datasets = fields.Nested(Dataset, required=True, many=True)
 
 
 def get_datasets_url():
@@ -34,8 +26,13 @@ def convert_dataset(dataset):
     }
 
 
-def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
+class JsonDataset(Schema):
+    id = fields.String(required=True)
+    name = fields.String(required=True)
+
+
+def get_json_datasets() -> List[JsonDataset]:
     url = get_datasets_url()
     json = requests.get(url).json()
     datasets = json["subdatasets"]
-    return {"datasets": [convert_dataset(dataset) for dataset in datasets]}
+    return [convert_dataset(dataset) for dataset in datasets]

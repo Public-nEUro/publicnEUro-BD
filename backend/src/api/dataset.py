@@ -1,0 +1,65 @@
+from typing import List, Union
+from flask_marshmallow import Schema
+from marshmallow import fields
+from .common_schemas import EmptySchema
+from ..database.dataset import get_db_datasets, Dataset, Accessibility, ApprovalType
+from .get_datasets import get_json_datasets, JsonDataset
+from ..database.db_util import add_row
+
+
+class DatasetSchema(Schema):
+    id = fields.String(required=True)
+    name = fields.String(required=True)
+    accessibility = fields.Enum(Accessibility, by_value=True, required=True)
+    dua_file_name = fields.String(required=True, allow_none=True)
+    dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+    scc_file_name = fields.String(required=True, allow_none=True)
+    scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+
+
+class GetDatasetResponseSchema(Schema):
+    datasets = fields.Nested(DatasetSchema, required=True, many=True)
+
+
+def merge_dataset_info(
+    json_dataset: JsonDataset, db_dataset: Union[Dataset, None]
+) -> DatasetSchema:
+    if db_dataset is None:
+        db_dataset = Dataset()
+        db_dataset.id = json_dataset["id"]
+        db_dataset.accessibility = "PRIVATE"
+        db_dataset.dua_file_name = None
+        db_dataset.dua_approval_type = "OVERSIGHT"
+        db_dataset.scc_file_name = None
+        db_dataset.scc_approval_type = "OVERSIGHT"
+        add_row(db_dataset)
+
+    return {
+        **json_dataset,
+        "accessibility": db_dataset.accessibility,
+        "dua_file_name": db_dataset.dua_file_name,
+        "dua_approval_type": db_dataset.dua_approval_type,
+        "scc_file_name": db_dataset.scc_file_name,
+        "scc_approval_type": db_dataset.scc_approval_type,
+    }
+
+
+def datasets_to_response(
+    json_datasets: List[JsonDataset], db_datasets: List[Dataset]
+) -> GetDatasetResponseSchema:
+    db_datasets_dict = {dataset.id: dataset for dataset in db_datasets}
+
+    return {
+        "datasets": [
+            merge_dataset_info(
+                json_dataset, db_datasets_dict.get(json_dataset["id"], None)
+            )
+            for json_dataset in json_datasets
+        ]
+    }
+
+
+def get_datasets(request: EmptySchema) -> GetDatasetResponseSchema:
+    json_datasets = get_json_datasets()
+    db_datasets = get_db_datasets()
+    return datasets_to_response(json_datasets, db_datasets)
