@@ -17,7 +17,7 @@ class DatasetSchema(Schema):
     scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
 
 
-class GetDatasetResponseSchema(Schema):
+class GetDatasetsResponseSchema(Schema):
     datasets = fields.Nested(DatasetSchema, required=True, many=True)
 
 
@@ -46,7 +46,7 @@ def merge_dataset_info(
 
 def datasets_to_response(
     json_datasets: List[JsonDataset], db_datasets: List[Dataset]
-) -> GetDatasetResponseSchema:
+) -> GetDatasetsResponseSchema:
     db_datasets_dict = {dataset.id: dataset for dataset in db_datasets}
 
     return {
@@ -59,7 +59,7 @@ def datasets_to_response(
     }
 
 
-def get_datasets(request: EmptySchema) -> GetDatasetResponseSchema:
+def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     json_datasets = get_json_datasets()
     db_datasets = get_db_datasets()
     return datasets_to_response(json_datasets, db_datasets)
