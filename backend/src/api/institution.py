@@ -18,7 +18,7 @@ class InstitutionSchema(InstitutionWithoutIdSchema):
     id = fields.UUID(required=True)
 
 
-def db_insitutinos_to_response(countries: List[Institution]):
+def db_insitutinos_to_response(institutions: List[Institution]):
     return {
         "institutions": [
             {
@@ -28,7 +28,7 @@ def db_insitutinos_to_response(countries: List[Institution]):
                 "country_id": institution.country_id,
                 "scc_acceptance": institution.scc_acceptance,
             }
-            for institution in countries
+            for institution in institutions
         ]
     }
 
