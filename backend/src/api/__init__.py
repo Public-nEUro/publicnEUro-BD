@@ -13,6 +13,7 @@ from .approve_user import (
 )
 from .get_datasets import get_datasets
 from .country import add_country, get_countries
+from .institution import add_institution, get_institutions
 from ..auth.token import get_auth_user_id
 from ..database.api_call import log_api_call
 
@@ -100,6 +101,8 @@ def init_endpoints(app):
         get_datasets,
         add_country,
         get_countries,
+        add_institution,
+        get_institutions,
     ]
 
     for func in func_list:
