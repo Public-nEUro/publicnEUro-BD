@@ -1,3 +1,4 @@
+from typing import List
 from uuid import uuid4
 from flask_marshmallow import Schema
 from marshmallow import fields
@@ -15,19 +16,6 @@ class CountrySchema(CountryWithoutIdSchema):
     id = fields.UUID(required=True)
 
 
-def db_countries_to_response(countries):
-    return {
-        "countries": [
-            {
-                "id": country.id,
-                "name": country.name,
-                "geo_location": country.geo_location,
-            }
-            for country in countries
-        ]
-    }
-
-
 def add_country(request: CountryWithoutIdSchema) -> EmptySchema:
     country = Country()
     country.id = uuid4()
@@ -38,6 +26,19 @@ def add_country(request: CountryWithoutIdSchema) -> EmptySchema:
 
 class GetCountriesResponseSchema(Schema):
     countries = fields.Nested(CountrySchema, required=True, many=True)
+
+
+def db_countries_to_response(countries: List[Country]) -> GetCountriesResponseSchema:
+    return {
+        "countries": [
+            {
+                "id": country.id,
+                "name": country.name,
+                "geo_location": country.geo_location,
+            }
+            for country in countries
+        ]
+    }
 
 
 def get_countries(request: EmptySchema) -> GetCountriesResponseSchema:
