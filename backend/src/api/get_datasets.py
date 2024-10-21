@@ -4,7 +4,6 @@ import hashlib
 import requests
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
 
 
 def get_datasets_url():
