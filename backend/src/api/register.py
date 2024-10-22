@@ -18,7 +18,7 @@ class RegisterRequestSchema(Schema):
     storage_protection = fields.String(required=True)
     access_protection = fields.String(required=True)
     password = fields.String(required=True)
-    institution_id = fields.String(required=True)
+    institution_name = fields.String(required=True)
     captcha_response = fields.String(required=True)
 
 

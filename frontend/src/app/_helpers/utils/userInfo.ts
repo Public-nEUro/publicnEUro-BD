@@ -4,7 +4,7 @@ export const fieldKeyToLabel: Record<string, string> = {
     email: "Email",
     address: "Address",
     password: "Password",
-    institution_id: "Institution",
+    institution_name: "Institution",
     storage_protection: "Storage protection",
     access_protection: "Access protection"
 };
@@ -15,7 +15,7 @@ export const fieldKeyOrder: Record<string, number> = {
     email: 2,
     address: 3,
     password: 4,
-    institution_id: 5,
+    institution_name: 5,
     storage_protection: 6,
     access_protection: 7
 };

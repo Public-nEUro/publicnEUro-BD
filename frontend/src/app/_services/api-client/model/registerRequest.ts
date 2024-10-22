@@ -17,7 +17,7 @@ export interface RegisterRequest {
     captcha_response: string;
     email: string;
     first_name: string;
-    institution_id: string;
+    institution_name: string;
     last_name: string;
     password: string;
     storage_protection: string;
