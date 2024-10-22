@@ -4,6 +4,7 @@ from marshmallow import fields
 from ..auth.password import gen_hash_and_salt
 from ..auth.passkey import generate_passkey_and_hash
 from ..database.user import User, create_user, user_exists
+from ..database.institution import create_institution_if_not_exists
 from ..email import send_confirmation_email
 from ..datetime import get_now
 from .common_schemas import EmptySchema
@@ -27,6 +28,8 @@ def register(request: RegisterRequestSchema) -> EmptySchema:
 
     if user_exists(request["email"]):
         return
+
+    create_institution_if_not_exists(request["institution_name"])
 
     hash, salt = gen_hash_and_salt(request["password"])
     confirmation_passkey, confirmation_hash = generate_passkey_and_hash()
