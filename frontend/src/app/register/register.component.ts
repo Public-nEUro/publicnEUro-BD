@@ -25,10 +25,6 @@ type FieldInfos = Omit<Record<FieldKey, FieldInfo>, "captcha_response">;
 
 type RegisterRequestWithoutCaptcha = Omit<RegisterRequest, "captcha_response">;
 
-const boldProtectionText = "Data Protection Impact Assessment";
-const italicProtectionText =
-    "As personal data are being transfered, some authors need to assess what impact this can have.";
-
 @Component({
     selector: "app-register",
     templateUrl: "./register.component.html",
@@ -95,8 +91,6 @@ export class RegisterComponent implements OnInit {
         this.recaptchaSiteKey = recaptchaSiteKey;
     }
 
-    ngAfterViewInit(): void {}
-
     ngOnInit() {
         this.registerForm = this.formBuilder.group(
             Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
@@ -121,7 +115,7 @@ export class RegisterComponent implements OnInit {
             ...registerRequestWithoutCaptcha,
             captcha_response: this.captchaResponse
         };
-        this.service.apiRegisterPost(registerRequest).subscribe(res => {
+        this.service.apiRegisterPost(registerRequest).subscribe(() => {
             this.router.navigate(["/"]);
         });
     }

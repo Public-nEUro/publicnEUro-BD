@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UserInfo } from "@services/api-client";
 import { AuthenticationService } from "@services/authentication.service";
 
@@ -7,7 +7,7 @@ import { AuthenticationService } from "@services/authentication.service";
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     constructor(private authenticationService: AuthenticationService) {}
 
     userInfo: UserInfo | undefined = undefined;
