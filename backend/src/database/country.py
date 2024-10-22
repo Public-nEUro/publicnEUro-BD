@@ -20,4 +20,8 @@ class Country(db.Model):
 
 
 def get_db_countries() -> List[Country]:
-    return db.session.query(Country).order_by(Country.name.asc())
+    return (
+        db.session.query(Country)
+        .order_by(Country.geo_location.asc())
+        .order_by(Country.name.asc())
+    )
