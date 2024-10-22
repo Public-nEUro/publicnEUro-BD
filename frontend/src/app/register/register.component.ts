@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
-import { DefaultService, RegisterRequest } from "@services/api-client";
+import { DefaultService, Institution, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 import { map, Observable, startWith } from "rxjs";
 
@@ -88,9 +88,10 @@ export class RegisterComponent implements OnInit {
     recaptchaSiteKey: string;
     captchaResponse: string | null = null;
 
-    allInstitutionNames: string[] = [];
+    allInstitutions: Institution[] = [];
     filteredInstitutionNames!: Observable<string[]>;
     institutionName = "";
+    institution: Institution | undefined;
 
     constructor(
         private router: Router,
@@ -106,12 +107,15 @@ export class RegisterComponent implements OnInit {
             Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
         );
         this.service.apiGetInstitutionsPost({}).subscribe(res => {
-            this.allInstitutionNames = res.institutions.map(i => i.name);
+            this.allInstitutions = res.institutions;
             this.filteredInstitutionNames = this.registerForm.get("institution_name")!.valueChanges.pipe(
                 startWith(""),
                 map((value: string) => {
                     this.institutionName = value;
-                    return this.allInstitutionNames.filter(name => name.toLowerCase().includes(value.toLowerCase()));
+                    this.institution = this.allInstitutions.find(i => i.name === value);
+                    return this.allInstitutions
+                        .filter(i => i.name.toLowerCase().includes(value.toLowerCase()))
+                        .map(i => i.name);
                 })
             );
         });

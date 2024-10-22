@@ -51,6 +51,9 @@
                         {{ name }}
                     </mat-option>
                 </mat-autocomplete>
+                <ng-container *ngIf="institution?.scc_acceptance === 'DO_NOT_ACCEPT'">
+                    <mat-error>This institution does not accept SCC</mat-error></ng-container
+                >
             </mat-form-field>
         </ng-container>
         <mat-card appearance="outlined">
