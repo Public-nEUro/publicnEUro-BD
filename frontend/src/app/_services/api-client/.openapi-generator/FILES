@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -11,8 +12,18 @@ model/approveUserRequest.ts
 model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyResponse.ts
+model/country.ts
+model/countryWithoutId.ts
+model/dataset.ts
+model/getCountriesResponse.ts
+model/getDatasetsResponse.ts
+model/getInstitutionsResponse.ts
+model/getUserDatasetRequest.ts
+model/getUserDatasetResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUsersResponse.ts
+model/institution.ts
+model/institutionWithoutId.ts
 model/loginRequest.ts
 model/loginResponse.ts
 model/models.ts
