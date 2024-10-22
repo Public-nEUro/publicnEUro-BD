@@ -4,7 +4,10 @@ from marshmallow import fields
 from ..auth.password import gen_hash_and_salt
 from ..auth.passkey import generate_passkey_and_hash
 from ..database.user import User, create_user, user_exists
-from ..database.institution import create_institution_if_not_exists
+from ..database.institution import (
+    create_institution_if_not_exists,
+    get_institution_by_name,
+)
 from ..email import send_confirmation_email
 from ..datetime import get_now
 from .common_schemas import EmptySchema
@@ -40,6 +43,7 @@ def register(request: RegisterRequestSchema) -> EmptySchema:
     user.last_name = request["last_name"]
     user.email = request["email"]
     user.address = request["address"]
+    user.institution_id = get_institution_by_name(request["institution_name"]).id
     user.storage_protection = request["storage_protection"]
     user.access_protection = request["access_protection"]
     user.created_at = get_now()

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from uuid import uuid4
 import enum
 from sqlalchemy import Column, String, UniqueConstraint
@@ -28,11 +28,12 @@ def get_db_institutions() -> List[Institution]:
     return db.session.query(Institution).order_by(Institution.name.asc())
 
 
+def get_institution_by_name(name: str) -> Union[Institution, None]:
+    return db.session.query(Institution).filter(Institution.name == name).first()
+
+
 def create_institution_if_not_exists(name: str) -> None:
-    if (
-        db.session.query(Institution).filter(Institution.name == name).first()
-        is not None
-    ):
+    if get_institution_by_name(name) is not None:
         return
 
     institution = Institution()
