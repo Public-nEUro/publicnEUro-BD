@@ -43,6 +43,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 
 @NgModule({
@@ -89,6 +90,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
         MatInputModule,
         MatGridListModule,
         MatCardModule,
+        MatAutocompleteModule,
         BrowserAnimationsModule
     ],
     providers: [

@@ -1,47 +1,91 @@
 <div class="flex-container align-items-center justify-content-center">
     <div class="description">
         <h1>User registration form to Public-nEUro</h1>
-        <p>Public-nEUro is a repository for sharing brain imaging research data. Such data are considered personal and
+        <p>
+            Public-nEUro is a repository for sharing brain imaging research data. Such data are considered personal and
             thus the EU general data protection rules apply. Upon registration, your personal information will be stored
             in our database on a basis of service for contract. Unless you register but never downloaded data, we cannot
             remove your personal information from this database, as it is mandatory that we can provide audits of who
             downloaded data. By registering, you accept those terms. Further information on your rights can be found in
-            the information notice on our website.</p>
-        <p>Proof of Identity: we will contact you for a video call checking your ID - you will have to show us either a
-            passport, or ID card or driver license. A screen shot will be taken as a proof of verification.</p>
+            the information notice on our website.
+        </p>
+        <p>
+            Proof of Identity: we will contact you for a video call checking your ID - you will have to show us either a
+            passport, or ID card or driver license. A screen shot will be taken as a proof of verification.
+        </p>
     </div>
     <form class="form align-items-center justify-content-center" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <ng-container *ngFor="let field_info of field_infos | userInfoToSortedEntries">
-            <mat-form-field appearance="outline" *ngIf="field_info.value.type !== 'textarea'">
-                <mat-label>{{fieldKeyToLabel[field_info.key]}}</mat-label>
-                <input matInput id="{{field_info.key}}" type="{{field_info.value.type}}"
-                    autocomplete="field_info.value.autocomplete" pInputText formControlName="{{field_info.key}}"
-                    [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }" />
+            <mat-form-field
+                appearance="outline"
+                *ngIf="field_info.value.type !== 'textarea' && field_info.value.type !== 'autocomplete'"
+            >
+                <mat-label>{{ fieldKeyToLabel[field_info.key] }}</mat-label>
+                <input
+                    matInput
+                    id="{{ field_info.key }}"
+                    type="{{ field_info.value.type }}"
+                    autocomplete="field_info.value.autocomplete"
+                    pInputText
+                    formControlName="{{ field_info.key }}"
+                    [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }"
+                />
+            </mat-form-field>
+        </ng-container>
+        <ng-container *ngFor="let field_info of field_infos | userInfoToSortedEntries">
+            <mat-form-field appearance="outline" *ngIf="field_info.value.type === 'autocomplete'">
+                <mat-label>{{ fieldKeyToLabel[field_info.key] }}</mat-label>
+                <input
+                    matInput
+                    id="{{ field_info.key }}"
+                    type="text"
+                    autocomplete="field_info.value.autocomplete"
+                    pInputText
+                    formControlName="{{ field_info.key }}"
+                    [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }"
+                    [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let institution of filteredInstitutions | async" [value]="institution.name">
+                        {{ institution.name }}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
         </ng-container>
         <mat-card appearance="outlined">
             <mat-card-header>
                 <mat-card-title>Data Protection Impact Assessment</mat-card-title>
-                <mat-card-subtitle>As personal data are being transferred, some authors need to assess what impact this
-                    can have.</mat-card-subtitle>
+                <mat-card-subtitle
+                    >As personal data are being transferred, some authors need to assess what impact this can
+                    have.</mat-card-subtitle
+                >
             </mat-card-header>
             <mat-card-content>
                 <ng-container *ngFor="let field_info of field_infos | userInfoToSortedEntries">
-                    <p>{{field_info.value.description}}</p>
+                    <p>{{ field_info.value.description }}</p>
                     <mat-form-field appearance="outline" *ngIf="field_info.value.type === 'textarea'">
-                        <mat-label>{{fieldKeyToLabel[field_info.key]}}</mat-label>
-                        <textarea matInput *ngIf="field_info.value.type === 'textarea'" id="{{field_info.key}}"
-                            autocomplete="field_info.value.autocomplete" formControlName="{{field_info.key}}"
-                            rows=3></textarea>
+                        <mat-label>{{ fieldKeyToLabel[field_info.key] }}</mat-label>
+                        <textarea
+                            matInput
+                            *ngIf="field_info.value.type === 'textarea'"
+                            id="{{ field_info.key }}"
+                            autocomplete="field_info.value.autocomplete"
+                            formControlName="{{ field_info.key }}"
+                            rows="3"
+                        ></textarea>
                     </mat-form-field>
                 </ng-container>
             </mat-card-content>
         </mat-card>
         <br />
-        <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="{{recaptchaSiteKey}}"></re-captcha>
+        <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="{{ recaptchaSiteKey }}"></re-captcha>
         <br />
-        <p-button type="submit" [disabled]="captchaResponse === null" label="Sign up"
-            icon="fal fa-arrow-circle-right"></p-button>
+        <p-button
+            type="submit"
+            [disabled]="captchaResponse === null"
+            label="Sign up"
+            icon="fal fa-arrow-circle-right"
+        ></p-button>
         <br />
     </form>
 </div>

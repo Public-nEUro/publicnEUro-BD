@@ -9,8 +9,9 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
-import { DefaultService, RegisterRequest } from "@services/api-client";
+import { DefaultService, Institution, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
+import { map, Observable, startWith } from "rxjs";
 
 type FieldKey = keyof RegisterRequest;
 
@@ -59,6 +60,11 @@ export class RegisterComponent implements OnInit {
             autocomplete: "new-password",
             validators: [Validators.required]
         },
+        institution_id: {
+            type: "autocomplete",
+            autocomplete: "",
+            validators: [Validators.required]
+        },
         storage_protection: {
             type: "textarea",
             autocomplete: "",
@@ -82,6 +88,9 @@ export class RegisterComponent implements OnInit {
     recaptchaSiteKey: string;
     captchaResponse: string | null = null;
 
+    allInstitutions: Institution[] = [];
+    filteredInstitutions!: Observable<Institution[]>;
+
     constructor(
         private router: Router,
         private formBuilder: UntypedFormBuilder,
@@ -95,6 +104,17 @@ export class RegisterComponent implements OnInit {
         this.registerForm = this.formBuilder.group(
             Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
         );
+        this.service.apiGetInstitutionsPost({}).subscribe(res => {
+            this.allInstitutions = res.institutions;
+            this.filteredInstitutions = this.registerForm.get("institution_id")!.valueChanges.pipe(
+                startWith(""),
+                map((value: string) =>
+                    this.allInstitutions.filter(institution =>
+                        institution.name.toLowerCase().includes(value.toLowerCase())
+                    )
+                )
+            );
+        });
     }
 
     get f() {
@@ -106,13 +126,18 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        const institution_id = this.allInstitutions.find(
+            i => i.name === this.registerForm.get("institution_id")!.value
+        )?.id;
         this.submitted = true;
+        if (institution_id === undefined) return;
         if (this.registerForm.invalid) return;
         if (this.captchaResponse === null) return;
         const entries = Object.keys(this.field_infos).map(key => [key, this.f[key].value]);
         const registerRequestWithoutCaptcha: RegisterRequestWithoutCaptcha = Object.fromEntries(entries);
         const registerRequest: RegisterRequest = {
             ...registerRequestWithoutCaptcha,
+            institution_id,
             captcha_response: this.captchaResponse
         };
         this.service.apiRegisterPost(registerRequest).subscribe(() => {
