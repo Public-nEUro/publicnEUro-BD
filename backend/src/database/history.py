@@ -1,4 +1,3 @@
-from flask import current_app
 import uuid
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID, JSONB
@@ -38,15 +37,12 @@ def add_history_row(object_id, object_data):
 
     user_id = get_auth_user_id()
 
-    current_app.logger.info("qwe")
-    current_app.logger.info(object_id)
     latest_row = (
         db.session.query(History)
         .filter(History.object_id == object_id)
         .order_by(History.timestamp.desc())
         .first()
     )
-    current_app.logger.info(latest_row)
     if (
         latest_row is not None
         and str(latest_row.user_id) == str(user_id)
