@@ -5,6 +5,7 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
 
@@ -28,6 +29,10 @@ const routes: Routes = [
     {
         path: "users",
         component: UsersComponent
+    },
+    {
+        path: "countries",
+        component: CountriesComponent
     },
     {
         path: "confirmation/:email_confirmation_passkey",

@@ -31,6 +31,7 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
 import { BASE_PATH } from "@services/api-client";
@@ -54,6 +55,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
         LoginComponent,
         ProfileComponent,
         UsersComponent,
+        CountriesComponent,
         ConfirmationComponent,
         ApprovalComponent,
         StoragePipe,

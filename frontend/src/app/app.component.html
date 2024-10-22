@@ -4,11 +4,11 @@
         <mat-nav-list class="list-horizontal">
             <a mat-list-item href="profile">Profile</a>
             <a *ngIf="userInfo?.is_admin" mat-list-item href="users">Users</a>
+            <a *ngIf="userInfo?.is_admin" mat-list-item href="countries">Countries</a>
         </mat-nav-list>
     </mat-sidenav>
     <div class="main-content">
-        <router-outlet>
-        </router-outlet>
+        <router-outlet> </router-outlet>
     </div>
 </mat-sidenav-container>
 
