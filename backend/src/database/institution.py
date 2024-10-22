@@ -1,6 +1,6 @@
 from typing import List
 import enum
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, ENUM
 from . import db
 
@@ -18,6 +18,8 @@ class Institution(db.Model):
     contact = Column(String, nullable=False)
     country_id = Column(UUID(as_uuid=True), db.ForeignKey("country.id"), nullable=False)
     scc_acceptance = Column(ENUM(Acceptance), nullable=False)
+
+    __table_args__ = (UniqueConstraint("name", name="institution_unique_name"),)
 
 
 def get_db_institutions() -> List[Institution]:
