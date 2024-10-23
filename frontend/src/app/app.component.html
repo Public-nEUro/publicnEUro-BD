@@ -5,6 +5,7 @@
             <a mat-list-item href="profile">Profile</a>
             <a *ngIf="userInfo?.is_admin" mat-list-item href="users">Users</a>
             <a *ngIf="userInfo?.is_admin" mat-list-item href="countries">Countries</a>
+            <a *ngIf="userInfo?.is_admin" mat-list-item href="institutions">Institutions</a>
         </mat-nav-list>
     </mat-sidenav>
     <div class="main-content">

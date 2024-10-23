@@ -46,6 +46,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
+import { InstitutionsComponent } from "./institutions/institutions.component";
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
         ProfileComponent,
         UsersComponent,
         CountriesComponent,
+        InstitutionsComponent,
         ConfirmationComponent,
         ApprovalComponent,
         StoragePipe,

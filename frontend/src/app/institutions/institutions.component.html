@@ -1,0 +1,19 @@
+<h1>Institutions</h1>
+<p-table [value]="institutions">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Country ID</th>
+            <th>Scc acceptance</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-institution>
+        <tr>
+            <td>{{ institution.name }}</td>
+            <td>{{ institution.contact }}</td>
+            <td>{{ institution.country_id }}</td>
+            <td>{{ institution.scc_acceptance }}</td>
+        </tr>
+    </ng-template>
+</p-table>

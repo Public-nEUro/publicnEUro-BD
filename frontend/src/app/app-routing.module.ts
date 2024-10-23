@@ -8,6 +8,7 @@ import { UsersComponent } from "./users/users.component";
 import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
+import { InstitutionsComponent } from "./institutions/institutions.component";
 
 const routes: Routes = [
     {
@@ -33,6 +34,10 @@ const routes: Routes = [
     {
         path: "countries",
         component: CountriesComponent
+    },
+    {
+        path: "institutions",
+        component: InstitutionsComponent
     },
     {
         path: "confirmation/:email_confirmation_passkey",
