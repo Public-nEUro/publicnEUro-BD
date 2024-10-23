@@ -13,16 +13,17 @@
 
 export interface Institution { 
     contact: string;
-    country_id: string;
+    country_id: string | null;
     id: string;
     name: string;
-    scc_acceptance: Institution.SccAcceptanceEnum;
+    scc_acceptance: Institution.SccAcceptanceEnum | null;
 }
 export namespace Institution {
-    export type SccAcceptanceEnum = 'ACCEPT' | 'DO_NOT_ACCEPT';
+    export type SccAcceptanceEnum = 'ACCEPT' | 'DO_NOT_ACCEPT' | 'null';
     export const SccAcceptanceEnum = {
         Accept: 'ACCEPT' as SccAcceptanceEnum,
-        DoNotAccept: 'DO_NOT_ACCEPT' as SccAcceptanceEnum
+        DoNotAccept: 'DO_NOT_ACCEPT' as SccAcceptanceEnum,
+        Null: 'null' as SccAcceptanceEnum
     };
 }
 

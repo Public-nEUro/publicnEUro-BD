@@ -31,7 +31,11 @@ module.exports = tseslint.config(
                     style: "kebab-case"
                 }
             ],
-            "@typescript-eslint/consistent-type-definitions": "off"
+            "@typescript-eslint/consistent-type-definitions": "off",
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true }
+            ]
         }
     },
     {

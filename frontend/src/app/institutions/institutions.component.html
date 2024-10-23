@@ -6,14 +6,69 @@
             <th>Contact</th>
             <th>Country</th>
             <th>Scc acceptance</th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-institution>
-        <tr>
+        <tr *ngIf="editingInstitution !== institution">
             <td>{{ institution.name }}</td>
             <td>{{ institution.contact }}</td>
             <td>{{ institution.country_name }}</td>
             <td>{{ institution.scc_acceptance }}</td>
+            <td><p-button label="Edit" (onClick)="edit(institution)"></p-button></td>
+        </tr>
+        <tr *ngIf="editingInstitution !== undefined && editingInstitution === institution">
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="editingInstitution.name" />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contact</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="editingInstitution.contact" />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <input
+                        #countryInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="countryAuto"
+                        (input)="onCountryNameChange(countryInput.value)"
+                        [(ngModel)]="editingInstitution.country_name"
+                    />
+                    <mat-autocomplete #countryAuto="matAutocomplete">
+                        <mat-option *ngFor="let country of filteredCountries" [value]="country.name">
+                            {{ country.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Scc acceptance</mat-label>
+                    <input
+                        #sccAcceptanceInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="sccAcceptanceAuto"
+                        (input)="onSccAcceptanceChange(sccAcceptanceInput.value)"
+                        [(ngModel)]="editingInstitution.scc_acceptance"
+                    />
+                    <mat-autocomplete #sccAcceptanceAuto="matAutocomplete">
+                        <mat-option *ngFor="let sccAcceptance of filteredSccAcceptances" [value]="sccAcceptance">
+                            {{ sccAcceptance }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td><p-button label="Save" (onClick)="save(institution)"></p-button></td>
         </tr>
     </ng-template>
 </p-table>

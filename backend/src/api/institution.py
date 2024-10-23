@@ -3,15 +3,22 @@ from uuid import uuid4
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
-from ..database.institution import get_db_institutions, Institution, Acceptance
-from ..database.db_util import add_row
+from ..database.institution import (
+    get_db_institutions,
+    get_db_institution,
+    Institution,
+    Acceptance,
+)
+from ..database.db_util import add_row, save_row
 
 
 class InstitutionWithoutIdSchema(Schema):
     name = fields.String(required=True)
     contact = fields.String(required=True)
-    country_id = fields.UUID(required=True)
-    scc_acceptance = fields.Enum(Acceptance, by_value=True, required=True)
+    country_id = fields.UUID(required=True, allow_none=True)
+    scc_acceptance = fields.Enum(
+        Acceptance, by_value=True, required=True, allow_none=True
+    )
 
 
 class InstitutionSchema(InstitutionWithoutIdSchema):
@@ -51,3 +58,12 @@ def db_insitutinos_to_response(
 
 def get_institutions(request: EmptySchema) -> GetInstitutionsResponseSchema:
     return db_insitutinos_to_response(get_db_institutions())
+
+
+def update_institution(request: InstitutionSchema) -> EmptySchema:
+    institution = get_db_institution(request["id"])
+    institution.name = request["name"]
+    institution.contact = request["contact"]
+    institution.country_id = request["country_id"]
+    institution.scc_acceptance = request["scc_acceptance"]
+    save_row(institution)

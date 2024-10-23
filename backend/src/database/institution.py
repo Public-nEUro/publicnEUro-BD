@@ -28,6 +28,10 @@ def get_db_institutions() -> List[Institution]:
     return db.session.query(Institution).order_by(Institution.name.asc())
 
 
+def get_db_institution(id: str) -> Union[Institution, None]:
+    return db.session.query(Institution).get(id)
+
+
 def get_institution_by_name(name: str) -> Union[Institution, None]:
     return db.session.query(Institution).filter(Institution.name == name).first()
 

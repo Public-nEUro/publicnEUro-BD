@@ -12,7 +12,7 @@ from .approve_user import (
     reject_user_with_passkey,
 )
 from .country import add_country, get_countries
-from .institution import add_institution, get_institutions
+from .institution import add_institution, get_institutions, update_institution
 from .dataset import get_datasets
 from .user_dataset import get_user_dataset
 from ..auth.token import get_auth_user_id
@@ -103,6 +103,7 @@ def init_endpoints(app):
         get_countries,
         add_institution,
         get_institutions,
+        update_institution,
         get_datasets,
         get_user_dataset,
     ]
