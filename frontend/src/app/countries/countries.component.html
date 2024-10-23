@@ -1,17 +1,32 @@
-<div class="flex-container align-items-center justify-content-center">
-    <h1>Countries</h1>
-    <p-table [value]="countries">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Name</th>
-                <th>Geolocation</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-country>
-            <tr>
-                <td>{{ country.name }}</td>
-                <td>{{ country.geo_location }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+<h1>Countries</h1>
+<p-table [value]="countries">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Geolocation</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-country>
+        <tr>
+            <td>{{ country.name }}</td>
+            <td>{{ country.geo_location }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<form class="form align-items-center justify-content-center" [formGroup]="addCountryForm" (ngSubmit)="addCountry()">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" pInputText formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Geolocation</mat-label>
+        <input matInput type="text" pInputText formControlName="geo_location" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let geoLocation of filteredGeoLocations | async" [value]="geoLocation">
+                {{ geoLocation }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <p-button type="submit" label="Add country" icon="fal fa-arrow-circle-right"></p-button>
+</form>
