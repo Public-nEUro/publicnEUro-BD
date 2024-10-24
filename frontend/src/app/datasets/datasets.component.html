@@ -4,10 +4,10 @@
         <tr>
             <th>Name</th>
             <th>Accessibility</th>
-            <th>Dua file name</th>
-            <th>Dua approval</th>
-            <th>Scc file name</th>
-            <th>Scc approval</th>
+            <th>DUA file name</th>
+            <th>DUA approval</th>
+            <th>SCC file name</th>
+            <th>SCC approval</th>
             <th></th>
         </tr>
     </ng-template>
@@ -44,13 +44,13 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>Dua file name</mat-label>
+                    <mat-label>DUA file name</mat-label>
                     <input matInput type="text" pInputText [(ngModel)]="editingDataset.dua_info.file_name" />
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>Dua approval</mat-label>
+                    <mat-label>DUA approval</mat-label>
                     <input
                         #duaApprovalInput
                         matInput
@@ -69,13 +69,13 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>Scc file name</mat-label>
+                    <mat-label>SCC file name</mat-label>
                     <input matInput type="text" pInputText [(ngModel)]="editingDataset.scc_info.file_name" />
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>Scc approval</mat-label>
+                    <mat-label>SCC approval</mat-label>
                     <input
                         #sccApprovalInput
                         matInput
