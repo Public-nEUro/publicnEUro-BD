@@ -7,14 +7,17 @@ from ..get_datasets import get_json_datasets, JsonDataset
 from ..database.db_util import add_row
 
 
+class Info(Schema):
+    file_name = fields.String(required=True, allow_none=True)
+    approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+
+
 class DatasetSchema(Schema):
     id = fields.String(required=True)
     name = fields.String(required=True)
     accessibility = fields.Enum(Accessibility, by_value=True, required=True)
-    dua_file_name = fields.String(required=True, allow_none=True)
-    dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
-    scc_file_name = fields.String(required=True, allow_none=True)
-    scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+    dua_info = fields.Nested(Info, required=True)
+    scc_info = fields.Nested(Info, required=True)
 
 
 class GetDatasetsResponseSchema(Schema):
@@ -37,10 +40,14 @@ def merge_dataset_info(
     return {
         **json_dataset,
         "accessibility": db_dataset.accessibility,
-        "dua_file_name": db_dataset.dua_file_name,
-        "dua_approval_type": db_dataset.dua_approval_type,
-        "scc_file_name": db_dataset.scc_file_name,
-        "scc_approval_type": db_dataset.scc_approval_type,
+        "dua_info": {
+            "file_name": db_dataset.dua_file_name,
+            "approval_type": db_dataset.dua_approval_type,
+        },
+        "scc_info": {
+            "file_name": db_dataset.scc_file_name,
+            "approval_type": db_dataset.scc_approval_type,
+        },
     }
 
 
