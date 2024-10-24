@@ -9,16 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Info } from './info';
 
 
 export interface Dataset { 
     accessibility: Dataset.AccessibilityEnum;
-    dua_approval_type: Dataset.DuaApprovalTypeEnum;
-    dua_file_name: string | null;
+    dua_info: Info;
     id: string;
     name: string;
-    scc_approval_type: Dataset.SccApprovalTypeEnum;
-    scc_file_name: string | null;
+    scc_info: Info;
 }
 export namespace Dataset {
     export type AccessibilityEnum = 'PRIVATE' | 'EU' | 'EU_AND_ADEQUATE' | 'WORLDWIDE' | 'PUBLIC';
@@ -28,16 +27,6 @@ export namespace Dataset {
         EuAndAdequate: 'EU_AND_ADEQUATE' as AccessibilityEnum,
         Worldwide: 'WORLDWIDE' as AccessibilityEnum,
         Public: 'PUBLIC' as AccessibilityEnum
-    };
-    export type DuaApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const DuaApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as DuaApprovalTypeEnum,
-        Automated: 'AUTOMATED' as DuaApprovalTypeEnum
-    };
-    export type SccApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const SccApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as SccApprovalTypeEnum,
-        Automated: 'AUTOMATED' as SccApprovalTypeEnum
     };
 }
 
