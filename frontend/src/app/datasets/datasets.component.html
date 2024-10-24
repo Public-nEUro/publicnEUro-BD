@@ -1,0 +1,98 @@
+<h1>Datasets</h1>
+<p-table [value]="datasets">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Accessibility</th>
+            <th>Dua file name</th>
+            <th>Dua approval</th>
+            <th>Scc file name</th>
+            <th>Scc approval</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dataset>
+        <tr *ngIf="editingDataset !== dataset">
+            <td>{{ dataset.name }}</td>
+            <td>{{ dataset.accessibility }}</td>
+            <td>{{ dataset.dua_info.file_name }}</td>
+            <td>{{ dataset.dua_info.approval_type }}</td>
+            <td>{{ dataset.scc_info.file_name }}</td>
+            <td>{{ dataset.scc_info.approval_type }}</td>
+            <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
+        </tr>
+        <tr *ngIf="editingDataset !== undefined && editingDataset === dataset">
+            <td>{{ dataset.name }}</td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Accessibility</mat-label>
+                    <input
+                        #accessibilityInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="accessibilityAuto"
+                        (input)="onAccessibilityChange(accessibilityInput.value)"
+                        [(ngModel)]="editingDataset.accessibility"
+                    />
+                    <mat-autocomplete #accessibilityAuto="matAutocomplete">
+                        <mat-option *ngFor="let accessibility of filteredAccessibilities" [value]="accessibility">
+                            {{ accessibility }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dua file name</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.dua_info.file_name" />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dua approval</mat-label>
+                    <input
+                        #duaApprovalInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="duaApprovalAuto"
+                        (input)="onDuaApprovalChange(duaApprovalInput.value)"
+                        [(ngModel)]="editingDataset.dua_info.approval_type"
+                    />
+                    <mat-autocomplete #duaApprovalAuto="matAutocomplete">
+                        <mat-option *ngFor="let duaApproval of filteredDuaApprovalTypes" [value]="duaApproval">
+                            {{ duaApproval }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Scc file name</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.scc_info.file_name" />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Scc approval</mat-label>
+                    <input
+                        #sccApprovalInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="sccApprovalAuto"
+                        (input)="onSccApprovalChange(sccApprovalInput.value)"
+                        [(ngModel)]="editingDataset.scc_info.approval_type"
+                    />
+                    <mat-autocomplete #sccApprovalAuto="matAutocomplete">
+                        <mat-option *ngFor="let sccApproval of filteredSccApprovalTypes" [value]="sccApproval">
+                            {{ sccApproval }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td><p-button label="Save" (onClick)="save(dataset)"></p-button></td>
+        </tr>
+    </ng-template>
+</p-table>

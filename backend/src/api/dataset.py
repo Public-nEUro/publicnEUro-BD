@@ -2,9 +2,15 @@ from typing import List, Union
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
-from ..database.dataset import get_db_datasets, Dataset, Accessibility, ApprovalType
+from ..database.dataset import (
+    get_db_datasets,
+    get_db_dataset,
+    Dataset,
+    Accessibility,
+    ApprovalType,
+)
 from ..get_datasets import get_json_datasets, JsonDataset
-from ..database.db_util import add_row
+from ..database.db_util import add_row, save_row
 
 
 class Info(Schema):
@@ -70,3 +76,13 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     json_datasets = get_json_datasets()
     db_datasets = get_db_datasets()
     return datasets_to_response(json_datasets, db_datasets)
+
+
+def update_dataset(request: DatasetSchema) -> EmptySchema:
+    dataset = get_db_dataset(request["id"])
+    dataset.accessibility = request["accessibility"]
+    dataset.dua_file_name = request["dua_info"]["file_name"]
+    dataset.dua_approval_type = request["dua_info"]["approval_type"]
+    dataset.scc_file_name = request["scc_info"]["file_name"]
+    dataset.scc_approval_type = request["scc_info"]["approval_type"]
+    save_row(dataset)

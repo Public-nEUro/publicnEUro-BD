@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 import enum
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import ENUM
@@ -31,3 +31,7 @@ class Dataset(db.Model):
 
 def get_db_datasets() -> List[Dataset]:
     return db.session.query(Dataset).order_by(Dataset.id.asc())
+
+
+def get_db_dataset(id: str) -> Union[Dataset, None]:
+    return db.session.query(Dataset).get(id)
