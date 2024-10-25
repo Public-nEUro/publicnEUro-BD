@@ -8,8 +8,8 @@ class EventSchema(Schema):
     id = fields.String(required=True)
     timestamp = fields.DateTime(required=True)
     user_id = fields.String(required=True)
-    object_id = fields.String(required=True)
-    object_data = fields.String(required=True)
+    object_id = fields.Raw(required=True)
+    object_data = fields.Raw(required=True)
 
 
 class GetHistoryRequestSchema(Schema):
