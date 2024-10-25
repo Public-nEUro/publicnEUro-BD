@@ -15,6 +15,7 @@ from .country import add_country, get_countries
 from .institution import add_institution, get_institutions, update_institution
 from .dataset import get_datasets, update_dataset
 from .user_dataset import get_user_dataset
+from .history import get_history
 from ..auth.token import get_auth_user_id
 from ..database.api_call import log_api_call
 
@@ -107,6 +108,7 @@ def init_endpoints(app):
         get_datasets,
         update_dataset,
         get_user_dataset,
+        get_history,
     ]
 
     for func in func_list:

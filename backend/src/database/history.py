@@ -58,3 +58,13 @@ def add_history_row(object_id, object_data):
     row.object_data = object_data
     db.session.add(row)
     db.session.commit()
+
+
+def get_db_history(start_date, end_date):
+    return (
+        db.session.query(History)
+        .filter(History.timestamp >= start_date)
+        .filter(History.timestamp <= end_date)
+        .order_by(History.timestamp.desc())
+        .all()
+    )
