@@ -37,7 +37,7 @@ def merge_dataset_info(
         db_dataset = Dataset()
         db_dataset.id = json_dataset["id"]
         db_dataset.accessibility = "PRIVATE"
-        db_dataset.dua_file_name = None
+        db_dataset.dua_file_name = "DUA.txt"
         db_dataset.dua_approval_type = "OVERSIGHT"
         db_dataset.scc_file_name = None
         db_dataset.scc_approval_type = "OVERSIGHT"
