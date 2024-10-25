@@ -1,0 +1,23 @@
+<h1>Change history</h1>
+<p-table [value]="history">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Timestamp</th>
+            <th>Changed by</th>
+            <th>ID</th>
+            <th>Data</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-event>
+        <tr>
+            <td>{{ event.timestamp | datetime }}</td>
+            <td>{{ event.changedBy }}</td>
+            <td>
+                <pre>{{ event.objectId }}</pre>
+            </td>
+            <td>
+                <pre>{{ event.objectData }}</pre>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -10,6 +10,7 @@ import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
+import { HistoryComponent } from "./history/history.component";
 
 const routes: Routes = [
     {
@@ -43,6 +44,10 @@ const routes: Routes = [
     {
         path: "datasets",
         component: DatasetsComponent
+    },
+    {
+        path: "history",
+        component: HistoryComponent
     },
     {
         path: "confirmation/:email_confirmation_passkey",

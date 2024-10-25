@@ -48,6 +48,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
+import { HistoryComponent } from "./history/history.component";
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import { DatasetsComponent } from "./datasets/datasets.component";
         CountriesComponent,
         InstitutionsComponent,
         DatasetsComponent,
+        HistoryComponent,
         ConfirmationComponent,
         ApprovalComponent,
         StoragePipe,
