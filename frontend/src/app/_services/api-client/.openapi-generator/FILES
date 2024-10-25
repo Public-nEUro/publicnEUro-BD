@@ -14,8 +14,11 @@ model/confirmEmailWithPasskeyResponse.ts
 model/country.ts
 model/countryWithoutId.ts
 model/dataset.ts
+model/event.ts
 model/getCountriesResponse.ts
 model/getDatasetsResponse.ts
+model/getHistoryRequest.ts
+model/getHistoryResponse.ts
 model/getInstitutionsResponse.ts
 model/getUserDatasetRequest.ts
 model/getUserDatasetResponse.ts
