@@ -13,8 +13,8 @@
 
 export interface Event { 
     id: string;
-    object_data: string;
-    object_id: string;
+    object_data: any | null;
+    object_id: any | null;
     timestamp: string;
     user_id: string;
 }
