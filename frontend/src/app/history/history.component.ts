@@ -30,12 +30,17 @@ export class HistoryComponent implements OnInit {
                 end_date: moment().toISOString()
             })
             .subscribe(res => {
-                this.history = res.history.map(event => ({
-                    timestamp: event.timestamp,
-                    changedBy: event.user_id,
-                    objectId: JSON.stringify(event.object_id, null, 4),
-                    objectData: JSON.stringify(event.object_data, null, 4)
-                }));
+                this.history = res.history.map(event => {
+                    const changedBy = event.user_info
+                        ? event.user_info.first_name + " " + event.user_info.last_name
+                        : "";
+                    return {
+                        timestamp: event.timestamp,
+                        changedBy,
+                        objectId: JSON.stringify(event.object_id, null, 4),
+                        objectData: JSON.stringify(event.object_data, null, 4)
+                    };
+                });
             });
     }
 }

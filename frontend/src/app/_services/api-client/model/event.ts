@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserInfo } from './userInfo';
 
 
 export interface Event { 
@@ -16,6 +17,6 @@ export interface Event {
     object_data: any | null;
     object_id: any | null;
     timestamp: string;
-    user_id: string;
+    user_info: UserInfo | null;
 }
 

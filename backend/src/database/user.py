@@ -70,6 +70,10 @@ def get_users_query():
     return db.session.query(User).filter(User.is_admin == false())
 
 
+def get_users_by_id(ids: List[str]) -> User:
+    return db.session.query(User).filter(User.id.in_(ids)).all()
+
+
 def get_db_approved_users() -> List[User]:
     return (
         get_users_query()
