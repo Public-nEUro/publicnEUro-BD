@@ -39,7 +39,7 @@ class GetInstitutionsResponseSchema(Schema):
     institutions = fields.Nested(InstitutionSchema, required=True, many=True)
 
 
-def db_insitutinos_to_response(
+def db_insitutions_to_response(
     institutions: List[Institution],
 ) -> GetInstitutionsResponseSchema:
     return {
@@ -57,7 +57,7 @@ def db_insitutinos_to_response(
 
 
 def get_institutions(request: EmptySchema) -> GetInstitutionsResponseSchema:
-    return db_insitutinos_to_response(get_db_institutions())
+    return db_insitutions_to_response(get_db_institutions())
 
 
 def update_institution(request: InstitutionSchema) -> EmptySchema:
