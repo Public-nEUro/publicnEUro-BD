@@ -67,9 +67,7 @@ export class SccsComponent implements OnInit {
             });
     }
 
-    downloadScc(id: string) {
-        const scc = this.sccs.find(scc => scc.id === id);
-        if (scc === undefined) return;
+    downloadScc(scc: Scc) {
         downloadBase64(scc.file_data, scc.file_name);
     }
 }
