@@ -24,7 +24,6 @@ model/getUserDatasetRequest.ts
 model/getUserDatasetResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUsersResponse.ts
-model/info.ts
 model/institution.ts
 model/institutionWithoutId.ts
 model/loginRequest.ts

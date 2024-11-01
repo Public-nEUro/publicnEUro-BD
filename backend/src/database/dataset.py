@@ -1,7 +1,7 @@
 from typing import List, Union
 import enum
 from sqlalchemy import Column, String
-from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy.dialects.postgresql import ENUM, UUID
 from . import db
 
 
@@ -25,7 +25,7 @@ class Dataset(db.Model):
     accessibility = Column(ENUM(Accessibility), nullable=False)
     dua_file_name = Column(String, nullable=True)
     dua_approval_type = Column(ENUM(ApprovalType), nullable=False)
-    scc_file_name = Column(String, nullable=True)
+    scc_id = Column(UUID(as_uuid=True), nullable=True)
     scc_approval_type = Column(ENUM(ApprovalType), nullable=False)
 
 

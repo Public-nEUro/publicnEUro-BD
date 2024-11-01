@@ -14,7 +14,7 @@
             <td>{{ institution.name }}</td>
             <td>{{ institution.contact }}</td>
             <td>{{ institution.country_name }}</td>
-            <td>{{ institution.scc_acceptance }}</td>
+            <td>TODO</td>
             <td><p-button label="Edit" (onClick)="edit(institution)"></p-button></td>
         </tr>
         <tr *ngIf="editingInstitution !== undefined && editingInstitution === institution">
@@ -49,25 +49,7 @@
                     </mat-autocomplete>
                 </mat-form-field>
             </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>SCC acceptance</mat-label>
-                    <input
-                        #sccAcceptanceInput
-                        matInput
-                        type="text"
-                        pInputText
-                        [matAutocomplete]="sccAcceptanceAuto"
-                        (input)="onSccAcceptanceChange(sccAcceptanceInput.value)"
-                        [(ngModel)]="editingInstitution.scc_acceptance"
-                    />
-                    <mat-autocomplete #sccAcceptanceAuto="matAutocomplete">
-                        <mat-option *ngFor="let sccAcceptance of filteredSccAcceptances" [value]="sccAcceptance">
-                            {{ sccAcceptance }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </td>
+            <td>TODO</td>
             <td><p-button label="Save" (onClick)="save(institution)"></p-button></td>
         </tr>
     </ng-template>

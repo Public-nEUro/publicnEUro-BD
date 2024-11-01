@@ -6,7 +6,7 @@
             <th>Accessibility</th>
             <th>DUA file name</th>
             <th>DUA approval</th>
-            <th>SCC file name</th>
+            <th>SCC</th>
             <th>SCC approval</th>
             <th></th>
         </tr>
@@ -15,10 +15,10 @@
         <tr *ngIf="editingDataset !== dataset">
             <td>{{ dataset.name }}</td>
             <td>{{ dataset.accessibility }}</td>
-            <td>{{ dataset.dua_info.file_name }}</td>
-            <td>{{ dataset.dua_info.approval_type }}</td>
-            <td>{{ dataset.scc_info.file_name }}</td>
-            <td>{{ dataset.scc_info.approval_type }}</td>
+            <td>{{ dataset.dua_file_name }}</td>
+            <td>{{ dataset.dua_approval_type }}</td>
+            <td>{{ dataset.scc_id }}</td>
+            <td>{{ dataset.scc_approval_type }}</td>
             <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
         </tr>
         <tr *ngIf="editingDataset !== undefined && editingDataset === dataset">
@@ -45,7 +45,7 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>DUA file name</mat-label>
-                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.dua_info.file_name" />
+                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.dua_file_name" />
                 </mat-form-field>
             </td>
             <td>
@@ -58,7 +58,7 @@
                         pInputText
                         [matAutocomplete]="duaApprovalAuto"
                         (input)="onDuaApprovalChange(duaApprovalInput.value)"
-                        [(ngModel)]="editingDataset.dua_info.approval_type"
+                        [(ngModel)]="editingDataset.dua_approval_type"
                     />
                     <mat-autocomplete #duaApprovalAuto="matAutocomplete">
                         <mat-option *ngFor="let duaApproval of filteredDuaApprovalTypes" [value]="duaApproval">
@@ -69,8 +69,8 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>SCC file name</mat-label>
-                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.scc_info.file_name" />
+                    <mat-label>SCC</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.scc_id" />
                 </mat-form-field>
             </td>
             <td>
@@ -83,7 +83,7 @@
                         pInputText
                         [matAutocomplete]="sccApprovalAuto"
                         (input)="onSccApprovalChange(sccApprovalInput.value)"
-                        [(ngModel)]="editingDataset.scc_info.approval_type"
+                        [(ngModel)]="editingDataset.scc_approval_type"
                     />
                     <mat-autocomplete #sccApprovalAuto="matAutocomplete">
                         <mat-option *ngFor="let sccApproval of filteredSccApprovalTypes" [value]="sccApproval">

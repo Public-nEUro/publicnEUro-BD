@@ -14,9 +14,6 @@ export class InstitutionsComponent implements OnInit {
     countries: Country[] = [];
     filteredCountries: Country[] = [];
 
-    sccAcceptances: Institution.SccAcceptanceEnum[] = ["ACCEPT", "DO_NOT_ACCEPT"];
-    filteredSccAcceptances: Institution.SccAcceptanceEnum[] = [];
-
     institutions: InstitutionWithName[] = [];
     editingInstitution: InstitutionWithName | undefined;
 
@@ -39,7 +36,6 @@ export class InstitutionsComponent implements OnInit {
     edit(institution: InstitutionWithName) {
         this.editingInstitution = institution;
         this.onCountryNameChange("");
-        this.onSccAcceptanceChange("");
     }
 
     onCountryNameChange(name: string) {
@@ -48,17 +44,9 @@ export class InstitutionsComponent implements OnInit {
         );
     }
 
-    onSccAcceptanceChange(name: string) {
-        this.filteredSccAcceptances = this.sccAcceptances.filter(sccAcceptance =>
-            sccAcceptance.toLowerCase().includes(name.toLowerCase())
-        );
-    }
-
     save(institutionWithName: InstitutionWithName) {
         const { country_name, ...institution } = institutionWithName;
         institution.country_id = this.countries.find(c => c.name === country_name)?.id ?? null;
-        if (institution.scc_acceptance !== null && !this.sccAcceptances.includes(institution.scc_acceptance))
-            institution.scc_acceptance = null;
         this.editingInstitution = undefined;
         this.service.apiUpdateInstitutionPost(institution).subscribe(() => {
             this.reload();

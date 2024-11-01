@@ -1,0 +1,48 @@
+from typing import List
+from uuid import uuid4
+from flask_marshmallow import Schema
+from marshmallow import fields
+from .common_schemas import EmptySchema
+from ..datetime import get_now
+from ..database.scc import get_db_sccs, Scc
+from ..database.db_util import add_row
+
+
+class AddSccSchema(Schema):
+    description = fields.String(required=True)
+    file = fields.Raw(required=True)
+
+
+class SccSchema(AddSccSchema):
+    id = fields.UUID(required=True)
+
+
+def add_scc(request: AddSccSchema) -> EmptySchema:
+    scc = Scc()
+    scc.id = uuid4()
+    scc.description = request["description"]
+    scc.file = request["file"]
+    scc.timestamp = get_now()
+    add_row(scc)
+
+
+class GetSccResponseSchema(Schema):
+    sccs = fields.Nested(SccSchema, required=True, many=True)
+
+
+def db_sccs_to_response(sccs: List[Scc]) -> GetSccResponseSchema:
+    return {
+        "sccs": [
+            {
+                "id": scc.id,
+                "description": scc.description,
+                "file": scc.file,
+                "timestamp": scc.timestamp,
+            }
+            for scc in sccs
+        ]
+    }
+
+
+def get_sccs(request: EmptySchema) -> GetSccResponseSchema:
+    return db_sccs_to_response(get_db_sccs())

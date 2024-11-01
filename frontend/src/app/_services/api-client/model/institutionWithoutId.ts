@@ -15,15 +15,5 @@ export interface InstitutionWithoutId {
     contact: string;
     country_id: string | null;
     name: string;
-    scc_acceptance: InstitutionWithoutId.SccAcceptanceEnum | null;
 }
-export namespace InstitutionWithoutId {
-    export type SccAcceptanceEnum = 'ACCEPT' | 'DO_NOT_ACCEPT' | 'null';
-    export const SccAcceptanceEnum = {
-        Accept: 'ACCEPT' as SccAcceptanceEnum,
-        DoNotAccept: 'DO_NOT_ACCEPT' as SccAcceptanceEnum,
-        Null: 'null' as SccAcceptanceEnum
-    };
-}
-
 

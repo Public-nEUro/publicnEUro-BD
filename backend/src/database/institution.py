@@ -1,15 +1,9 @@
 from typing import List, Union
 from uuid import uuid4
-import enum
 from sqlalchemy import Column, String, UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID, ENUM
+from sqlalchemy.dialects.postgresql import UUID
 from . import db
 from .db_util import add_row
-
-
-class Acceptance(enum.Enum):
-    ACCEPT = "ACCEPT"
-    DO_NOT_ACCEPT = "DO_NOT_ACCEPT"
 
 
 class Institution(db.Model):
@@ -19,7 +13,6 @@ class Institution(db.Model):
     name = Column(String, nullable=False)
     contact = Column(String, nullable=False)
     country_id = Column(UUID(as_uuid=True), db.ForeignKey("country.id"), nullable=True)
-    scc_acceptance = Column(ENUM(Acceptance), nullable=True)
 
     __table_args__ = (UniqueConstraint("name", name="institution_unique_name"),)
 
@@ -45,5 +38,4 @@ def create_institution_if_not_exists(name: str) -> None:
     institution.name = name
     institution.contact = ""
     institution.country_id = None
-    institution.scc_acceptance = None
     add_row(institution)

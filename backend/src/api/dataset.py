@@ -13,17 +13,14 @@ from ..get_datasets import get_json_datasets, JsonDataset
 from ..database.db_util import add_row, save_row
 
 
-class Info(Schema):
-    file_name = fields.String(required=True, allow_none=True)
-    approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
-
-
 class DatasetSchema(Schema):
     id = fields.String(required=True)
     name = fields.String(required=True)
     accessibility = fields.Enum(Accessibility, by_value=True, required=True)
-    dua_info = fields.Nested(Info, required=True)
-    scc_info = fields.Nested(Info, required=True)
+    dua_file_name = fields.String(required=True, allow_none=True)
+    dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+    scc_id = fields.UUID(required=True, allow_none=False)
+    scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
 
 
 class GetDatasetsResponseSchema(Schema):
@@ -39,21 +36,17 @@ def merge_dataset_info(
         db_dataset.accessibility = "PRIVATE"
         db_dataset.dua_file_name = "DUA.txt"
         db_dataset.dua_approval_type = "OVERSIGHT"
-        db_dataset.scc_file_name = None
+        db_dataset.scc_id = None
         db_dataset.scc_approval_type = "OVERSIGHT"
         add_row(db_dataset)
 
     return {
         **json_dataset,
         "accessibility": db_dataset.accessibility,
-        "dua_info": {
-            "file_name": db_dataset.dua_file_name,
-            "approval_type": db_dataset.dua_approval_type,
-        },
-        "scc_info": {
-            "file_name": db_dataset.scc_file_name,
-            "approval_type": db_dataset.scc_approval_type,
-        },
+        "dua_file_name": db_dataset.dua_file_name,
+        "dua_approval_type": db_dataset.dua_approval_type,
+        "scc_id": db_dataset.scc_id,
+        "scc_approval_type": db_dataset.scc_approval_type,
     }
 
 
@@ -81,8 +74,8 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
 def update_dataset(request: DatasetSchema) -> EmptySchema:
     dataset = get_db_dataset(request["id"])
     dataset.accessibility = request["accessibility"]
-    dataset.dua_file_name = request["dua_info"]["file_name"]
-    dataset.dua_approval_type = request["dua_info"]["approval_type"]
-    dataset.scc_file_name = request["scc_info"]["file_name"]
-    dataset.scc_approval_type = request["scc_info"]["approval_type"]
+    dataset.dua_file_name = request["dua_file_name"]
+    dataset.dua_approval_type = request["dua_approval_type"]
+    dataset.scc_id = request["scc_id"]
+    dataset.scc_approval_type = request["scc_approval_type"]
     save_row(dataset)

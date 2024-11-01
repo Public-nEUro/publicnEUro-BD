@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Dataset, DefaultService, Info } from "@services/api-client";
+import { Dataset, DefaultService } from "@services/api-client";
 
 @Component({
     selector: "app-datasets",
@@ -12,9 +12,9 @@ export class DatasetsComponent implements OnInit {
     accessibilities: Dataset.AccessibilityEnum[] = ["PRIVATE", "EU", "EU_AND_ADEQUATE", "WORLDWIDE", "PUBLIC"];
     filteredAccessibilities: Dataset.AccessibilityEnum[] = [];
 
-    approvalTypes: Info.ApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
-    filteredDuaApprovalTypes: Info.ApprovalTypeEnum[] = [];
-    filteredSccApprovalTypes: Info.ApprovalTypeEnum[] = [];
+    approvalTypes: Dataset.DuaApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
+    filteredDuaApprovalTypes: Dataset.DuaApprovalTypeEnum[] = [];
+    filteredSccApprovalTypes: Dataset.SccApprovalTypeEnum[] = [];
 
     datasets: Dataset[] = [];
     editingDataset: Dataset | undefined;

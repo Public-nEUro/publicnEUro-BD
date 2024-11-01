@@ -15,7 +15,6 @@ export * from './getUserDatasetRequest';
 export * from './getUserDatasetResponse';
 export * from './getUserInfoFromPasskeyRequest';
 export * from './getUsersResponse';
-export * from './info';
 export * from './institution';
 export * from './institutionWithoutId';
 export * from './loginRequest';
