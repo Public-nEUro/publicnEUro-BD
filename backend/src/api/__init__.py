@@ -13,6 +13,7 @@ from .approve_user import (
 )
 from .country import add_country, get_countries
 from .institution import add_institution, get_institutions, update_institution
+from .scc import add_scc, get_sccs
 from .dataset import get_datasets, update_dataset
 from .user_dataset import get_user_dataset
 from .history import get_history
@@ -109,6 +110,8 @@ def init_endpoints(app):
         update_dataset,
         get_user_dataset,
         get_history,
+        add_scc,
+        get_sccs,
     ]
 
     for func in func_list:

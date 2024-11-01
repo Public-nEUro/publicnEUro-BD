@@ -1,0 +1,28 @@
+<h1>Sccs</h1>
+<p-table [value]="sccs">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Title</th>
+            <th>File name</th>
+            <th>Download</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-scc>
+        <tr>
+            <td>{{ scc.title }}</td>
+            <td>{{ scc.file_name }}</td>
+            <td><p-button (click)="downloadScc(scc.id)">Download</p-button></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<form class="form align-items-center justify-content-center" [formGroup]="addSccForm" (ngSubmit)="addScc()">
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" pInputText formControlName="title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input matInput type="file" pInputText formControlName="file" (change)="onFileSelected($event)" />
+    </mat-form-field>
+    <p-button type="submit" label="Add scc" icon="fal fa-arrow-circle-right"></p-button>
+</form>

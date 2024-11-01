@@ -9,8 +9,9 @@ from ..database.db_util import add_row
 
 
 class AddSccSchema(Schema):
-    description = fields.String(required=True)
-    file = fields.Raw(required=True)
+    title = fields.String(required=True)
+    file_name = fields.String(required=True)
+    file_data = fields.String(required=True)
 
 
 class SccSchema(AddSccSchema):
@@ -20,8 +21,9 @@ class SccSchema(AddSccSchema):
 def add_scc(request: AddSccSchema) -> EmptySchema:
     scc = Scc()
     scc.id = uuid4()
-    scc.description = request["description"]
-    scc.file = request["file"]
+    scc.title = request["title"]
+    scc.file_name = request["file_name"]
+    scc.file_data = request["file_data"]
     scc.timestamp = get_now()
     add_row(scc)
 
@@ -35,8 +37,9 @@ def db_sccs_to_response(sccs: List[Scc]) -> GetSccResponseSchema:
         "sccs": [
             {
                 "id": scc.id,
-                "description": scc.description,
-                "file": scc.file,
+                "title": scc.title,
+                "file_name": scc.file_name,
+                "file_data": scc.file_data,
                 "timestamp": scc.timestamp,
             }
             for scc in sccs

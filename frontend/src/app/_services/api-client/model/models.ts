@@ -1,3 +1,4 @@
+export * from './addScc';
 export * from './approveUserRequest';
 export * from './approveUserWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyRequest';
@@ -11,6 +12,7 @@ export * from './getDatasetsResponse';
 export * from './getHistoryRequest';
 export * from './getHistoryResponse';
 export * from './getInstitutionsResponse';
+export * from './getSccResponse';
 export * from './getUserDatasetRequest';
 export * from './getUserDatasetResponse';
 export * from './getUserInfoFromPasskeyRequest';
@@ -20,4 +22,5 @@ export * from './institutionWithoutId';
 export * from './loginRequest';
 export * from './loginResponse';
 export * from './registerRequest';
+export * from './scc';
 export * from './userInfo';

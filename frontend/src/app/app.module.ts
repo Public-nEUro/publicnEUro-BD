@@ -47,6 +47,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 import { InstitutionsComponent } from "./institutions/institutions.component";
+import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
 
@@ -60,6 +61,7 @@ import { HistoryComponent } from "./history/history.component";
         UsersComponent,
         CountriesComponent,
         InstitutionsComponent,
+        SccsComponent,
         DatasetsComponent,
         HistoryComponent,
         ConfirmationComponent,

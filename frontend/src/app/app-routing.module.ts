@@ -9,6 +9,7 @@ import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { ApprovalComponent } from "./approval/approval.component";
 import { InstitutionsComponent } from "./institutions/institutions.component";
+import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
 
@@ -40,6 +41,10 @@ const routes: Routes = [
     {
         path: "institutions",
         component: InstitutionsComponent
+    },
+    {
+        path: "sccs",
+        component: SccsComponent
     },
     {
         path: "datasets",
