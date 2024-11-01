@@ -51,6 +51,13 @@ export class DatasetsComponent implements OnInit {
         );
     }
 
+    onDuaFileSelected(event: Event) {
+        if (this.editingDataset === undefined) return;
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (file === undefined) return;
+        this.editingDataset.dua_file_name = file.name;
+    }
+
     onDuaApprovalChange(approvalType: string) {
         this.filteredDuaApprovalTypes = this.approvalTypes.filter(a =>
             a.toLowerCase().includes(approvalType.toLowerCase())

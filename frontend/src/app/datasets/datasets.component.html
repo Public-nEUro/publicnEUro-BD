@@ -48,8 +48,7 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>DUA file name</mat-label>
-                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.dua_file_name" />
+                    <input matInput type="file" pInputText (change)="onDuaFileSelected($event)" />
                 </mat-form-field>
             </td>
             <td>
