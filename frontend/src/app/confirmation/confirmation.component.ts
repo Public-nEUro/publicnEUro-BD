@@ -27,7 +27,6 @@ export class ConfirmationComponent implements OnInit {
         if (passkey === null) return;
         this.service.apiConfirmEmailWithPasskeyPost({ passkey }).subscribe(res => {
             this.response = res.message;
-            console.log(this.response);
         });
     }
 }

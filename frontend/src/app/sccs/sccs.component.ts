@@ -56,7 +56,6 @@ export class SccsComponent implements OnInit {
             alert("Please select a file");
             return;
         }
-        console.log(this.file);
         this.service
             .apiAddSccPost({
                 title: this.f["title"].value,
