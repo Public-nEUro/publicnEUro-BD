@@ -24,6 +24,7 @@ class Dataset(db.Model):
     id = Column(String, primary_key=True)
     accessibility = Column(ENUM(Accessibility), nullable=False)
     dua_file_name = Column(String, nullable=True)
+    dua_file_data = Column(String, nullable=True)  # base 64
     dua_approval_type = Column(ENUM(ApprovalType), nullable=False)
     scc_id = Column(UUID(as_uuid=True), nullable=True)
     scc_approval_type = Column(ENUM(ApprovalType), nullable=False)

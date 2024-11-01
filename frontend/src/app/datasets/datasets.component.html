@@ -15,7 +15,13 @@
         <tr *ngIf="editingDataset !== dataset">
             <td>{{ dataset.name }}</td>
             <td>{{ dataset.accessibility }}</td>
-            <td>{{ dataset.dua_file_name }}</td>
+            <td>
+                <p-button
+                    *ngIf="dataset.dua_file_name !== null && dataset.dua_file_data !== null"
+                    (click)="downloadDua(dataset)"
+                    >{{ dataset.dua_file_name }}</p-button
+                >
+            </td>
             <td>{{ dataset.dua_approval_type }}</td>
             <td>
                 <p-button *ngIf="dataset.scc_id !== null" (click)="downloadScc(dataset)">{{

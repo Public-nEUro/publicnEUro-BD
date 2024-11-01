@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { downloadBase64 } from "@helpers/utils/file";
+import { downloadBase64, toBase64 } from "@helpers/utils/file";
 import { Dataset, DefaultService, Scc } from "@services/api-client";
 
 @Component({
@@ -51,11 +51,12 @@ export class DatasetsComponent implements OnInit {
         );
     }
 
-    onDuaFileSelected(event: Event) {
+    async onDuaFileSelected(event: Event) {
         if (this.editingDataset === undefined) return;
         const file = (event.target as HTMLInputElement).files?.[0];
         if (file === undefined) return;
         this.editingDataset.dua_file_name = file.name;
+        this.editingDataset.dua_file_data = await toBase64(file);
     }
 
     onDuaApprovalChange(approvalType: string) {
@@ -87,6 +88,12 @@ export class DatasetsComponent implements OnInit {
         this.service.apiUpdateDatasetPost(dataset).subscribe(() => {
             this.reload();
         });
+    }
+
+    downloadDua(dataset: Dataset) {
+        if (dataset.dua_file_data === null) return;
+        if (dataset.dua_file_name === null) return;
+        downloadBase64(dataset.dua_file_data, dataset.dua_file_name);
     }
 
     downloadScc(dataset: Dataset) {

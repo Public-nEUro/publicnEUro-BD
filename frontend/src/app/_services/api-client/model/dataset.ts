@@ -14,6 +14,7 @@
 export interface Dataset { 
     accessibility: Dataset.AccessibilityEnum;
     dua_approval_type: Dataset.DuaApprovalTypeEnum;
+    dua_file_data: string | null;
     dua_file_name: string | null;
     id: string;
     name: string;

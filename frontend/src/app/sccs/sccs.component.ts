@@ -1,18 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
-import { downloadBase64 } from "@helpers/utils/file";
+import { downloadBase64, toBase64 } from "@helpers/utils/file";
 import { Scc, DefaultService } from "@services/api-client";
-
-const toBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            if (typeof reader.result === "string") resolve(reader.result);
-            else reject();
-        };
-        reader.onerror = reject;
-    });
 
 @Component({
     selector: "app-sccs",
