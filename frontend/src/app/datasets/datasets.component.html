@@ -17,7 +17,7 @@
             <td>{{ dataset.accessibility }}</td>
             <td>{{ dataset.dua_file_name }}</td>
             <td>{{ dataset.dua_approval_type }}</td>
-            <td>{{ dataset.scc_id }}</td>
+            <td>{{ getSccTitle.bind(this)(dataset.scc_id) }}</td>
             <td>{{ dataset.scc_approval_type }}</td>
             <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
         </tr>
@@ -70,7 +70,20 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>SCC</mat-label>
-                    <input matInput type="text" pInputText [(ngModel)]="editingDataset.scc_id" />
+                    <input
+                        #sccInput
+                        matInput
+                        type="text"
+                        pInputText
+                        [matAutocomplete]="sccAuto"
+                        (input)="onSccChange(sccInput.value)"
+                        [(ngModel)]="editingDataset.scc_id"
+                    />
+                    <mat-autocomplete #sccAuto="matAutocomplete" [displayWith]="getSccTitle.bind(this)">
+                        <mat-option *ngFor="let scc of filteredSccs" [value]="scc.id">
+                            {{ scc.title }}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </td>
             <td>

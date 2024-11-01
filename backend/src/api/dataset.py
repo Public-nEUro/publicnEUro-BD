@@ -19,7 +19,7 @@ class DatasetSchema(Schema):
     accessibility = fields.Enum(Accessibility, by_value=True, required=True)
     dua_file_name = fields.String(required=True, allow_none=True)
     dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
-    scc_id = fields.UUID(required=True, allow_none=False)
+    scc_id = fields.UUID(required=True, allow_none=True)
     scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
 
 

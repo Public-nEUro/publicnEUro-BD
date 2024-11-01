@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Dataset, DefaultService } from "@services/api-client";
+import { Dataset, DefaultService, Scc } from "@services/api-client";
 
 @Component({
     selector: "app-datasets",
@@ -14,6 +14,10 @@ export class DatasetsComponent implements OnInit {
 
     approvalTypes: Dataset.DuaApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
     filteredDuaApprovalTypes: Dataset.DuaApprovalTypeEnum[] = [];
+
+    sccs: Scc[] = [];
+    filteredSccs: Scc[] = [];
+
     filteredSccApprovalTypes: Dataset.SccApprovalTypeEnum[] = [];
 
     datasets: Dataset[] = [];
@@ -27,12 +31,16 @@ export class DatasetsComponent implements OnInit {
         this.service.apiGetDatasetsPost({}).subscribe(res => {
             this.datasets = res.datasets;
         });
+        this.service.apiGetSccsPost({}).subscribe(res => {
+            this.sccs = res.sccs;
+        });
     }
 
     edit(dataset: Dataset) {
         this.editingDataset = dataset;
         this.filteredAccessibilities = this.accessibilities;
         this.filteredDuaApprovalTypes = this.approvalTypes;
+        this.filteredSccs = this.sccs;
         this.filteredSccApprovalTypes = this.approvalTypes;
     }
 
@@ -52,6 +60,14 @@ export class DatasetsComponent implements OnInit {
         this.filteredSccApprovalTypes = this.approvalTypes.filter(a =>
             a.toLowerCase().includes(approvalType.toLowerCase())
         );
+    }
+
+    onSccChange(sccTitle: string) {
+        this.filteredSccs = this.sccs.filter(scc => scc.title.toLowerCase().includes(sccTitle.toLowerCase()));
+    }
+
+    getSccTitle(sccId: string) {
+        return this.sccs.find(scc => scc.id === sccId)?.title ?? "";
     }
 
     save(dataset: Dataset) {
