@@ -17,7 +17,11 @@
             <td>{{ dataset.accessibility }}</td>
             <td>{{ dataset.dua_file_name }}</td>
             <td>{{ dataset.dua_approval_type }}</td>
-            <td>{{ getSccTitle.bind(this)(dataset.scc_id) }}</td>
+            <td>
+                <p-button *ngIf="dataset.scc_id !== null" (click)="downloadScc(dataset)">{{
+                    getSccTitle.bind(this)(dataset.scc_id)
+                }}</p-button>
+            </td>
             <td>{{ dataset.scc_approval_type }}</td>
             <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
         </tr>

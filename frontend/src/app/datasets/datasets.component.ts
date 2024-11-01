@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { downloadBase64 } from "@helpers/utils/file";
 import { Dataset, DefaultService, Scc } from "@services/api-client";
 
 @Component({
@@ -66,8 +67,12 @@ export class DatasetsComponent implements OnInit {
         this.filteredSccs = this.sccs.filter(scc => scc.title.toLowerCase().includes(sccTitle.toLowerCase()));
     }
 
+    getScc(sccId: string | null) {
+        return this.sccs.find(scc => scc.id === sccId);
+    }
+
     getSccTitle(sccId: string) {
-        return this.sccs.find(scc => scc.id === sccId)?.title ?? "";
+        return this.getScc(sccId)?.title ?? "";
     }
 
     save(dataset: Dataset) {
@@ -75,5 +80,11 @@ export class DatasetsComponent implements OnInit {
         this.service.apiUpdateDatasetPost(dataset).subscribe(() => {
             this.reload();
         });
+    }
+
+    downloadScc(dataset: Dataset) {
+        const scc = this.getScc(dataset.scc_id);
+        if (scc === undefined) return;
+        downloadBase64(scc.file_data, scc.file_name);
     }
 }

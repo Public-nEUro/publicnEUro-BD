@@ -18,7 +18,7 @@ export interface Dataset {
     id: string;
     name: string;
     scc_approval_type: Dataset.SccApprovalTypeEnum;
-    scc_id: string;
+    scc_id: string | null;
 }
 export namespace Dataset {
     export type AccessibilityEnum = 'PRIVATE' | 'EU' | 'EU_AND_ADEQUATE' | 'WORLDWIDE' | 'PUBLIC';
