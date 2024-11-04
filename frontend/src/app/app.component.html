@@ -2,13 +2,18 @@
     <mat-sidenav mode="side" opened>
         <mat-toolbar>Data Manager</mat-toolbar>
         <mat-nav-list class="list-horizontal">
-            <a mat-list-item href="profile">Profile</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="users">Users</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="countries">Countries</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="institutions">Institutions</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="sccs">Sccs</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="datasets">Datasets</a>
-            <a *ngIf="userInfo?.is_admin" mat-list-item href="history">History</a>
+            <a mat-list-item routerLink="profile">Profile</a>
+            <div mat-list-item>
+                <mat-nav-list class="list-horizontal">
+                    Admin
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="users">Users</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="countries">Countries</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="institutions">Institutions</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="sccs">Sccs</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="datasets">Datasets</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="history">History</a>
+                </mat-nav-list>
+            </div>
         </mat-nav-list>
     </mat-sidenav>
     <div class="main-content">

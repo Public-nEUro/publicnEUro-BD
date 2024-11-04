@@ -11,3 +11,7 @@
 .main-content {
     padding: 20px;
 }
+
+mat-nav-list mat-nav-list {
+    padding-left: 16px;
+}
