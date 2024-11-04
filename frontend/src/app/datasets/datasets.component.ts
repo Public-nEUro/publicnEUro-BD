@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { downloadBase64, toBase64 } from "@helpers/utils/file";
-import { Dataset, DefaultService, Scc } from "@services/api-client";
+import { Dataset, DatasetWithFileData, DefaultService, Scc } from "@services/api-client";
 
 @Component({
     selector: "app-datasets",
@@ -22,7 +22,7 @@ export class DatasetsComponent implements OnInit {
     filteredSccApprovalTypes: Dataset.SccApprovalTypeEnum[] = [];
 
     datasets: Dataset[] = [];
-    editingDataset: Dataset | undefined;
+    editingDataset: DatasetWithFileData | undefined;
 
     ngOnInit(): void {
         this.reload();
@@ -38,7 +38,8 @@ export class DatasetsComponent implements OnInit {
     }
 
     edit(dataset: Dataset) {
-        this.editingDataset = dataset;
+        this.editingDataset = dataset as DatasetWithFileData;
+        this.editingDataset.dua_file_data = null;
         this.filteredAccessibilities = this.accessibilities;
         this.filteredDuaApprovalTypes = this.approvalTypes;
         this.filteredSccs = this.sccs;
@@ -83,7 +84,7 @@ export class DatasetsComponent implements OnInit {
         return this.getScc(sccId)?.title ?? "";
     }
 
-    save(dataset: Dataset) {
+    save(dataset: DatasetWithFileData) {
         this.editingDataset = undefined;
         this.service.apiUpdateDatasetPost(dataset).subscribe(() => {
             this.reload();
@@ -91,9 +92,9 @@ export class DatasetsComponent implements OnInit {
     }
 
     downloadDua(dataset: Dataset) {
-        if (dataset.dua_file_data === null) return;
-        if (dataset.dua_file_name === null) return;
-        downloadBase64(dataset.dua_file_data, dataset.dua_file_name);
+        this.service.apiGetDatasetDuaPost({ id: dataset.id }).subscribe(res => {
+            downloadBase64(res.file_data, res.file_name);
+        });
     }
 
     downloadScc(dataset: Dataset) {

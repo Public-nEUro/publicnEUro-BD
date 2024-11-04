@@ -31,7 +31,9 @@ class Dataset(db.Model):
 
 
 def get_db_datasets() -> List[Dataset]:
-    return db.session.query(Dataset).order_by(Dataset.id.asc())
+    return db.session.query(
+        *[c for c in Dataset.__table__.c if c.name != "dua_file_data"]
+    ).order_by(Dataset.id.asc())
 
 
 def get_db_dataset(id: str) -> Union[Dataset, None]:

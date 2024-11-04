@@ -1,7 +1,7 @@
 from typing import List, Union
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
+from .common_schemas import EmptySchema, IdSchema, FileSchema
 from ..database.dataset import (
     get_db_datasets,
     get_db_dataset,
@@ -18,10 +18,13 @@ class DatasetSchema(Schema):
     name = fields.String(required=True)
     accessibility = fields.Enum(Accessibility, by_value=True, required=True)
     dua_file_name = fields.String(required=True, allow_none=True)
-    dua_file_data = fields.String(required=True, allow_none=True)
     dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
     scc_id = fields.UUID(required=True, allow_none=True)
     scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+
+
+class DatasetWithFileDataSchema(DatasetSchema):
+    dua_file_data = fields.String(required=True, allow_none=True)
 
 
 class GetDatasetsResponseSchema(Schema):
@@ -46,7 +49,6 @@ def merge_dataset_info(
         **json_dataset,
         "accessibility": db_dataset.accessibility,
         "dua_file_name": db_dataset.dua_file_name,
-        "dua_file_data": db_dataset.dua_file_data,
         "dua_approval_type": db_dataset.dua_approval_type,
         "scc_id": db_dataset.scc_id,
         "scc_approval_type": db_dataset.scc_approval_type,
@@ -74,11 +76,20 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     return datasets_to_response(json_datasets, db_datasets)
 
 
-def update_dataset(request: DatasetSchema) -> EmptySchema:
+def get_dataset_dua(request: IdSchema) -> FileSchema:
+    dataset = get_db_dataset(request["id"])
+    return {
+        "file_name": dataset.dua_file_name,
+        "file_data": dataset.dua_file_data,
+    }
+
+
+def update_dataset(request: DatasetWithFileDataSchema) -> EmptySchema:
     dataset = get_db_dataset(request["id"])
     dataset.accessibility = request["accessibility"]
     dataset.dua_file_name = request["dua_file_name"]
-    dataset.dua_file_data = request["dua_file_data"]
+    if request["dua_file_data"] is not None:
+        dataset.dua_file_data = request["dua_file_data"]
     dataset.dua_approval_type = request["dua_approval_type"]
     dataset.scc_id = request["scc_id"]
     dataset.scc_approval_type = request["scc_approval_type"]

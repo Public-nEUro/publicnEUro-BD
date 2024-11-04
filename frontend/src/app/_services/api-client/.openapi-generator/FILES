@@ -15,6 +15,7 @@ model/confirmEmailWithPasskeyResponse.ts
 model/country.ts
 model/countryWithoutId.ts
 model/dataset.ts
+model/datasetWithFileData.ts
 model/event.ts
 model/getCountriesResponse.ts
 model/getDatasetsResponse.ts
@@ -26,10 +27,12 @@ model/getUserDatasetRequest.ts
 model/getUserDatasetResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUsersResponse.ts
+model/id.ts
 model/institution.ts
 model/institutionWithoutId.ts
 model/loginRequest.ts
 model/loginResponse.ts
+model/modelFile.ts
 model/models.ts
 model/registerRequest.ts
 model/scc.ts

@@ -11,16 +11,17 @@
  */
 
 
-export interface Dataset { 
-    accessibility: Dataset.AccessibilityEnum;
-    dua_approval_type: Dataset.DuaApprovalTypeEnum;
+export interface DatasetWithFileData { 
+    accessibility: DatasetWithFileData.AccessibilityEnum;
+    dua_approval_type: DatasetWithFileData.DuaApprovalTypeEnum;
+    dua_file_data: string | null;
     dua_file_name: string | null;
     id: string;
     name: string;
-    scc_approval_type: Dataset.SccApprovalTypeEnum;
+    scc_approval_type: DatasetWithFileData.SccApprovalTypeEnum;
     scc_id: string | null;
 }
-export namespace Dataset {
+export namespace DatasetWithFileData {
     export type AccessibilityEnum = 'PRIVATE' | 'EU' | 'EU_AND_ADEQUATE' | 'WORLDWIDE' | 'PUBLIC';
     export const AccessibilityEnum = {
         Private: 'PRIVATE' as AccessibilityEnum,

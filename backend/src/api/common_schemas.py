@@ -35,3 +35,12 @@ def extract_user_info(user):
         "approved_at": user.approved_at,
         "is_admin": user.is_admin,
     }
+
+
+class IdSchema(Schema):
+    id = fields.String(required=True)
+
+
+class FileSchema(Schema):
+    file_name = fields.String(required=True, allow_none=True)
+    file_data = fields.String(required=True, allow_none=True)
