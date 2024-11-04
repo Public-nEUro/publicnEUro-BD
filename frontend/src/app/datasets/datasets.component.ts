@@ -92,7 +92,7 @@ export class DatasetsComponent implements OnInit {
     }
 
     downloadDua(dataset: Dataset) {
-        this.service.apiGetDatasetDuaPost({ id: dataset.id }).subscribe(res => {
+        this.service.apiGetDatasetPost({ id: dataset.id }).subscribe(res => {
             downloadBase64(res.file_data, res.file_name);
         });
     }
