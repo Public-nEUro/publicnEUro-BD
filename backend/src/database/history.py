@@ -15,7 +15,7 @@ def make_json_friendly(obj):
     if isinstance(obj, datetime):
         return obj.isoformat()
     if isinstance(obj, dict):
-        return {k: make_json_friendly(v) for k, v in obj.items()}
+        return {make_json_friendly(k): make_json_friendly(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [make_json_friendly(v) for v in obj]
     return None
