@@ -76,7 +76,7 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     return datasets_to_response(json_datasets, db_datasets)
 
 
-def get_dataset_dua(request: IdSchema) -> FileSchema:
+def get_dataset(request: IdSchema) -> FileSchema:
     dataset = get_db_dataset(request["id"])
     return {
         "file_name": dataset.dua_file_name,
