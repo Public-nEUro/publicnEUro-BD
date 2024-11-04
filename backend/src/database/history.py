@@ -5,10 +5,19 @@ from . import db
 from ..auth.token import get_auth_user_id
 
 
+MAX_STR_LENGTH = 1024
+
+
 def make_json_friendly(obj):
     if obj is None:
         return None
-    if isinstance(obj, (int, float, str, bool)):
+    if isinstance(obj, str):
+        l = len(obj)
+        excess = l - MAX_STR_LENGTH
+        if excess > 0:
+            return obj[:MAX_STR_LENGTH] + f" ({excess} symbols have been truncated)"
+        return obj
+    if isinstance(obj, (int, float, bool)):
         return obj
     if isinstance(obj, uuid.UUID):
         return str(obj)
@@ -18,7 +27,7 @@ def make_json_friendly(obj):
         return {make_json_friendly(k): make_json_friendly(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [make_json_friendly(v) for v in obj]
-    return None
+    return str(obj)
 
 
 class History(db.Model):
