@@ -6,12 +6,12 @@
             <div mat-list-item>
                 <mat-nav-list class="list-horizontal">
                     Admin
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="users">Users</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="countries">Countries</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="institutions">Institutions</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="sccs">Sccs</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="datasets">Datasets</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="history">History</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/users">Users</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/countries">Countries</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/institutions">Institutions</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/sccs">Sccs</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/datasets">Datasets</a>
+                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/history">History</a>
                 </mat-nav-list>
             </div>
         </mat-nav-list>

@@ -31,27 +31,27 @@ const routes: Routes = [
         component: ProfileComponent
     },
     {
-        path: "users",
+        path: "admin/users",
         component: UsersComponent
     },
     {
-        path: "countries",
+        path: "admin/countries",
         component: CountriesComponent
     },
     {
-        path: "institutions",
+        path: "admin/institutions",
         component: InstitutionsComponent
     },
     {
-        path: "sccs",
+        path: "admin/sccs",
         component: SccsComponent
     },
     {
-        path: "datasets",
+        path: "admin/datasets",
         component: DatasetsComponent
     },
     {
-        path: "history",
+        path: "admin/history",
         component: HistoryComponent
     },
     {
