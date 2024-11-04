@@ -14,7 +14,11 @@
             <td>{{ institution.name }}</td>
             <td>{{ institution.contact }}</td>
             <td>{{ institution.country_name }}</td>
-            <td *ngFor="let scc of sccs">{{ institution.scc_acceptance[scc.id].accepted | boolToCheckmark }}</td>
+            <td *ngFor="let scc of sccs">
+                <i *ngIf="institution.scc_acceptance[scc.id].accepted === true" class="fal fa-check"></i
+                ><i *ngIf="institution.scc_acceptance[scc.id].accepted === false" class="fal fa-times"></i
+                ><i *ngIf="institution.scc_acceptance[scc.id].accepted === null" class="fal fa-question"></i>
+            </td>
             <td><p-button label="Edit" (onClick)="edit(institution)"></p-button></td>
         </tr>
         <tr *ngIf="editingInstitution !== undefined && editingInstitution === institution">

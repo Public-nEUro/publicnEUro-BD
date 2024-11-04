@@ -51,7 +51,6 @@ import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
-import { BoolToCheckmarkPipe } from "@pipes/boolToCheckmark";
 
 @NgModule({
     declarations: [
@@ -70,7 +69,6 @@ import { BoolToCheckmarkPipe } from "@pipes/boolToCheckmark";
         ApprovalComponent,
         StoragePipe,
         DatePipe,
-        BoolToCheckmarkPipe,
         DatetimePipe,
         UserInfoToSortedEntriesPipe
     ],
