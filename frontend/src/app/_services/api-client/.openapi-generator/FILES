@@ -7,7 +7,6 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/addScc.ts
 model/approveUserRequest.ts
 model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts
@@ -35,7 +34,8 @@ model/loginResponse.ts
 model/modelFile.ts
 model/models.ts
 model/registerRequest.ts
-model/scc.ts
+model/sccWithFileData.ts
+model/sccWithId.ts
 model/userInfo.ts
 param.ts
 variables.ts

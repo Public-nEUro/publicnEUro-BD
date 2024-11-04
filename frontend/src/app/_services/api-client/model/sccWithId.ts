@@ -9,10 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SccWithId } from './sccWithId';
 
 
-export interface GetSccResponse { 
-    sccs: Array<SccWithId>;
+export interface SccWithId { 
+    file_name: string;
+    id: string;
+    title: string;
 }
 

@@ -1,4 +1,3 @@
-export * from './addScc';
 export * from './approveUserRequest';
 export * from './approveUserWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyRequest';
@@ -25,5 +24,6 @@ export * from './loginRequest';
 export * from './loginResponse';
 export * from './modelFile';
 export * from './registerRequest';
-export * from './scc';
+export * from './sccWithFileData';
+export * from './sccWithId';
 export * from './userInfo';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
 import { downloadBase64, toBase64 } from "@helpers/utils/file";
-import { Scc, DefaultService } from "@services/api-client";
+import { DefaultService, SccWithId } from "@services/api-client";
 
 @Component({
     selector: "app-sccs",
@@ -17,7 +17,7 @@ export class SccsComponent implements OnInit {
     });
     file?: File;
 
-    sccs: Scc[] = [];
+    sccs: SccWithId[] = [];
 
     ngOnInit(): void {
         this.reload();
@@ -56,7 +56,9 @@ export class SccsComponent implements OnInit {
             });
     }
 
-    downloadScc(scc: Scc) {
-        downloadBase64(scc.file_data, scc.file_name);
+    downloadScc(scc: SccWithId) {
+        this.service.apiGetSccPost({ id: scc.id }).subscribe(res => {
+            downloadBase64(res.file_data, res.file_name);
+        });
     }
 }

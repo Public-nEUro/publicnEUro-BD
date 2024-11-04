@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from sqlalchemy import Column, String, DateTime
 from . import db
 
@@ -14,4 +14,12 @@ class Scc(db.Model):
 
 
 def get_db_sccs() -> List[Scc]:
-    return db.session.query(Scc).all()
+    return (
+        db.session.query(*[c for c in Scc.__table__.c if c.name != "file_data"])
+        .order_by(Scc.file_name.asc())
+        .all()
+    )
+
+
+def get_db_scc(id: str) -> Union[Scc, None]:
+    return db.session.query(Scc).get(id)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { downloadBase64, toBase64 } from "@helpers/utils/file";
-import { Dataset, DatasetWithFileData, DefaultService, Scc } from "@services/api-client";
+import { Dataset, DatasetWithFileData, DefaultService, SccWithId } from "@services/api-client";
 
 @Component({
     selector: "app-datasets",
@@ -16,8 +16,8 @@ export class DatasetsComponent implements OnInit {
     approvalTypes: Dataset.DuaApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
     filteredDuaApprovalTypes: Dataset.DuaApprovalTypeEnum[] = [];
 
-    sccs: Scc[] = [];
-    filteredSccs: Scc[] = [];
+    sccs: SccWithId[] = [];
+    filteredSccs: SccWithId[] = [];
 
     filteredSccApprovalTypes: Dataset.SccApprovalTypeEnum[] = [];
 
@@ -98,8 +98,9 @@ export class DatasetsComponent implements OnInit {
     }
 
     downloadScc(dataset: Dataset) {
-        const scc = this.getScc(dataset.scc_id);
-        if (scc === undefined) return;
-        downloadBase64(scc.file_data, scc.file_name);
+        if (dataset.scc_id === null) return;
+        this.service.apiGetSccPost({ id: dataset.scc_id }).subscribe(res => {
+            downloadBase64(res.file_data, res.file_name);
+        });
     }
 }
