@@ -7,6 +7,7 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/acceptance.ts
 model/approveUserRequest.ts
 model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts
@@ -27,7 +28,7 @@ model/getUserDatasetResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUsersResponse.ts
 model/id.ts
-model/institution.ts
+model/institutionWithAcceptance.ts
 model/institutionWithoutId.ts
 model/loginRequest.ts
 model/loginResponse.ts

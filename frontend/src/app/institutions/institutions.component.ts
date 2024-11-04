@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Institution, DefaultService, Country } from "@services/api-client";
+import { DefaultService, Country, SccWithId, InstitutionWithAcceptance } from "@services/api-client";
 
-type InstitutionWithName = Institution & { country_name: string };
+type InstitutionWithName = InstitutionWithAcceptance & { country_name: string };
 
 @Component({
     selector: "app-institutions",
@@ -17,6 +17,8 @@ export class InstitutionsComponent implements OnInit {
     institutions: InstitutionWithName[] = [];
     editingInstitution: InstitutionWithName | undefined;
 
+    sccs: SccWithId[] = [];
+
     ngOnInit(): void {
         this.service.apiGetCountriesPost({}).subscribe(res => {
             this.countries = res.countries;
@@ -30,6 +32,9 @@ export class InstitutionsComponent implements OnInit {
                 ...i,
                 country_name: this.countries.find(c => c.id === i.country_id)?.name ?? ""
             }));
+        });
+        this.service.apiGetSccsPost({}).subscribe(res => {
+            this.sccs = res.sccs;
         });
     }
 

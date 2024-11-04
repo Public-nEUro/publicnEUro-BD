@@ -45,11 +45,13 @@ import { MatInputModule } from "@angular/material/input";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatSelectModule } from "@angular/material/select";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
+import { BoolToCheckmarkPipe } from "@pipes/boolToCheckmark";
 
 @NgModule({
     declarations: [
@@ -68,6 +70,7 @@ import { HistoryComponent } from "./history/history.component";
         ApprovalComponent,
         StoragePipe,
         DatePipe,
+        BoolToCheckmarkPipe,
         DatetimePipe,
         UserInfoToSortedEntriesPipe
     ],
@@ -101,6 +104,7 @@ import { HistoryComponent } from "./history/history.component";
         MatGridListModule,
         MatCardModule,
         MatAutocompleteModule,
+        MatSelectModule,
         BrowserAnimationsModule
     ],
     providers: [

@@ -8,10 +8,13 @@ class GetInstitutionSccsRequestSchema(Schema):
     institution_id = fields.UUID(required=True)
 
 
-class InstitutionSccSchema(Schema):
+class AcceptanceSchema(Schema):
+    accepted = fields.Boolean(required=True, allow_none=True)
+    timestamp = fields.DateTime(required=True, allow_none=True)
+
+
+class InstitutionSccSchema(AcceptanceSchema):
     scc_id = fields.UUID(required=True)
-    accepted = fields.Boolean(required=True)
-    timestamp = fields.DateTime(required=True)
 
 
 class GetInstitutionSccsResponseSchema(Schema):

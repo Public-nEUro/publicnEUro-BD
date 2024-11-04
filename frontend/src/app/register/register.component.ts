@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
-import { DefaultService, Institution, RegisterRequest } from "@services/api-client";
+import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 import { map, Observable, startWith } from "rxjs";
 
@@ -88,10 +88,10 @@ export class RegisterComponent implements OnInit {
     recaptchaSiteKey: string;
     captchaResponse: string | null = null;
 
-    allInstitutions: Institution[] = [];
+    allInstitutions: InstitutionWithAcceptance[] = [];
     filteredInstitutionNames!: Observable<string[]>;
     institutionName = "";
-    institution: Institution | undefined;
+    institution: InstitutionWithAcceptance | undefined;
 
     constructor(
         private router: Router,

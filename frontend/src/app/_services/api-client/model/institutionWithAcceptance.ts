@@ -9,10 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InstitutionWithAcceptance } from './institutionWithAcceptance';
+import { Acceptance } from './acceptance';
 
 
-export interface GetInstitutionsResponse { 
-    institutions: Array<InstitutionWithAcceptance>;
+export interface InstitutionWithAcceptance { 
+    contact: string;
+    country_id: string | null;
+    has_rejected_all_sccs: boolean;
+    id: string;
+    name: string;
+    scc_acceptance: { [key: string]: Acceptance; };
 }
 

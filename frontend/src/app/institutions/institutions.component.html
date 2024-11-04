@@ -5,7 +5,7 @@
             <th>Name</th>
             <th>Contact</th>
             <th>Country</th>
-            <th>SCC acceptance</th>
+            <th *ngFor="let scc of sccs">Accept SCC: {{ scc.title }}</th>
             <th></th>
         </tr>
     </ng-template>
@@ -14,7 +14,7 @@
             <td>{{ institution.name }}</td>
             <td>{{ institution.contact }}</td>
             <td>{{ institution.country_name }}</td>
-            <td>TODO</td>
+            <td *ngFor="let scc of sccs">{{ institution.scc_acceptance[scc.id].accepted | boolToCheckmark }}</td>
             <td><p-button label="Edit" (onClick)="edit(institution)"></p-button></td>
         </tr>
         <tr *ngIf="editingInstitution !== undefined && editingInstitution === institution">
@@ -49,7 +49,16 @@
                     </mat-autocomplete>
                 </mat-form-field>
             </td>
-            <td>TODO</td>
+            <td *ngFor="let scc of sccs">
+                <mat-form-field appearance="outline">
+                    <mat-label>Accept</mat-label>
+                    <mat-select [(value)]="institution.scc_acceptance[scc.id].accepted">
+                        <mat-option *ngFor="let option of [true, false]" [value]="option">
+                            {{ option ? "yes" : "no" }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
             <td><p-button label="Save" (onClick)="save(institution)"></p-button></td>
         </tr>
     </ng-template>

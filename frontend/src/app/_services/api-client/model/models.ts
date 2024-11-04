@@ -1,3 +1,4 @@
+export * from './acceptance';
 export * from './approveUserRequest';
 export * from './approveUserWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyRequest';
@@ -18,7 +19,7 @@ export * from './getUserDatasetResponse';
 export * from './getUserInfoFromPasskeyRequest';
 export * from './getUsersResponse';
 export * from './id';
-export * from './institution';
+export * from './institutionWithAcceptance';
 export * from './institutionWithoutId';
 export * from './loginRequest';
 export * from './loginResponse';

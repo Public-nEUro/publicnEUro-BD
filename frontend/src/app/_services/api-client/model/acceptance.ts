@@ -9,10 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InstitutionWithAcceptance } from './institutionWithAcceptance';
 
 
-export interface GetInstitutionsResponse { 
-    institutions: Array<InstitutionWithAcceptance>;
+export interface Acceptance { 
+    accepted: boolean | null;
+    timestamp: string | null;
 }
 

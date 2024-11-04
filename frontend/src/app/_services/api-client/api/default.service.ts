@@ -53,7 +53,7 @@ import { GetUsersResponse } from '../model/getUsersResponse';
 // @ts-ignore
 import { Id } from '../model/id';
 // @ts-ignore
-import { Institution } from '../model/institution';
+import { InstitutionWithAcceptance } from '../model/institutionWithAcceptance';
 // @ts-ignore
 import { InstitutionWithoutId } from '../model/institutionWithoutId';
 // @ts-ignore
@@ -1772,14 +1772,14 @@ export class DefaultService {
     }
 
     /**
-     * @param institution 
+     * @param institutionWithAcceptance 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUpdateInstitutionPost(institution?: Institution, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public apiUpdateInstitutionPost(institution?: Institution, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public apiUpdateInstitutionPost(institution?: Institution, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
-    public apiUpdateInstitutionPost(institution?: Institution, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiUpdateInstitutionPost(institutionWithAcceptance?: InstitutionWithAcceptance, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
+    public apiUpdateInstitutionPost(institutionWithAcceptance?: InstitutionWithAcceptance, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public apiUpdateInstitutionPost(institutionWithAcceptance?: InstitutionWithAcceptance, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiUpdateInstitutionPost(institutionWithAcceptance?: InstitutionWithAcceptance, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1832,7 +1832,7 @@ export class DefaultService {
         return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: institution,
+                body: institutionWithAcceptance,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
