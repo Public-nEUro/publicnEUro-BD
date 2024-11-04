@@ -33,7 +33,7 @@ def history_array_to_response(
                 "timestamp": row.timestamp,
                 "user_info": (
                     extract_user_info(user_dict.get(row.user_id))
-                    if row.user_id is not None
+                    if user_dict.get(row.user_id) is not None
                     else None
                 ),
                 "object_id": row.object_id,
