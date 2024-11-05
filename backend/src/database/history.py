@@ -12,8 +12,8 @@ def make_json_friendly(obj):
     if obj is None:
         return None
     if isinstance(obj, str):
-        l = len(obj)
-        excess = l - MAX_STR_LENGTH
+        length = len(obj)
+        excess = length - MAX_STR_LENGTH
         if excess > 0:
             return obj[:MAX_STR_LENGTH] + f" ({excess} symbols have been truncated)"
         return obj
