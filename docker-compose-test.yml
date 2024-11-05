@@ -1,7 +1,7 @@
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx
+    container_name: data_manager_nginx
     ports:
       - "80:80"
     volumes:
@@ -27,6 +27,7 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
   datalad:
+    container_name: data_manager_datalad
     build: datalad
     volumes:
       - ./datalad/docker-mount:/root
