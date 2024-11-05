@@ -3,15 +3,15 @@
         <mat-toolbar>Data Manager</mat-toolbar>
         <mat-nav-list class="list-horizontal">
             <a mat-list-item routerLink="profile">Profile</a>
-            <div mat-list-item>
+            <div mat-list-item *ngIf="userInfo?.is_admin">
                 <mat-nav-list class="list-horizontal">
                     Admin
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/users">Users</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/countries">Countries</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/institutions">Institutions</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/sccs">Sccs</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/datasets">Datasets</a>
-                    <a *ngIf="userInfo?.is_admin" mat-list-item routerLink="admin/history">History</a>
+                    <a mat-list-item routerLink="admin/users">Users</a>
+                    <a mat-list-item routerLink="admin/countries">Countries</a>
+                    <a mat-list-item routerLink="admin/institutions">Institutions</a>
+                    <a mat-list-item routerLink="admin/sccs">Sccs</a>
+                    <a mat-list-item routerLink="admin/datasets">Datasets</a>
+                    <a mat-list-item routerLink="admin/history">History</a>
                 </mat-nav-list>
             </div>
         </mat-nav-list>
