@@ -1,5 +1,5 @@
 from typing import List, Union
-from uuid import uuid4, UUID
+from uuid import UUID
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema
@@ -30,15 +30,6 @@ class InstitutionWithAcceptanceSchema(InstitutionSchema):
     scc_acceptance = fields.Dict(
         fields.UUID, fields.Nested(AcceptanceSchema), required=True
     )
-
-
-def add_institution(request: InstitutionWithoutIdSchema) -> EmptySchema:
-    institution = Institution()
-    institution.id = uuid4()
-    institution.name = request["name"]
-    institution.contact = request["contact"]
-    institution.country_id = request["country_id"]
-    add_row(institution)
 
 
 class GetInstitutionsResponseSchema(Schema):

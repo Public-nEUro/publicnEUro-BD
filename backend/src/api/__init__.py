@@ -1,3 +1,4 @@
+import enum
 from flask import request, current_app
 from .register import register
 from .login import login
@@ -12,11 +13,12 @@ from .approve_user import (
     reject_user_with_passkey,
 )
 from .country import add_country, get_countries
-from .institution import add_institution, get_institutions, update_institution
+from .institution import get_institutions, update_institution
 from .scc import add_scc, get_sccs, get_scc
 from .dataset import get_datasets, get_dataset, update_dataset
 from .user_dataset import get_user_dataset
 from .history import get_history
+from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
 from ..auth.token import get_auth_user_id
 from ..database.api_call import log_api_call
 
@@ -70,7 +72,22 @@ def hide_password(data):
         return data
 
 
-def endpoint(app, function, description="", response_description=""):
+class AuthType(enum.Enum):
+    ADMIN = "ADMIN"
+    USER = "USER"
+    ALL = "ALL"
+
+
+def assert_auth(auth_type: AuthType):
+    if auth_type == AuthType.USER:
+        get_logged_in_user_or_abort()
+    if auth_type == AuthType.ADMIN:
+        get_logged_in_admin_or_abort()
+
+
+def endpoint(
+    app, function, auth_type: AuthType, description="", response_description=""
+):
     @app.post(f"/api/{function.__name__}")
     @docstring(
         description,
@@ -82,6 +99,7 @@ def endpoint(app, function, description="", response_description=""):
     def func():
         input_data = function.__annotations__["request"]().load(request.json)
         log_api_call(get_auth_user_id(), request.url, hide_password(input_data))
+        assert_auth(auth_type)
         response = function(input_data)
         return function.__annotations__["return"]().jsonify(response)
 
@@ -90,31 +108,30 @@ def endpoint(app, function, description="", response_description=""):
 
 def init_endpoints(app):
     func_list = [
-        register,
-        login,
-        get_user_info,
-        get_user_info_from_passkey,
-        get_approved_users,
-        get_non_approved_users,
-        approve_user,
-        reject_user,
-        confirm_email_with_passkey,
-        approve_user_with_passkey,
-        reject_user_with_passkey,
-        add_country,
-        get_countries,
-        add_institution,
-        get_institutions,
-        update_institution,
-        get_datasets,
-        get_dataset,
-        update_dataset,
-        get_user_dataset,
-        get_history,
-        add_scc,
-        get_sccs,
-        get_scc,
+        [register, AuthType.ALL],
+        [login, AuthType.ALL],
+        [get_user_info, AuthType.USER],
+        [get_user_info_from_passkey, AuthType.ALL],
+        [get_approved_users, AuthType.ADMIN],
+        [get_non_approved_users, AuthType.ADMIN],
+        [approve_user, AuthType.ADMIN],
+        [reject_user, AuthType.ADMIN],
+        [confirm_email_with_passkey, AuthType.ALL],
+        [approve_user_with_passkey, AuthType.ALL],
+        [reject_user_with_passkey, AuthType.ALL],
+        [add_country, AuthType.ADMIN],
+        [get_countries, AuthType.ADMIN],
+        [get_institutions, AuthType.ALL],
+        [update_institution, AuthType.ADMIN],
+        [get_datasets, AuthType.ADMIN],
+        [get_dataset, AuthType.ADMIN],
+        [update_dataset, AuthType.ADMIN],
+        [get_user_dataset, AuthType.ADMIN],
+        [get_history, AuthType.ADMIN],
+        [add_scc, AuthType.ADMIN],
+        [get_sccs, AuthType.ADMIN],
+        [get_scc, AuthType.ADMIN],
     ]
 
-    for func in func_list:
-        endpoint(app, func)
+    for func, auth_type in func_list:
+        endpoint(app, func, auth_type)
