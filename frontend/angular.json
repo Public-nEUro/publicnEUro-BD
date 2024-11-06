@@ -33,11 +33,86 @@
                         ]
                     },
                     "configurations": {
-                        "production": {
+                        "default": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "16mb",
+                                    "maximumError": "32mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "32kb",
+                                    "maximumError": "64kb"
+                                }
+                            ],
+                            "fileReplacements": [],
                             "outputHashing": "all"
+                        },
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "16mb",
+                                    "maximumError": "32mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "32kb",
+                                    "maximumError": "64kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "test": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "16mb",
+                                    "maximumError": "32mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "32kb",
+                                    "maximumError": "64kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.test.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "local": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.local.ts"
+                                }
+                            ]
                         }
                     },
-                    "defaultConfiguration": "production"
+                    "defaultConfiguration": "default"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
