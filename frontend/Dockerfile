@@ -15,6 +15,6 @@ RUN npm run build -- --configuration $ENVIRONMENT
 
 FROM nginx:latest
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build app/dist/frontend /usr/share/nginx/html

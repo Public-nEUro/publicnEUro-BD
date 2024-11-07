@@ -3,9 +3,11 @@ services:
     image: nginx:latest
     container_name: data_manager_prod_nginx
     ports:
+      - "80:80"
       - "443:443"
     volumes:
       - ../../nginx/nginx.conf:/etc/nginx/nginx.conf
+      - nginx/tls:/etc/nginx/tls
     depends_on:
       - frontend
       - backend

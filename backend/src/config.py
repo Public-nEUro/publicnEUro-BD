@@ -7,7 +7,7 @@ SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 OPENAPI_SERVER_LIST = [
-    {"url": "http://localhost/", "description": "Local"},
+    {"url": "https://localhost/", "description": "Local"},
 ]
 
 UI_PATH = "/swagger/ui"
