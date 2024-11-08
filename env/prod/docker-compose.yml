@@ -9,6 +9,7 @@ services:
       - ../../nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./tls:/etc/nginx/tls
     depends_on:
+      - smtp_mock
       - frontend
       - backend
       - datalad
@@ -51,6 +52,11 @@ services:
       - '5432:${POSTGRES_PORT}'
     volumes:
       - data_manager_prod_db:/var/lib/postgresql/data
+  smtp_mock:
+    container_name: "data_manager_prod_smtp_mock"
+    image: dockage/mailcatcher
+    command:
+      - --http-path=/email
 volumes:
   data_manager_prod_db:
     driver: local
