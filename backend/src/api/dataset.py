@@ -1,4 +1,5 @@
 from typing import List, Union
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema, IdSchema, FileSchema
@@ -76,8 +77,12 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     return datasets_to_response(json_datasets, db_datasets)
 
 
-def get_dataset(request: IdSchema) -> FileSchema:
+def get_dataset_dua(request: IdSchema) -> FileSchema:
     dataset = get_db_dataset(request["id"])
+
+    if dataset is None:
+        abort(404)
+
     return {
         "file_name": dataset.dua_file_name,
         "file_data": dataset.dua_file_data,

@@ -20,7 +20,6 @@ export * from './getUserInfoFromPasskeyRequest';
 export * from './getUsersResponse';
 export * from './id';
 export * from './institutionWithAcceptance';
-export * from './institutionWithoutId';
 export * from './loginRequest';
 export * from './loginResponse';
 export * from './modelFile';
