@@ -1,5 +1,7 @@
 from flask_marshmallow import Marshmallow, Schema
 from marshmallow import fields
+from ..database.user import User
+from ..database.institution import get_db_institution
 
 
 ma = Marshmallow()
@@ -20,9 +22,12 @@ class UserInfo(Schema):
     created_at = fields.DateTime(required=True)
     approved_at = fields.DateTime(required=True)
     is_admin = fields.Boolean(required=True)
+    institution_id = fields.UUID(required=True)
+    institution_name = fields.String(required=True)
 
 
-def extract_user_info(user):
+def extract_user_info(user: User) -> UserInfo:
+    db_institution = get_db_institution(user.institution_id)
     return {
         "id": user.id,
         "first_name": user.first_name,
@@ -34,6 +39,8 @@ def extract_user_info(user):
         "created_at": user.created_at,
         "approved_at": user.approved_at,
         "is_admin": user.is_admin,
+        "institution_id": db_institution.id,
+        "institution_name": db_institution.name,
     }
 
 

@@ -19,6 +19,8 @@ export interface UserInfo {
     email: string;
     first_name: string;
     id: string;
+    institution_id: string;
+    institution_name: string;
     is_admin: boolean;
     last_name: string;
     storage_protection: string;
