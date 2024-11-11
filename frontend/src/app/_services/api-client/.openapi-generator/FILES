@@ -15,6 +15,7 @@ model/confirmEmailWithPasskeyResponse.ts
 model/country.ts
 model/countryWithoutId.ts
 model/dataset.ts
+model/datasetDetails.ts
 model/datasetWithFileData.ts
 model/event.ts
 model/getCountriesResponse.ts

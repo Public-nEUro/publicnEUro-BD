@@ -15,7 +15,7 @@ from .approve_user import (
 from .country import add_country, get_countries
 from .institution import get_institutions, update_institution
 from .scc import add_scc, get_sccs, get_scc
-from .dataset import get_datasets, get_dataset_dua, update_dataset
+from .dataset import get_datasets, get_dataset, get_dataset_dua, update_dataset
 from .user_dataset import get_user_dataset
 from .history import get_history
 from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
@@ -124,6 +124,7 @@ def init_endpoints(app):
         [get_institutions, AuthType.ALL],
         [update_institution, AuthType.ADMIN],
         [get_datasets, AuthType.ADMIN],
+        [get_dataset, AuthType.ADMIN],
         [get_dataset_dua, AuthType.ADMIN],
         [update_dataset, AuthType.ADMIN],
         [get_user_dataset, AuthType.ADMIN],

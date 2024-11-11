@@ -1,0 +1,15 @@
+<div class="flex-container align-items-center justify-content-center">
+    <h1>Request access to dataset</h1>
+    <div *ngIf="dataset !== undefined">
+        <p-table [value]="dataset | datasetToSortedEntries">
+            <ng-template pTemplate="body" let-dataset>
+                <tr *ngIf="fieldKeyToLabel[dataset.key] !== undefined">
+                    <td>
+                        <b>{{ fieldKeyToLabel[dataset.key] }}</b>
+                    </td>
+                    <td>{{ dataset.value }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

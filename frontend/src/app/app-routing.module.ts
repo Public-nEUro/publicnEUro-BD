@@ -12,6 +12,7 @@ import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
+import { RequestAccessComponent } from "./request-access/request-access.component";
 
 const routes: Routes = [
     {
@@ -61,6 +62,10 @@ const routes: Routes = [
     {
         path: "approval/:approver_passkey",
         component: ApprovalComponent
+    },
+    {
+        path: "request-access/:dataset_id",
+        component: RequestAccessComponent
     }
 ];
 

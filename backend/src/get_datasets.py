@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 import re
 import hashlib
 import requests
@@ -35,3 +35,14 @@ def get_json_datasets() -> List[JsonDataset]:
     json = requests.get(url).json()
     datasets = json["subdatasets"]
     return [convert_dataset(dataset) for dataset in datasets]
+
+
+def get_json_dataset(id: str) -> Union[JsonDataset, None]:
+    return next(
+        (
+            json_dataset
+            for json_dataset in get_json_datasets()
+            if json_dataset["id"] == id
+        ),
+        None,
+    )

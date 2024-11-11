@@ -10,8 +10,9 @@ from ..database.dataset import (
     Accessibility,
     ApprovalType,
 )
-from ..get_datasets import get_json_datasets, JsonDataset
+from ..get_datasets import get_json_datasets, get_json_dataset, JsonDataset
 from ..database.db_util import add_row, save_row
+from ..database.scc import get_db_scc
 
 
 class DatasetSchema(Schema):
@@ -22,6 +23,10 @@ class DatasetSchema(Schema):
     dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
     scc_id = fields.UUID(required=True, allow_none=True)
     scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+
+
+class DatasetDetailsSchema(DatasetSchema):
+    scc_file_name = fields.String(required=True, allow_none=True)
 
 
 class DatasetWithFileDataSchema(DatasetSchema):
@@ -75,6 +80,16 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
     json_datasets = get_json_datasets()
     db_datasets = get_db_datasets()
     return datasets_to_response(json_datasets, db_datasets)
+
+
+def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
+    json_dataset = get_json_dataset(request["id"])
+    db_dataset = get_db_dataset(request["id"])
+    scc = get_db_scc(db_dataset.scc_id)
+    return {
+        **merge_dataset_info(json_dataset, db_dataset),
+        "scc_file_name": scc.file_name if scc is not None else None,
+    }
 
 
 def get_dataset_dua(request: IdSchema) -> FileSchema:
