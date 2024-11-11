@@ -34,6 +34,8 @@ services:
       - APPROVER_EMAIL=${APPROVER_EMAIL}
       - FRONTEND_URL=${FRONTEND_URL}
       - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
+    volumes:
+      - ../../backend:/app
   datalad:
     build:
       context: ../../datalad
