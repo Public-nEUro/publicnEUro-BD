@@ -38,7 +38,7 @@ def extract_user_info(user):
 
 
 class IdSchema(Schema):
-    id = fields.String(required=True)
+    id = fields.UUID(required=True)
 
 
 class FileSchema(Schema):
