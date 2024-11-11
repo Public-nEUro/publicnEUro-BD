@@ -2,17 +2,26 @@
     <h1>Request access to dataset</h1>
     <div *ngIf="dataset !== undefined">
         <p-table [value]="dataset | datasetToSortedEntries">
-            <ng-template pTemplate="body" let-dataset>
+            <ng-template pTemplate="body" let-datasetInfo>
                 <tr>
                     <td>
-                        <b>{{ fieldKeyToLabel[dataset.key] }}</b>
+                        <b>{{ fieldKeyToLabel[datasetInfo.key] }}</b>
                     </td>
-                    <td *ngIf="dataset.key === 'name'">{{ dataset.value }}</td>
-                    <td *ngIf="dataset.key === 'dua_file_name'">
-                        <p-button (click)="downloadDua()">{{ dataset.value }}</p-button>
+                    <td *ngIf="datasetInfo.key === 'name'">{{ datasetInfo.value }}</td>
+                    <td *ngIf="datasetInfo.key === 'dua_file_name'">
+                        <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
                     </td>
-                    <td *ngIf="dataset.key === 'scc_file_name'">
-                        <p-button (click)="downloadScc()">{{ dataset.value }}</p-button>
+                    <td *ngIf="datasetInfo.key === 'scc_file_name'">
+                        <p-button (click)="downloadScc()">{{ datasetInfo.value }}</p-button>
+                        <ng-container *ngIf="dataset.institution_scc_accepted === true"
+                            >Your institution has accepted the SCC</ng-container
+                        >
+                        <ng-container *ngIf="dataset.institution_scc_accepted === false"
+                            >Your institution has rejected the SCC</ng-container
+                        >
+                        <ng-container *ngIf="dataset.institution_scc_accepted === undefined"
+                            >Institution has not yet accepted the SCC</ng-container
+                        >
                     </td>
                 </tr>
             </ng-template>

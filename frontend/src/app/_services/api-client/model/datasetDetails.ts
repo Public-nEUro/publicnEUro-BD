@@ -16,6 +16,7 @@ export interface DatasetDetails {
     dua_approval_type: DatasetDetails.DuaApprovalTypeEnum;
     dua_file_name: string | null;
     id: string;
+    institution_scc_accepted: boolean | null;
     name: string;
     scc_approval_type: DatasetDetails.SccApprovalTypeEnum;
     scc_file_name: string | null;

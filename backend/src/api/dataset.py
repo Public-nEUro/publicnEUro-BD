@@ -3,6 +3,10 @@ from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema, IdSchema, FileSchema
+from ..auth.token import get_auth_user_id
+from ..database.user import get_user
+from ..database.institution import get_db_institution
+from ..database.institution_scc import get_db_institution_sccs
 from ..database.dataset import (
     get_db_datasets,
     get_db_dataset,
@@ -27,6 +31,7 @@ class DatasetSchema(Schema):
 
 class DatasetDetailsSchema(DatasetSchema):
     scc_file_name = fields.String(required=True, allow_none=True)
+    institution_scc_accepted = fields.Boolean(required=True, allow_none=True)
 
 
 class DatasetWithFileDataSchema(DatasetSchema):
@@ -83,12 +88,23 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
 
 
 def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
+    user_id = get_auth_user_id()
+    user = get_user(user_id)
+    institution = get_db_institution(user.institution_id)
+    institution_sccs = get_db_institution_sccs(institution.id)
     json_dataset = get_json_dataset(request["id"])
     db_dataset = get_db_dataset(request["id"])
-    scc = get_db_scc(str(db_dataset.scc_id))
+    scc_id = str(db_dataset.scc_id)
+    institution_scc = next(
+        (scc for scc in institution_sccs if scc.scc_id == scc_id), None
+    )
+    scc = get_db_scc(scc_id)
     return {
         **merge_dataset_info(json_dataset, db_dataset),
         "scc_file_name": scc.file_name if scc is not None else None,
+        "institution_scc_accepted": (
+            institution_scc.accepted if institution_scc is not None else None
+        ),
     }
 
 
