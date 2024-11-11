@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/dataset";
-import { Dataset, DefaultService, UserInfo } from "@services/api-client";
+import { downloadBase64 } from "@helpers/utils/file";
+import { DatasetDetails, DefaultService, UserInfo } from "@services/api-client";
 
 @Component({
     selector: "app-request-access",
@@ -15,7 +16,7 @@ export class RequestAccessComponent implements OnInit {
 
     fieldKeyToLabel = fieldKeyToLabel;
 
-    dataset: Dataset | undefined = undefined;
+    dataset: DatasetDetails | undefined = undefined;
 
     ngOnInit(): void {
         this.refresh();
@@ -36,6 +37,20 @@ export class RequestAccessComponent implements OnInit {
             error: err => {
                 if (err.status === 404) alert("Dataset not found");
             }
+        });
+    }
+
+    downloadDua() {
+        if (this.dataset === undefined) return;
+        this.service.apiGetDatasetDuaPost({ id: this.dataset?.id }).subscribe(res => {
+            downloadBase64(res.file_data, res.file_name);
+        });
+    }
+
+    downloadScc() {
+        if (!this.dataset?.scc_id) return;
+        this.service.apiGetSccPost({ id: this.dataset.scc_id }).subscribe(res => {
+            downloadBase64(res.file_data, res.file_name);
         });
     }
 }
