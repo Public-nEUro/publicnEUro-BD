@@ -40,7 +40,7 @@ export class AuthenticationService {
         });
     }
 
-    login(email: string, password: string) {
+    login(email: string, password: string, redirect: string | null) {
         this.service.apiLoginPost({ email, password }).subscribe(res => {
             if (res.token === undefined) {
                 alert(res.error_message);
@@ -48,7 +48,7 @@ export class AuthenticationService {
             }
             this.setToken(res.token);
             this.refreshUserInfo();
-            this.router.navigate(["/profile"]);
+            window.location.replace(redirect ?? "/profile");
         });
     }
 

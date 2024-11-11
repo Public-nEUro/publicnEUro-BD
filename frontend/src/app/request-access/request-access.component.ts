@@ -35,6 +35,10 @@ export class RequestAccessComponent implements OnInit {
                 console.log(this.dataset);
             },
             error: err => {
+                if (err.status === 401)
+                    this.router.navigate(["/login"], {
+                        queryParams: { redirect: window.location.pathname }
+                    });
                 if (err.status === 404) alert("Dataset not found");
             }
         });

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "@services/authentication.service";
 import { InternalToastService } from "@services/internaltoast.service";
 
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     error = "";
 
     constructor(
+        private route: ActivatedRoute,
         private formBuilder: UntypedFormBuilder,
         private authenticationService: AuthenticationService,
         private ns: InternalToastService
@@ -41,7 +43,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     onSubmit() {
         this.submitted = true;
         if (this.loginForm.invalid) return;
-        this.authenticationService.login(this.f["email"].value, this.f["password"].value);
+        this.authenticationService.login(
+            this.f["email"].value,
+            this.f["password"].value,
+            this.route.snapshot.queryParamMap.get("redirect")
+        );
     }
 
     throwError() {
