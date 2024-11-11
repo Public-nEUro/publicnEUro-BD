@@ -23,6 +23,11 @@ mat-card {
     width: 100%;
 }
 
-mat-form-field {
+.field {
     width: 100%;
+}
+
+.file-input {
+    margin-top: -20px;
+    padding: 16px;
 }
