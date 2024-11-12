@@ -16,7 +16,6 @@ export class RequestAccessComponent implements OnInit {
 
     fieldKeyToLabel = fieldKeyToLabel;
 
-    isLoggedIn: boolean | undefined = undefined;
     dataset: DatasetDetails | undefined = undefined;
 
     ngOnInit(): void {
@@ -41,11 +40,11 @@ export class RequestAccessComponent implements OnInit {
 
     refresh() {
         this.service.apiGetUserInfoPost({}).subscribe({
-            next: () => {
-                this.isLoggedIn = true;
+            next: res => {
+                this.userInfo = res;
             },
             error: err => {
-                if (err.status === 401) this.isLoggedIn = false;
+                if (err.status === 401) this.userInfo = null;
             }
         });
         const datasetId = this.getDatasetId();

@@ -26,11 +26,21 @@
                 </tr>
             </ng-template>
         </p-table>
-        <div *ngIf="dataset.accessibility !== 'PUBLIC' && isLoggedIn === false">
-            <div>not public and not logged in</div>
-            <p-button (click)="gotoLogin()">Login</p-button>
-            <div>Don't have an account yet?</div>
-            <p-button (click)="gotoRegister()">Register</p-button>
+        <div *ngIf="dataset.accessibility !== 'PUBLIC'">
+            <div *ngIf="userInfo === null">
+                <div>not public and not logged in</div>
+                <p-button (click)="gotoLogin()">Login</p-button>
+                <div>Don't have an account yet?</div>
+                <p-button (click)="gotoRegister()">Register</p-button>
+            </div>
+            <div *ngIf="userInfo !== null && userInfo !== undefined">
+                <div *ngIf="userInfo.email_confirmed_at === null">
+                    You need to verify your email. Click the link in the welcome email you received.
+                </div>
+                <div *ngIf="userInfo.email_confirmed_at !== null && userInfo.approved_at === null">
+                    Waiting for approval by admin
+                </div>
+            </div>
         </div>
     </div>
 </div>
