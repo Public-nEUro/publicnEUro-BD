@@ -8,6 +8,7 @@ encoder.ts
 git_push.sh
 index.ts
 model/acceptance.ts
+model/accessInfo.ts
 model/approveUserRequest.ts
 model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts

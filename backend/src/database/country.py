@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 import enum
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import UUID, ENUM
@@ -25,3 +25,7 @@ def get_db_countries() -> List[Country]:
         .order_by(Country.geo_location.asc())
         .order_by(Country.name.asc())
     )
+
+
+def get_db_country(id: str) -> Union[Country, None]:
+    return db.session.query(Country).get(id)

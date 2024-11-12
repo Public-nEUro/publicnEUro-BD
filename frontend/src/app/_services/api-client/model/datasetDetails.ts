@@ -9,9 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { AccessInfo } from './accessInfo';
 
 
 export interface DatasetDetails { 
+    access_info: AccessInfo;
     accessibility: DatasetDetails.AccessibilityEnum;
     dua_approval_type: DatasetDetails.DuaApprovalTypeEnum;
     dua_file_name: string | null;

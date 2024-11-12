@@ -17,6 +17,7 @@ from ..database.dataset import (
 from ..get_datasets import get_json_datasets, get_json_dataset, JsonDataset
 from ..database.db_util import add_row, save_row
 from ..database.scc import get_db_scc
+from ..dataset_access_info import AccessInfo, get_access_info
 
 
 class DatasetSchema(Schema):
@@ -32,6 +33,7 @@ class DatasetSchema(Schema):
 class DatasetDetailsSchema(DatasetSchema):
     scc_file_name = fields.String(required=True, allow_none=True)
     institution_scc_accepted = fields.Boolean(required=True, allow_none=True)
+    access_info = fields.Nested(AccessInfo, required=True)
 
 
 class DatasetWithFileDataSchema(DatasetSchema):
@@ -107,6 +109,7 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
         "institution_scc_accepted": (
             institution_scc.accepted if institution_scc is not None else None
         ),
+        "access_info": get_access_info(request["id"]),
     }
 
 

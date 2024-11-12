@@ -4,7 +4,7 @@
         <p-table [value]="dataset | datasetToSortedEntries">
             <ng-template pTemplate="body" let-datasetInfo>
                 <tr>
-                    <td>
+                    <td *ngIf="datasetInfo.key !== 'scc_file_name' || dataset.access_info.is_scc_relevant">
                         <b>{{ fieldKeyToLabel[datasetInfo.key] }}</b>
                     </td>
                     <td *ngIf="['name', 'accessibility'].includes(datasetInfo.key)">{{ datasetInfo.value }}</td>
@@ -12,7 +12,7 @@
                         <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
                         <p-checkbox label="I accept the DUA" [(ngModel)]="acceptDua" [binary]="true"></p-checkbox>
                     </td>
-                    <td *ngIf="datasetInfo.key === 'scc_file_name'">
+                    <td *ngIf="datasetInfo.key === 'scc_file_name' && dataset.access_info.is_scc_relevant">
                         <p-button (click)="downloadScc()">{{ datasetInfo.value }}</p-button>
                         <ng-container *ngIf="dataset.institution_scc_accepted === true"
                             >Your institution has accepted the SCC</ng-container
@@ -27,25 +27,21 @@
                 </tr>
             </ng-template> </p-table
         ><br />
-        <div *ngIf="dataset.accessibility !== 'PUBLIC'">
-            <div *ngIf="userInfo === null">
-                <div>not public and not logged in</div>
-                <p-button (click)="gotoLogin()">Login</p-button>
-                <div>Don't have an account yet?</div>
-                <p-button (click)="gotoRegister()">Register</p-button>
-            </div>
-            <div *ngIf="userInfo !== null && userInfo !== undefined">
-                <div *ngIf="userInfo.email_confirmed_at === null">
-                    You need to verify your email. Click the link in the welcome email you received.
-                </div>
-                <div *ngIf="userInfo.email_confirmed_at !== null && userInfo.approved_at === null">
-                    Waiting for approval by admin
-                </div>
-            </div>
+        <div *ngIf="dataset.access_info.needs_to_log_in">
+            <div>You need to log in</div>
+            <p-button (click)="gotoLogin()">Login</p-button>
+            <div>Don't have an account yet?</div>
+            <p-button (click)="gotoRegister()">Register</p-button>
         </div>
+        <div *ngIf="dataset.access_info.needs_to_confirm_email">
+            You need to verify your email. Click the link in the welcome email you received.
+        </div>
+        <div *ngIf="dataset.access_info.needs_to_be_approved">Waiting for approval by admin</div>
+        <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
+        <div *ngIf="!dataset.access_info.is_accessible_in_country">This dataset is not available in your country</div>
         <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
         <div>
-            <p-button [disabled]="(dataset.institution_scc_accepted === false || !acceptDua)">Request access</p-button>
+            <p-button [disabled]="dataset.institution_scc_accepted === false || !acceptDua">Request access</p-button>
         </div>
     </div>
 </div>
