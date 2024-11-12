@@ -48,7 +48,7 @@ export class AuthenticationService {
             }
             this.setToken(res.token);
             this.refreshUserInfo();
-            window.location.replace(redirect ?? "/profile");
+            window.location.replace(redirect ?? "/manage/profile");
         });
     }
 
