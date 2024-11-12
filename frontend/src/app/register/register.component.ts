@@ -7,7 +7,7 @@ import {
     ValidationErrors,
     Validators
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
@@ -95,6 +95,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
         private formBuilder: UntypedFormBuilder,
         private service: DefaultService,
         @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string
@@ -142,7 +143,8 @@ export class RegisterComponent implements OnInit {
             captcha_response: this.captchaResponse
         };
         this.service.apiRegisterPost(registerRequest).subscribe(() => {
-            this.router.navigate(["/"]);
+            const redirect = this.route.snapshot.queryParamMap.get("redirect");
+            window.location.replace(redirect ?? "/manage");
         });
     }
 }

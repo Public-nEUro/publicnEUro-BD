@@ -90,8 +90,10 @@ def get_datasets(request: EmptySchema) -> GetDatasetsResponseSchema:
 def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
     user_id = get_auth_user_id()
     user = get_user(user_id)
-    institution = get_db_institution(user.institution_id)
-    institution_sccs = get_db_institution_sccs(institution.id)
+    institution = get_db_institution(user.institution_id) if user is not None else None
+    institution_sccs = (
+        get_db_institution_sccs(institution.id) if institution is not None else []
+    )
     json_dataset = get_json_dataset(request["id"])
     db_dataset = get_db_dataset(request["id"])
     scc_id = str(db_dataset.scc_id)

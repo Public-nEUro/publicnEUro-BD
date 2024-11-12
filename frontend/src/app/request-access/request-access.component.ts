@@ -16,6 +16,7 @@ export class RequestAccessComponent implements OnInit {
 
     fieldKeyToLabel = fieldKeyToLabel;
 
+    isLoggedIn: boolean | undefined = undefined;
     dataset: DatasetDetails | undefined = undefined;
 
     ngOnInit(): void {
@@ -26,7 +27,27 @@ export class RequestAccessComponent implements OnInit {
         return this.route.snapshot.paramMap.get("dataset_id") ?? "";
     }
 
+    gotoLogin() {
+        this.router.navigate(["/login"], {
+            queryParams: { redirect: window.location.pathname }
+        });
+    }
+
+    gotoRegister() {
+        this.router.navigate(["/register"], {
+            queryParams: { redirect: window.location.pathname }
+        });
+    }
+
     refresh() {
+        this.service.apiGetUserInfoPost({}).subscribe({
+            next: () => {
+                this.isLoggedIn = true;
+            },
+            error: err => {
+                if (err.status === 401) this.isLoggedIn = false;
+            }
+        });
         const datasetId = this.getDatasetId();
         if (datasetId === null) return;
         this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
@@ -35,10 +56,6 @@ export class RequestAccessComponent implements OnInit {
                 console.log(this.dataset);
             },
             error: err => {
-                if (err.status === 401)
-                    this.router.navigate(["/login"], {
-                        queryParams: { redirect: window.location.pathname }
-                    });
                 if (err.status === 404) alert("Dataset not found");
             }
         });
