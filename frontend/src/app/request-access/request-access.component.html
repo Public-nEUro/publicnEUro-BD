@@ -7,7 +7,7 @@
                     <td>
                         <b>{{ fieldKeyToLabel[datasetInfo.key] }}</b>
                     </td>
-                    <td *ngIf="datasetInfo.key === 'name'">{{ datasetInfo.value }}</td>
+                    <td *ngIf="['name', 'accessibility'].includes(datasetInfo.key)">{{ datasetInfo.value }}</td>
                     <td *ngIf="datasetInfo.key === 'dua_file_name'">
                         <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
                     </td>
