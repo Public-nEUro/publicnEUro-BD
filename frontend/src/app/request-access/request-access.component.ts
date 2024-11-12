@@ -18,6 +18,8 @@ export class RequestAccessComponent implements OnInit {
 
     dataset: DatasetDetails | undefined = undefined;
 
+    acceptDua = false;
+
     ngOnInit(): void {
         this.refresh();
     }
