@@ -36,6 +36,7 @@ model/loginResponse.ts
 model/modelFile.ts
 model/models.ts
 model/registerRequest.ts
+model/requestAccessRequest.ts
 model/sccWithFileData.ts
 model/sccWithId.ts
 model/userInfo.ts

@@ -41,7 +41,9 @@
         <div *ngIf="!dataset.access_info.is_accessible_in_country">This dataset is not available in your country</div>
         <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
         <div>
-            <p-button [disabled]="dataset.institution_scc_accepted === false || !acceptDua">Request access</p-button>
+            <p-button [disabled]="dataset.institution_scc_accepted === false || !acceptDua" (click)="requestAccess()"
+                >Request access</p-button
+            >
         </div>
     </div>
 </div>

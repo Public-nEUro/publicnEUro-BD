@@ -75,4 +75,12 @@ export class RequestAccessComponent implements OnInit {
             downloadBase64(res.file_data, res.file_name);
         });
     }
+
+    requestAccess() {
+        this.service
+            .apiRequestAccessPost({ dataset_id: this.getDatasetId(), accept_dua: this.acceptDua })
+            .subscribe(() => {
+                alert("Access requested!");
+            });
+    }
 }
