@@ -20,6 +20,7 @@ class UserInfo(Schema):
     storage_protection = fields.String(required=True)
     access_protection = fields.String(required=True)
     created_at = fields.DateTime(required=True)
+    email_confirmed_at = fields.DateTime(required=True, allow_none=True)
     approved_at = fields.DateTime(required=True, allow_none=True)
     is_admin = fields.Boolean(required=True)
     institution_id = fields.UUID(required=True)
@@ -37,6 +38,7 @@ def extract_user_info(user: User) -> UserInfo:
         "storage_protection": user.storage_protection,
         "access_protection": user.access_protection,
         "created_at": user.created_at,
+        "email_confirmed_at": user.email_confirmed_at,
         "approved_at": user.approved_at,
         "is_admin": user.is_admin,
         "institution_id": db_institution.id,

@@ -17,6 +17,7 @@ export interface UserInfo {
     approved_at: string | null;
     created_at: string;
     email: string;
+    email_confirmed_at: string | null;
     first_name: string;
     id: string;
     institution_id: string;
