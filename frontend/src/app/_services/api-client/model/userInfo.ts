@@ -14,7 +14,7 @@
 export interface UserInfo { 
     access_protection: string;
     address: string;
-    approved_at: string;
+    approved_at: string | null;
     created_at: string;
     email: string;
     first_name: string;

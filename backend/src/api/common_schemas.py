@@ -20,7 +20,7 @@ class UserInfo(Schema):
     storage_protection = fields.String(required=True)
     access_protection = fields.String(required=True)
     created_at = fields.DateTime(required=True)
-    approved_at = fields.DateTime(required=True)
+    approved_at = fields.DateTime(required=True, allow_none=True)
     is_admin = fields.Boolean(required=True)
     institution_id = fields.UUID(required=True)
     institution_name = fields.String(required=True)
