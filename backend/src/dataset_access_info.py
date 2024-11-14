@@ -64,7 +64,7 @@ def get_access_info(dataset_id: str) -> AccessInfo:
         and country is not None
         and country.geo_location == GeoLocation.OTHER,
         "has_rejected_scc": institution_scc is not None
-        and institution_scc.accepted == False,
+        and institution_scc.accepted is False,
         "is_accessible_in_country": is_accessible_in_geo_location(
             db_dataset.accessibility,
             country.geo_location if country is not None else None,
