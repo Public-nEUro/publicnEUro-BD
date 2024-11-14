@@ -15,6 +15,7 @@ import { AccessInfo } from './accessInfo';
 export interface DatasetDetails { 
     access_info: AccessInfo;
     accessibility: DatasetDetails.AccessibilityEnum;
+    delphi_share_url: string | null;
     dua_approval_type: DatasetDetails.DuaApprovalTypeEnum;
     dua_file_name: string | null;
     id: string;

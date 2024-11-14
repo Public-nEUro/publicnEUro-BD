@@ -2,3 +2,9 @@
     margin-top: -20px;
     padding: 16px;
 }
+
+td {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -28,6 +28,7 @@ class DatasetSchema(Schema):
     dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
     scc_id = fields.UUID(required=True, allow_none=True)
     scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+    delphi_share_url = fields.String(required=True, allow_none=True)
 
 
 class DatasetDetailsSchema(DatasetSchema):
@@ -56,6 +57,7 @@ def merge_dataset_info(
         db_dataset.dua_approval_type = "OVERSIGHT"
         db_dataset.scc_id = None
         db_dataset.scc_approval_type = "OVERSIGHT"
+        db_dataset.delphi_share_url = None
         add_row(db_dataset)
 
     return {
@@ -65,6 +67,7 @@ def merge_dataset_info(
         "dua_approval_type": db_dataset.dua_approval_type,
         "scc_id": db_dataset.scc_id,
         "scc_approval_type": db_dataset.scc_approval_type,
+        "delphi_share_url": db_dataset.delphi_share_url,
     }
 
 
@@ -134,4 +137,5 @@ def update_dataset(request: DatasetWithFileDataSchema) -> EmptySchema:
     dataset.dua_approval_type = request["dua_approval_type"]
     dataset.scc_id = request["scc_id"]
     dataset.scc_approval_type = request["scc_approval_type"]
+    dataset.delphi_share_url = request["delphi_share_url"]
     save_row(dataset)

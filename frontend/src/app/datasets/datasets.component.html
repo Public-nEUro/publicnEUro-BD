@@ -8,6 +8,7 @@
             <th>DUA approval</th>
             <th>SCC</th>
             <th>SCC approval</th>
+            <th>DELPHI share link</th>
             <th></th>
         </tr>
     </ng-template>
@@ -29,6 +30,9 @@
                 }}</p-button>
             </td>
             <td>{{ dataset.scc_approval_type }}</td>
+            <td>
+                <a href="{{ dataset.delphi_share_url }}" target="_blank">{{ dataset.delphi_share_url }}</a>
+            </td>
             <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
         </tr>
         <tr *ngIf="editingDataset !== undefined && editingDataset === dataset">
@@ -110,6 +114,12 @@
                             {{ sccApproval }}
                         </mat-option>
                     </mat-autocomplete>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>DELPHI share link</mat-label>
+                    <input matInput type="text" pInputText [(ngModel)]="dataset.delphi_share_url" />
                 </mat-form-field>
             </td>
             <td><p-button label="Save" (onClick)="save(dataset)"></p-button></td>

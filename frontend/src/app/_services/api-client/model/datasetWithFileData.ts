@@ -13,6 +13,7 @@
 
 export interface DatasetWithFileData { 
     accessibility: DatasetWithFileData.AccessibilityEnum;
+    delphi_share_url: string | null;
     dua_approval_type: DatasetWithFileData.DuaApprovalTypeEnum;
     dua_file_data: string | null;
     dua_file_name: string | null;
