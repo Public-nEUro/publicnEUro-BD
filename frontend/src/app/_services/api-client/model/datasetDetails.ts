@@ -15,13 +15,12 @@ import { AccessInfo } from './accessInfo';
 export interface DatasetDetails { 
     access_info: AccessInfo;
     accessibility: DatasetDetails.AccessibilityEnum;
+    approval_type: DatasetDetails.ApprovalTypeEnum;
     delphi_share_url: string | null;
-    dua_approval_type: DatasetDetails.DuaApprovalTypeEnum;
     dua_file_name: string | null;
     id: string;
     institution_scc_accepted: boolean | null;
     name: string;
-    scc_approval_type: DatasetDetails.SccApprovalTypeEnum;
     scc_file_name: string | null;
     scc_id: string | null;
 }
@@ -34,15 +33,10 @@ export namespace DatasetDetails {
         Worldwide: 'WORLDWIDE' as AccessibilityEnum,
         Public: 'PUBLIC' as AccessibilityEnum
     };
-    export type DuaApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const DuaApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as DuaApprovalTypeEnum,
-        Automated: 'AUTOMATED' as DuaApprovalTypeEnum
-    };
-    export type SccApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const SccApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as SccApprovalTypeEnum,
-        Automated: 'AUTOMATED' as SccApprovalTypeEnum
+    export type ApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
+    export const ApprovalTypeEnum = {
+        Oversight: 'OVERSIGHT' as ApprovalTypeEnum,
+        Automated: 'AUTOMATED' as ApprovalTypeEnum
     };
 }
 

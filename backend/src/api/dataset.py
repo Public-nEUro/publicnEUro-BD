@@ -25,9 +25,8 @@ class DatasetSchema(Schema):
     name = fields.String(required=True)
     accessibility = fields.Enum(Accessibility, by_value=True, required=True)
     dua_file_name = fields.String(required=True, allow_none=True)
-    dua_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
     scc_id = fields.UUID(required=True, allow_none=True)
-    scc_approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
+    approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
     delphi_share_url = fields.String(required=True, allow_none=True)
 
 
@@ -54,9 +53,8 @@ def merge_dataset_info(
         db_dataset.accessibility = "PRIVATE"
         db_dataset.dua_file_name = None
         db_dataset.dua_file_data = None
-        db_dataset.dua_approval_type = "OVERSIGHT"
         db_dataset.scc_id = None
-        db_dataset.scc_approval_type = "OVERSIGHT"
+        db_dataset.approval_type = "OVERSIGHT"
         db_dataset.delphi_share_url = None
         add_row(db_dataset)
 
@@ -64,9 +62,8 @@ def merge_dataset_info(
         **json_dataset,
         "accessibility": db_dataset.accessibility,
         "dua_file_name": db_dataset.dua_file_name,
-        "dua_approval_type": db_dataset.dua_approval_type,
         "scc_id": db_dataset.scc_id,
-        "scc_approval_type": db_dataset.scc_approval_type,
+        "approval_type": db_dataset.approval_type,
         "delphi_share_url": db_dataset.delphi_share_url,
     }
 
@@ -134,8 +131,7 @@ def update_dataset(request: DatasetWithFileDataSchema) -> EmptySchema:
     dataset.dua_file_name = request["dua_file_name"]
     if request["dua_file_data"] is not None:
         dataset.dua_file_data = request["dua_file_data"]
-    dataset.dua_approval_type = request["dua_approval_type"]
     dataset.scc_id = request["scc_id"]
-    dataset.scc_approval_type = request["scc_approval_type"]
+    dataset.approval_type = request["approval_type"]
     dataset.delphi_share_url = request["delphi_share_url"]
     save_row(dataset)

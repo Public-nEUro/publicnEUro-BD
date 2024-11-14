@@ -13,13 +13,12 @@
 
 export interface DatasetWithFileData { 
     accessibility: DatasetWithFileData.AccessibilityEnum;
+    approval_type: DatasetWithFileData.ApprovalTypeEnum;
     delphi_share_url: string | null;
-    dua_approval_type: DatasetWithFileData.DuaApprovalTypeEnum;
     dua_file_data: string | null;
     dua_file_name: string | null;
     id: string;
     name: string;
-    scc_approval_type: DatasetWithFileData.SccApprovalTypeEnum;
     scc_id: string | null;
 }
 export namespace DatasetWithFileData {
@@ -31,15 +30,10 @@ export namespace DatasetWithFileData {
         Worldwide: 'WORLDWIDE' as AccessibilityEnum,
         Public: 'PUBLIC' as AccessibilityEnum
     };
-    export type DuaApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const DuaApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as DuaApprovalTypeEnum,
-        Automated: 'AUTOMATED' as DuaApprovalTypeEnum
-    };
-    export type SccApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
-    export const SccApprovalTypeEnum = {
-        Oversight: 'OVERSIGHT' as SccApprovalTypeEnum,
-        Automated: 'AUTOMATED' as SccApprovalTypeEnum
+    export type ApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
+    export const ApprovalTypeEnum = {
+        Oversight: 'OVERSIGHT' as ApprovalTypeEnum,
+        Automated: 'AUTOMATED' as ApprovalTypeEnum
     };
 }
 

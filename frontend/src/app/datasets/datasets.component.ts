@@ -13,13 +13,11 @@ export class DatasetsComponent implements OnInit {
     accessibilities: Dataset.AccessibilityEnum[] = ["PRIVATE", "EU", "EU_AND_ADEQUATE", "WORLDWIDE", "PUBLIC"];
     filteredAccessibilities: Dataset.AccessibilityEnum[] = [];
 
-    approvalTypes: Dataset.DuaApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
-    filteredDuaApprovalTypes: Dataset.DuaApprovalTypeEnum[] = [];
-
     sccs: SccWithId[] = [];
     filteredSccs: SccWithId[] = [];
 
-    filteredSccApprovalTypes: Dataset.SccApprovalTypeEnum[] = [];
+    approvalTypes: Dataset.ApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
+    filteredApprovalTypes: Dataset.ApprovalTypeEnum[] = [];
 
     datasets: Dataset[] = [];
     editingDataset: DatasetWithFileData | undefined;
@@ -41,9 +39,8 @@ export class DatasetsComponent implements OnInit {
         this.editingDataset = dataset as DatasetWithFileData;
         this.editingDataset.dua_file_data = null;
         this.filteredAccessibilities = this.accessibilities;
-        this.filteredDuaApprovalTypes = this.approvalTypes;
         this.filteredSccs = this.sccs;
-        this.filteredSccApprovalTypes = this.approvalTypes;
+        this.filteredApprovalTypes = this.approvalTypes;
     }
 
     onAccessibilityChange(accessibility: string) {
@@ -60,14 +57,8 @@ export class DatasetsComponent implements OnInit {
         this.editingDataset.dua_file_data = await toBase64(file);
     }
 
-    onDuaApprovalChange(approvalType: string) {
-        this.filteredDuaApprovalTypes = this.approvalTypes.filter(a =>
-            a.toLowerCase().includes(approvalType.toLowerCase())
-        );
-    }
-
-    onSccApprovalChange(approvalType: string) {
-        this.filteredSccApprovalTypes = this.approvalTypes.filter(a =>
+    onApprovalChange(approvalType: string) {
+        this.filteredApprovalTypes = this.approvalTypes.filter(a =>
             a.toLowerCase().includes(approvalType.toLowerCase())
         );
     }

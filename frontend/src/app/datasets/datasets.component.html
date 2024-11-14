@@ -5,9 +5,8 @@
             <th>Name</th>
             <th>Accessibility</th>
             <th>DUA</th>
-            <th>DUA approval</th>
             <th>SCC</th>
-            <th>SCC approval</th>
+            <th>Approval</th>
             <th>DELPHI share link</th>
             <th></th>
         </tr>
@@ -23,13 +22,12 @@
                     >{{ dataset.dua_file_name }}</p-button
                 >
             </td>
-            <td>{{ dataset.dua_approval_type }}</td>
             <td>
                 <p-button *ngIf="dataset.scc_id !== null" (click)="downloadScc(dataset)">{{
                     getSccTitle.bind(this)(dataset.scc_id)
                 }}</p-button>
             </td>
-            <td>{{ dataset.scc_approval_type }}</td>
+            <td>{{ dataset.approval_type }}</td>
             <td>
                 <a href="{{ dataset.delphi_share_url }}" target="_blank">{{ dataset.delphi_share_url }}</a>
             </td>
@@ -61,25 +59,6 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>DUA approval</mat-label>
-                    <input
-                        #duaApprovalInput
-                        matInput
-                        type="text"
-                        pInputText
-                        [matAutocomplete]="duaApprovalAuto"
-                        (input)="onDuaApprovalChange(duaApprovalInput.value)"
-                        [(ngModel)]="editingDataset.dua_approval_type"
-                    />
-                    <mat-autocomplete #duaApprovalAuto="matAutocomplete">
-                        <mat-option *ngFor="let duaApproval of filteredDuaApprovalTypes" [value]="duaApproval">
-                            {{ duaApproval }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
                     <mat-label>SCC</mat-label>
                     <input
                         #sccInput
@@ -99,19 +78,19 @@
             </td>
             <td>
                 <mat-form-field appearance="outline">
-                    <mat-label>SCC approval</mat-label>
+                    <mat-label>Oversight / automatic</mat-label>
                     <input
-                        #sccApprovalInput
+                        #approvalInput
                         matInput
                         type="text"
                         pInputText
-                        [matAutocomplete]="sccApprovalAuto"
-                        (input)="onSccApprovalChange(sccApprovalInput.value)"
-                        [(ngModel)]="editingDataset.scc_approval_type"
+                        [matAutocomplete]="approvalAuto"
+                        (input)="onApprovalChange(approvalInput.value)"
+                        [(ngModel)]="editingDataset.approval_type"
                     />
-                    <mat-autocomplete #sccApprovalAuto="matAutocomplete">
-                        <mat-option *ngFor="let sccApproval of filteredSccApprovalTypes" [value]="sccApproval">
-                            {{ sccApproval }}
+                    <mat-autocomplete #approvalAuto="matAutocomplete">
+                        <mat-option *ngFor="let approval of filteredApprovalTypes" [value]="approval">
+                            {{ approval }}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
