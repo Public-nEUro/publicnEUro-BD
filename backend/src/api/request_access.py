@@ -18,7 +18,8 @@ class RequestAccessResponseSchema(Schema):
 
 
 def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponseSchema:
-    access_info = get_access_info(request["dataset_id"])
+    user_id = get_auth_user_id()
+    access_info = get_access_info(user_id, request["dataset_id"])
 
     if access_info["needs_to_log_in"]:
         abort(401)
@@ -39,7 +40,7 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
         abort(403)
 
     user_dataset = UserDataset()
-    user_dataset.user_id = get_auth_user_id()
+    user_dataset.user_id = user_id
     user_dataset.dataset_id = request["dataset_id"]
     user_dataset.access_requested_at = get_now()
     user_dataset.user_accepted_dua_at = get_now()

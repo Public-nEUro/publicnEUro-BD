@@ -109,7 +109,7 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
         "institution_scc_accepted": (
             institution_scc.accepted if institution_scc is not None else None
         ),
-        "access_info": get_access_info(request["id"]),
+        "access_info": get_access_info(user_id, request["id"]),
     }
 
 

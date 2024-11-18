@@ -5,7 +5,6 @@ from .database.user import get_user
 from .database.institution import get_db_institution
 from .database.institution_scc import get_db_institution_sccs
 from .database.country import get_db_country, GeoLocation
-from .auth.token import get_auth_user_id
 
 
 class AccessInfo(Schema):
@@ -33,8 +32,7 @@ def is_accessible_in_geo_location(
             return False
 
 
-def get_access_info(dataset_id: str) -> AccessInfo:
-    user_id = get_auth_user_id()
+def get_access_info(user_id: str, dataset_id: str) -> AccessInfo:
     user = get_user(user_id)
     institution = get_db_institution(user.institution_id) if user is not None else None
     country = (
