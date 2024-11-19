@@ -4,9 +4,12 @@ from marshmallow import fields
 from ..auth.token import get_auth_user_id
 from ..datetime import get_now
 from ..database.user_dataset import UserDataset
+from ..database.user import get_user
+from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
 from ..dataset_access_check import is_allowed_to_access_data
+from ..delphi_share import create_delphi_share
 
 
 class RequestAccessRequestSchema(Schema):
@@ -40,6 +43,16 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if not request["accept_dua"]:
         abort(403)
 
+    user = get_user(user_id)
+
+    if user is None:
+        abort(404)
+
+    dataset = get_db_dataset(request["dataset_id"])
+
+    if dataset is None:
+        abort(404)
+
     user_dataset = UserDataset()
     user_dataset.user_id = user_id
     user_dataset.dataset_id = request["dataset_id"]
@@ -51,7 +64,7 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     allowed, reason = is_allowed_to_access_data(user_id, request["dataset_id"])
 
     if allowed:
-        # TODO: create delphi share
+        create_delphi_share(dataset.delphi_share_url, user.email)
         return {"status_message": "You will receive an email with a download link."}
 
     return {
