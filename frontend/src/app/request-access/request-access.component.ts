@@ -79,8 +79,8 @@ export class RequestAccessComponent implements OnInit {
     requestAccess() {
         this.service
             .apiRequestAccessPost({ dataset_id: this.getDatasetId(), accept_dua: this.acceptDua })
-            .subscribe(() => {
-                alert("Access requested!");
+            .subscribe(res => {
+                alert(res.status_message);
             });
     }
 }

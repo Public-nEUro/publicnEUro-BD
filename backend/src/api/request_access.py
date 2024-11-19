@@ -6,6 +6,7 @@ from ..datetime import get_now
 from ..database.user_dataset import UserDataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
+from ..dataset_access_check import is_allowed_to_access_data
 
 
 class RequestAccessRequestSchema(Schema):
@@ -14,7 +15,7 @@ class RequestAccessRequestSchema(Schema):
 
 
 class RequestAccessResponseSchema(Schema):
-    pass
+    status_message = fields.String(required=True)
 
 
 def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponseSchema:
@@ -47,4 +48,12 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     user_dataset.access_granted_by_admin_at = None
     add_row(user_dataset)
 
-    return {}
+    allowed, reason = is_allowed_to_access_data(user_id, request["dataset_id"])
+
+    if allowed:
+        # TODO: create delphi share
+        return {"status_message": "You will receive an email with a download link."}
+
+    return {
+        "status_message": f"Your access request has been received. Further action is needed: {reason}"
+    }

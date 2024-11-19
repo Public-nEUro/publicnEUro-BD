@@ -5,6 +5,7 @@ from .database.user import get_user
 from .database.institution import get_db_institution
 from .database.institution_scc import get_db_institution_sccs
 from .database.country import get_db_country, GeoLocation
+from .geo_location import is_accessible_in_geo_location
 
 
 class AccessInfo(Schema):
@@ -14,22 +15,6 @@ class AccessInfo(Schema):
     is_scc_relevant = fields.Boolean(required=True)
     has_rejected_scc = fields.Boolean(required=True)
     is_accessible_in_country = fields.Boolean(required=True)
-
-
-def is_accessible_in_geo_location(
-    accessibility: Accessibility, geo_location: GeoLocation
-) -> bool:
-    match accessibility:
-        case Accessibility.PUBLIC:
-            return True
-        case Accessibility.WORLDWIDE:
-            return True
-        case Accessibility.EU_AND_ADEQUATE:
-            return geo_location in (GeoLocation.EU, GeoLocation.ADEQUATE)
-        case Accessibility.EU:
-            return geo_location == GeoLocation.EU
-        case Accessibility.PRIVATE:
-            return False
 
 
 def get_access_info(user_id: str, dataset_id: str) -> AccessInfo:

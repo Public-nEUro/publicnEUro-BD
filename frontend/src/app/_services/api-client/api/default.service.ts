@@ -65,6 +65,8 @@ import { RegisterRequest } from '../model/registerRequest';
 // @ts-ignore
 import { RequestAccessRequest } from '../model/requestAccessRequest';
 // @ts-ignore
+import { RequestAccessResponse } from '../model/requestAccessResponse';
+// @ts-ignore
 import { SccWithFileData } from '../model/sccWithFileData';
 // @ts-ignore
 import { UserInfo } from '../model/userInfo';
@@ -1707,9 +1709,9 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<object>;
-    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<object>>;
-    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<RequestAccessResponse>;
+    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<RequestAccessResponse>>;
+    public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<RequestAccessResponse>>;
     public apiRequestAccessPost(requestAccessRequest?: RequestAccessRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -1760,7 +1762,7 @@ export class DefaultService {
         }
 
         let localVarPath = `/api/request_access`;
-        return this.httpClient.request<object>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<RequestAccessResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: requestAccessRequest,

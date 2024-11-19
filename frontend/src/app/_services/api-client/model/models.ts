@@ -27,6 +27,7 @@ export * from './loginResponse';
 export * from './modelFile';
 export * from './registerRequest';
 export * from './requestAccessRequest';
+export * from './requestAccessResponse';
 export * from './sccWithFileData';
 export * from './sccWithId';
 export * from './userInfo';
