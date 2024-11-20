@@ -71,7 +71,7 @@ def is_allowed_to_access_data(
 
 
 def set_delphi_share_created(user_dataset: UserDataset) -> None:
-    user_dataset.delphi_share_created = get_now()
+    user_dataset.delphi_share_created_at = get_now()
     save_row(user_dataset)
 
 
@@ -87,7 +87,7 @@ def perform_access_check(user_id: str, dataset_id: str) -> str:
 
     already_received_message = "You already received an email with a download link."
 
-    if user_dataset.delphi_share_created is not None:
+    if user_dataset.delphi_share_created_at is not None:
         return already_received_message
 
     user = get_user(user_id)
