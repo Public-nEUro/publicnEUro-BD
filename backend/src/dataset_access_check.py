@@ -56,7 +56,12 @@ def is_allowed_to_access_data(
     )
 
     if db_dataset.approval_type == ApprovalType.OVERSIGHT:
-        return False, "Approval type is OVERSIGHT"
+        db_user_dataset = get_db_user_dataset(user_id, dataset_id)
+        if (
+            db_user_dataset is None
+            or db_user_dataset.access_granted_by_admin_at is None
+        ):
+            return False, "Approval type is OVERSIGHT. Admin needs to approve."
 
     if country.geo_location != GeoLocation.OTHER:
         return True, None

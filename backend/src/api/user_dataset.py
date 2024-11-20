@@ -19,6 +19,7 @@ class UserDatasetSchema(Schema):
     dataset_id = fields.String(required=True)
     access_requested_at = fields.DateTime(required=True, allow_none=True)
     user_accepted_dua_at = fields.DateTime(required=True, allow_none=True)
+    email_sent_to_admin_at = fields.DateTime(required=True, allow_none=True)
     access_granted_by_admin_at = fields.DateTime(required=True, allow_none=True)
     delphi_share_created_at = fields.DateTime(required=True, allow_none=True)
 
@@ -34,6 +35,7 @@ def user_dataset_to_response(
         "dataset_id": db_user_dataset.dataset_id,
         "access_requested_at": db_user_dataset.access_requested_at,
         "user_accepted_dua_at": db_user_dataset.user_accepted_dua_at,
+        "email_sent_to_admin_at": db_user_dataset.email_sent_to_admin_at,
         "access_granted_by_admin_at": db_user_dataset.access_granted_by_admin_at,
         "delphi_share_created_at": db_user_dataset.delphi_share_created_at,
     }
@@ -50,6 +52,7 @@ def get_user_dataset(
             "dataset_id": request["dataset_id"],
             "access_requested_at": None,
             "user_accepted_dua_at": None,
+            "email_sent_to_admin_at": None,
             "access_granted_by_admin_at": None,
             "delphi_share_created_at": None,
         }

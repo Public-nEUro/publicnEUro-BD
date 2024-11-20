@@ -12,6 +12,7 @@ class UserDataset(db.Model):
     dataset_id = Column(String, db.ForeignKey("dataset.id"), primary_key=True)
     access_requested_at = Column(DateTime(timezone=True), nullable=False)
     user_accepted_dua_at = Column(DateTime(timezone=True), nullable=True)
+    email_sent_to_admin_at = Column(DateTime(timezone=True), nullable=True)
     access_granted_by_admin_at = Column(DateTime(timezone=True), nullable=True)
     delphi_share_created_at = Column(DateTime(timezone=True), nullable=True)
 

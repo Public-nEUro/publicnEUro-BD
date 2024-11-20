@@ -26,6 +26,7 @@ def add_user_dataset_to_db(user_id: str, dataset_id: str):
     user_dataset.dataset_id = dataset_id
     user_dataset.access_requested_at = get_now()
     user_dataset.user_accepted_dua_at = get_now()
+    user_dataset.email_sent_to_admin_at = None
     user_dataset.access_granted_by_admin_at = None
     user_dataset.delphi_share_created_at = None
     add_row(user_dataset)

@@ -16,6 +16,7 @@ export interface UserDataset {
     access_requested_at: string | null;
     dataset_id: string;
     delphi_share_created_at: string | null;
+    email_sent_to_admin_at: string | null;
     user_accepted_dua_at: string | null;
     user_email: string;
     user_id: string;
