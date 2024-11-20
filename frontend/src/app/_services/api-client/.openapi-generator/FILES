@@ -26,7 +26,8 @@ model/getHistoryResponse.ts
 model/getInstitutionsResponse.ts
 model/getSccResponse.ts
 model/getUserDatasetRequest.ts
-model/getUserDatasetResponse.ts
+model/getUserDatasetsRequest.ts
+model/getUserDatasetsResponse.ts
 model/getUserInfoFromPasskeyRequest.ts
 model/getUsersResponse.ts
 model/id.ts
@@ -40,6 +41,7 @@ model/requestAccessRequest.ts
 model/requestAccessResponse.ts
 model/sccWithFileData.ts
 model/sccWithId.ts
+model/userDataset.ts
 model/userInfo.ts
 param.ts
 variables.ts

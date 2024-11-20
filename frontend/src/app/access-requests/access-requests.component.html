@@ -1,0 +1,21 @@
+<h1>Access Requests</h1>
+<p-table [value]="userDatasets">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>User ID</th>
+            <th>Dataset ID</th>
+            <th>Access requested at</th>
+            <th>User accepted DUA at</th>
+            <th>Access granted by admin at</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userDataset>
+        <tr>
+            <td>{{ userDataset.user_id }}</td>
+            <td>{{ userDataset.dataset_id }}</td>
+            <td>{{ userDataset.access_requested_at }}</td>
+            <td>{{ userDataset.user_accepted_dua_at }}</td>
+            <td>{{ userDataset.access_granted_by_admin_at }}</td>
+        </tr>
+    </ng-template>
+</p-table>

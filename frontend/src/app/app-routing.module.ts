@@ -13,6 +13,7 @@ import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
+import { AccessRequestsComponent } from "./access-requests/access-requests.component";
 
 const routes: Routes = [
     {
@@ -50,6 +51,10 @@ const routes: Routes = [
     {
         path: "admin/datasets",
         component: DatasetsComponent
+    },
+    {
+        path: "admin/access-requests",
+        component: AccessRequestsComponent
     },
     {
         path: "admin/history",

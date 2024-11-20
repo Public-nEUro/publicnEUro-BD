@@ -11,12 +11,8 @@
  */
 
 
-export interface GetUserDatasetResponse { 
-    access_granted_by_admin_at: string | null;
-    access_requested_at: string | null;
-    dataset_id: string;
-    dua_accepted_at: string | null;
-    scc_accepted_at: string | null;
-    user_id: string;
+export interface GetUserDatasetsRequest { 
+    limit: number;
+    offset: number;
 }
 

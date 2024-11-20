@@ -53,6 +53,7 @@ import { DatasetsComponent } from "./datasets/datasets.component";
 import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { DatasetToSortedEntriesPipe } from "@pipes/dataset.pipe";
+import { AccessRequestsComponent } from "./access-requests/access-requests.component";
 
 @NgModule({
     declarations: [
@@ -66,6 +67,7 @@ import { DatasetToSortedEntriesPipe } from "@pipes/dataset.pipe";
         InstitutionsComponent,
         SccsComponent,
         DatasetsComponent,
+        AccessRequestsComponent,
         HistoryComponent,
         ConfirmationComponent,
         ApprovalComponent,

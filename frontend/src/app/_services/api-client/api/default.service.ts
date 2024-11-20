@@ -47,7 +47,9 @@ import { GetSccResponse } from '../model/getSccResponse';
 // @ts-ignore
 import { GetUserDatasetRequest } from '../model/getUserDatasetRequest';
 // @ts-ignore
-import { GetUserDatasetResponse } from '../model/getUserDatasetResponse';
+import { GetUserDatasetsRequest } from '../model/getUserDatasetsRequest';
+// @ts-ignore
+import { GetUserDatasetsResponse } from '../model/getUserDatasetsResponse';
 // @ts-ignore
 import { GetUserInfoFromPasskeyRequest } from '../model/getUserInfoFromPasskeyRequest';
 // @ts-ignore
@@ -68,6 +70,8 @@ import { RequestAccessRequest } from '../model/requestAccessRequest';
 import { RequestAccessResponse } from '../model/requestAccessResponse';
 // @ts-ignore
 import { SccWithFileData } from '../model/sccWithFileData';
+// @ts-ignore
+import { UserDataset } from '../model/userDataset';
 // @ts-ignore
 import { UserInfo } from '../model/userInfo';
 
@@ -1212,9 +1216,9 @@ export class DefaultService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserDatasetResponse>;
-    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserDatasetResponse>>;
-    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserDatasetResponse>>;
+    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<UserDataset>;
+    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<UserDataset>>;
+    public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<UserDataset>>;
     public apiGetUserDatasetPost(getUserDatasetRequest?: GetUserDatasetRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -1265,10 +1269,81 @@ export class DefaultService {
         }
 
         let localVarPath = `/api/get_user_dataset`;
-        return this.httpClient.request<GetUserDatasetResponse>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<UserDataset>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: getUserDatasetRequest,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param getUserDatasetsRequest 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserDatasetsResponse>;
+    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserDatasetsResponse>>;
+    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserDatasetsResponse>>;
+    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (JWTbearer) required
+        localVarCredential = this.configuration.lookupCredential('JWTbearer');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/get_user_datasets`;
+        return this.httpClient.request<GetUserDatasetsResponse>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: getUserDatasetsRequest,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
