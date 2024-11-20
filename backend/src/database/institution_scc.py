@@ -13,7 +13,7 @@ class InstitutionScc(db.Model):
     )
     scc_id = Column(String, db.ForeignKey("scc.id"), primary_key=True)
     accepted = Column(Boolean, nullable=False)
-    timestamp = Column(DateTime, nullable=False)
+    timestamp = Column(DateTime(timezone=True), nullable=False)
 
 
 def get_db_institution_sccs(institution_id: uuid.UUID) -> List[InstitutionScc]:

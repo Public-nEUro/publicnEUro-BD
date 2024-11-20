@@ -10,7 +10,7 @@ class Scc(db.Model):
     title = Column(String, nullable=False)
     file_name = Column(String, nullable=False)
     file_data = Column(String, nullable=False)  # base 64
-    timestamp = Column(DateTime, nullable=False)
+    timestamp = Column(DateTime(timezone=True), nullable=False)
 
 
 def get_db_sccs() -> List[Scc]:
