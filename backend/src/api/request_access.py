@@ -69,9 +69,6 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if existing_user_dataset is None:
         add_user_dataset_to_db(user_id, request["dataset_id"])
 
-    try:
-        perform_access_check(user_id, request["dataset_id"])
-    except Exception as e:
-        return {"status_message": str(e)}
+    status_message = perform_access_check(user_id, request["dataset_id"])
 
-    return {"status_message": "You will receive an email with a download link."}
+    return {"status_message": status_message}

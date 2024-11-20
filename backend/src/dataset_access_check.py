@@ -75,11 +75,11 @@ def set_delphi_share_created(user_dataset: UserDataset) -> None:
     save_row(user_dataset)
 
 
-def perform_access_check(user_id: str, dataset_id: str) -> None:
+def perform_access_check(user_id: str, dataset_id: str) -> str:
     allowed, reason = is_allowed_to_access_data(user_id, dataset_id)
 
     if not allowed:
-        raise Exception(
+        return (
             f"Your access request has been received. Further action is needed: {reason}"
         )
 
@@ -88,7 +88,7 @@ def perform_access_check(user_id: str, dataset_id: str) -> None:
     already_received_message = "You already received an email with a download link."
 
     if user_dataset.delphi_share_created is not None:
-        raise Exception(already_received_message)
+        return already_received_message
 
     user = get_user(user_id)
     dataset = get_db_dataset(dataset_id)
@@ -98,8 +98,10 @@ def perform_access_check(user_id: str, dataset_id: str) -> None:
     except HTTPError as e:
         if e.response.status_code == 409:
             set_delphi_share_created(user_dataset)
-            raise Exception(already_received_message)
+            return already_received_message
         current_app.logger.exception(str(e))
-        raise Exception("An error occurred.")
+        return "An error occurred."
 
     set_delphi_share_created(user_dataset)
+
+    return "You will receive an email with a download link."
