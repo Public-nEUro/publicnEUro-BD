@@ -4,7 +4,7 @@ from marshmallow import fields
 from requests import HTTPError
 from ..auth.token import get_auth_user_id
 from ..datetime import get_now
-from ..database.user_dataset import UserDataset
+from ..database.user_dataset import UserDataset, get_db_user_dataset
 from ..database.user import get_user
 from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
@@ -53,6 +53,10 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
 
     if dataset is None:
         abort(404)
+
+    existing_user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
+    if existing_user_dataset is not None:
+        return {"status_message": "You have already requested access to this dataset."}
 
     user_dataset = UserDataset()
     user_dataset.user_id = user_id
