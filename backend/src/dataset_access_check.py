@@ -1,10 +1,16 @@
 from typing import Tuple, Union
+from flask import current_app
+from requests import HTTPError
+from .database.db_util import save_row
 from .database.dataset import get_db_dataset, Accessibility, ApprovalType
 from .database.user import get_user
+from .database.user_dataset import get_db_user_dataset, UserDataset
 from .database.institution import get_db_institution
 from .database.institution_scc import get_db_institution_sccs
 from .database.country import get_db_country, GeoLocation
 from .geo_location import is_accessible_in_geo_location
+from .delphi_share import create_delphi_share
+from .datetime import get_now
 
 
 def is_allowed_to_access_data(
@@ -62,3 +68,38 @@ def is_allowed_to_access_data(
         return False, "Institution has rejected the SCC"
 
     return True, None
+
+
+def set_delphi_share_created(user_dataset: UserDataset) -> None:
+    user_dataset.delphi_share_created = get_now()
+    save_row(user_dataset)
+
+
+def perform_access_check(user_id: str, dataset_id: str) -> None:
+    allowed, reason = is_allowed_to_access_data(user_id, dataset_id)
+
+    if not allowed:
+        raise Exception(
+            f"Your access request has been received. Further action is needed: {reason}"
+        )
+
+    user_dataset = get_db_user_dataset(user_id, dataset_id)
+
+    already_received_message = "You already received an email with a download link."
+
+    if user_dataset.delphi_share_created is not None:
+        raise Exception(already_received_message)
+
+    user = get_user(user_id)
+    dataset = get_db_dataset(dataset_id)
+
+    try:
+        create_delphi_share(dataset.delphi_share_url, user.email)
+    except HTTPError as e:
+        if e.response.status_code == 409:
+            set_delphi_share_created(user_dataset)
+            raise Exception(already_received_message)
+        current_app.logger.exception(str(e))
+        raise Exception("An error occurred.")
+
+    set_delphi_share_created(user_dataset)

@@ -9,7 +9,7 @@ from ..database.user import get_user
 from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
-from ..dataset_access_check import is_allowed_to_access_data
+from ..dataset_access_check import is_allowed_to_access_data, perform_access_check
 from ..delphi_share import create_delphi_share
 
 
@@ -29,6 +29,7 @@ def add_user_dataset_to_db(user_id: str, dataset_id: str):
     user_dataset.access_requested_at = get_now()
     user_dataset.user_accepted_dua_at = get_now()
     user_dataset.access_granted_by_admin_at = None
+    user_dataset.delphi_share_created = None
     add_row(user_dataset)
 
 
@@ -65,25 +66,12 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
         abort(404)
 
     existing_user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
-    if existing_user_dataset is not None:
-        return {"status_message": "You have already requested access to this dataset."}
+    if existing_user_dataset is None:
+        add_user_dataset_to_db(user_id, request["dataset_id"])
 
-    add_user_dataset_to_db(user_id, request["dataset_id"])
+    try:
+        perform_access_check(user_id, request["dataset_id"])
+    except Exception as e:
+        return {"status_message": str(e)}
 
-    allowed, reason = is_allowed_to_access_data(user_id, request["dataset_id"])
-
-    if allowed:
-        try:
-            create_delphi_share(dataset.delphi_share_url, user.email)
-        except HTTPError as e:
-            if e.response.status_code == 409:
-                return {
-                    "status_message": "You already received an email with a download link."
-                }
-            current_app.logger.exception(e)
-            return {"status_message": "An error occurred."}
-        return {"status_message": "You will receive an email with a download link."}
-
-    return {
-        "status_message": f"Your access request has been received. Further action is needed: {reason}"
-    }
+    return {"status_message": "You will receive an email with a download link."}

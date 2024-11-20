@@ -13,6 +13,7 @@ class UserDataset(db.Model):
     access_requested_at = Column(DateTime(timezone=True), nullable=False)
     user_accepted_dua_at = Column(DateTime(timezone=True), nullable=True)
     access_granted_by_admin_at = Column(DateTime(timezone=True), nullable=True)
+    delphi_share_created = Column(DateTime(timezone=True), nullable=True)
 
 
 def get_db_user_dataset(user_id: uuid.UUID, dataset_id: str) -> UserDataset:

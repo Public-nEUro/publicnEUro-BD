@@ -8,6 +8,7 @@
             <th>Access requested at</th>
             <th>User accepted DUA at</th>
             <th>Access granted by admin at</th>
+            <th>DELPHI share created</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-userDataset>
@@ -18,6 +19,7 @@
             <td>{{ userDataset.access_requested_at | datetime }}</td>
             <td>{{ userDataset.user_accepted_dua_at | datetime }}</td>
             <td>{{ userDataset.access_granted_by_admin_at | datetime }}</td>
+            <td>{{ userDataset.delphi_share_created | datetime }}</td>
         </tr>
     </ng-template>
 </p-table>
