@@ -1,6 +1,7 @@
-from flask import abort
+from flask import abort, current_app
 from flask_marshmallow import Schema
 from marshmallow import fields
+from requests import HTTPError
 from ..auth.token import get_auth_user_id
 from ..datetime import get_now
 from ..database.user_dataset import UserDataset
@@ -64,7 +65,15 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     allowed, reason = is_allowed_to_access_data(user_id, request["dataset_id"])
 
     if allowed:
-        create_delphi_share(dataset.delphi_share_url, user.email)
+        try:
+            create_delphi_share(dataset.delphi_share_url, user.email)
+        except HTTPError as e:
+            if e.response.status_code == 409:
+                return {
+                    "status_message": "You already received an email with a download link."
+                }
+            current_app.logger.exception(e)
+            return {"status_message": "An error occurred."}
         return {"status_message": "You will receive an email with a download link."}
 
     return {
