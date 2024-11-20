@@ -16,6 +16,7 @@ export interface UserDataset {
     access_requested_at: string | null;
     dataset_id: string;
     user_accepted_dua_at: string | null;
+    user_email: string;
     user_id: string;
 }
 

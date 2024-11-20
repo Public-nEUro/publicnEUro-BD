@@ -1,5 +1,6 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
+from ..database.user import get_user
 from ..database.user_dataset import (
     get_db_user_dataset,
     get_db_user_datasets,
@@ -12,8 +13,9 @@ class GetUserDatasetRequestSchema(Schema):
     dataset_id = fields.String(required=True)
 
 
-class UserDataset(Schema):
+class UserDatasetSchema(Schema):
     user_id = fields.UUID(required=True)
+    user_email = fields.String(required=True)
     dataset_id = fields.String(required=True)
     access_requested_at = fields.DateTime(required=True, allow_none=True)
     user_accepted_dua_at = fields.DateTime(required=True, allow_none=True)
@@ -22,9 +24,12 @@ class UserDataset(Schema):
 
 def user_dataset_to_response(
     db_user_dataset: UserDataset,
-) -> UserDataset:
+) -> UserDatasetSchema:
+    user = get_user(db_user_dataset.user_id)
+
     return {
         "user_id": db_user_dataset.user_id,
+        "user_email": user.email,
         "dataset_id": db_user_dataset.dataset_id,
         "access_requested_at": db_user_dataset.access_requested_at,
         "user_accepted_dua_at": db_user_dataset.user_accepted_dua_at,
@@ -34,7 +39,7 @@ def user_dataset_to_response(
 
 def get_user_dataset(
     request: GetUserDatasetRequestSchema,
-) -> UserDataset:
+) -> UserDatasetSchema:
     db_user_dataset = get_db_user_dataset(request["user_id"], request["dataset_id"])
 
     if db_user_dataset is None:
@@ -55,14 +60,13 @@ class GetUserDatasetsRequestSchema(Schema):
 
 
 class GetUserDatasetsResponseSchema(Schema):
-    user_datasets = fields.Nested(UserDataset, many=True, required=True)
+    user_datasets = fields.Nested(UserDatasetSchema, many=True, required=True)
 
 
 def get_user_datasets(
     request: GetUserDatasetsRequestSchema,
 ) -> GetUserDatasetsResponseSchema:
     db_user_datasets = get_db_user_datasets(request["offset"], request["limit"])
-
     return {
         "user_datasets": [
             user_dataset_to_response(db_user_dataset)
