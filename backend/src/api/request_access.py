@@ -22,6 +22,16 @@ class RequestAccessResponseSchema(Schema):
     status_message = fields.String(required=True)
 
 
+def add_user_dataset_to_db(user_id: str, dataset_id: str):
+    user_dataset = UserDataset()
+    user_dataset.user_id = user_id
+    user_dataset.dataset_id = dataset_id
+    user_dataset.access_requested_at = get_now()
+    user_dataset.user_accepted_dua_at = get_now()
+    user_dataset.access_granted_by_admin_at = None
+    add_row(user_dataset)
+
+
 def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponseSchema:
     user_id = get_auth_user_id()
     access_info = get_access_info(user_id, request["dataset_id"])
@@ -58,13 +68,7 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if existing_user_dataset is not None:
         return {"status_message": "You have already requested access to this dataset."}
 
-    user_dataset = UserDataset()
-    user_dataset.user_id = user_id
-    user_dataset.dataset_id = request["dataset_id"]
-    user_dataset.access_requested_at = get_now()
-    user_dataset.user_accepted_dua_at = get_now()
-    user_dataset.access_granted_by_admin_at = None
-    add_row(user_dataset)
+    add_user_dataset_to_db(user_id, request["dataset_id"])
 
     allowed, reason = is_allowed_to_access_data(user_id, request["dataset_id"])
 
