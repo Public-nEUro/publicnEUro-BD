@@ -27,7 +27,7 @@ class DatasetSchema(Schema):
     dua_file_name = fields.String(required=True, allow_none=True)
     scc_id = fields.UUID(required=True, allow_none=True)
     approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
-    delphi_share_url = fields.String(required=True, allow_none=True)
+    delphi_share_url = fields.String(required=True)
 
 
 class DatasetDetailsSchema(DatasetSchema):
@@ -55,7 +55,7 @@ def merge_dataset_info(
         db_dataset.dua_file_data = None
         db_dataset.scc_id = None
         db_dataset.approval_type = "OVERSIGHT"
-        db_dataset.delphi_share_url = None
+        db_dataset.delphi_share_url = ""
         add_row(db_dataset)
 
     return {

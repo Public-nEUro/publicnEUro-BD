@@ -27,7 +27,7 @@ class Dataset(db.Model):
     dua_file_data = Column(String, nullable=True)  # base 64
     scc_id = Column(UUID(as_uuid=True), nullable=True)
     approval_type = Column(ENUM(ApprovalType), nullable=False)
-    delphi_share_url = Column(String, nullable=True)
+    delphi_share_url = Column(String, nullable=False)
 
 
 def get_db_datasets() -> List[Dataset]:

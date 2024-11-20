@@ -16,7 +16,7 @@ export interface DatasetDetails {
     access_info: AccessInfo;
     accessibility: DatasetDetails.AccessibilityEnum;
     approval_type: DatasetDetails.ApprovalTypeEnum;
-    delphi_share_url: string | null;
+    delphi_share_url: string;
     dua_file_name: string | null;
     id: string;
     institution_scc_accepted: boolean | null;
