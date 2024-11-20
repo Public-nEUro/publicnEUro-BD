@@ -1,7 +1,6 @@
-from flask import abort, current_app
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from requests import HTTPError
 from ..auth.token import get_auth_user_id
 from ..datetime import get_now
 from ..database.user_dataset import UserDataset, get_db_user_dataset
@@ -9,8 +8,7 @@ from ..database.user import get_user
 from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
-from ..dataset_access_check import is_allowed_to_access_data, perform_access_check
-from ..delphi_share import create_delphi_share
+from ..dataset_access_check import perform_access_check
 
 
 class RequestAccessRequestSchema(Schema):
