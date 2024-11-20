@@ -15,9 +15,9 @@
             <td>{{ userDataset.user_id }}</td>
             <td>{{ userDataset.user_email }}</td>
             <td>{{ userDataset.dataset_id }}</td>
-            <td>{{ userDataset.access_requested_at }}</td>
-            <td>{{ userDataset.user_accepted_dua_at }}</td>
-            <td>{{ userDataset.access_granted_by_admin_at }}</td>
+            <td>{{ userDataset.access_requested_at | datetime }}</td>
+            <td>{{ userDataset.user_accepted_dua_at | datetime }}</td>
+            <td>{{ userDataset.access_granted_by_admin_at | datetime }}</td>
         </tr>
     </ng-template>
 </p-table>

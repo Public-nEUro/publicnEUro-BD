@@ -5,8 +5,8 @@ import * as moment from "moment";
     name: "date"
 })
 export class DatePipe implements PipeTransform {
-    transform(date: Date | undefined): string {
-        if (date === undefined) return "";
+    transform(date: Date | null | undefined): string {
+        if (date === undefined || date === null) return "";
         return moment(date).format("YYYY-MM-DD");
     }
 }
