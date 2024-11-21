@@ -49,6 +49,10 @@ def send_approval_email(user_id):
     )
 
 
+def send_approved_email(user_email):
+    send_email("approved", {}, user_email)
+
+
 def send_access_request_email(status: str):
     send_email(
         "access_request",
