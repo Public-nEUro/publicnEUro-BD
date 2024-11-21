@@ -1,7 +1,6 @@
 export * from './acceptance';
 export * from './accessInfo';
 export * from './approveUserRequest';
-export * from './approveUserWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyResponse';
 export * from './country';

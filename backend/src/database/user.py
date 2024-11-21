@@ -22,7 +22,6 @@ class User(db.Model):
     updated_at = Column(DateTime(timezone=True), nullable=False)
     email_confirmation_passkey_hash = Column(String(64), nullable=False)
     email_confirmed_at = Column(DateTime(timezone=True), nullable=True)
-    approver_passkey_hash = Column(String(64), nullable=True)
     approved_at = Column(DateTime(timezone=True), nullable=True)
     password_hash = Column(String(64), nullable=False)
     password_salt = Column(String(32), nullable=False)
@@ -35,23 +34,9 @@ def get_user(id: str) -> User:
     return db.session.query(User).get(id)
 
 
-def get_user_from_approver_passkey_hash(passkey_hash: str) -> User:
-    return (
-        db.session.query(User)
-        .filter(User.approver_passkey_hash == passkey_hash)
-        .first()
-    )
-
-
 def confirm_email(id: str) -> User:
     user = db.session.query(User).get(id)
     user.email_confirmed_at = get_now()
-    save_row(user)
-
-
-def set_user_approver_passkey_hash(id: str, passkey_hash: str) -> User:
-    user = db.session.query(User).get(id)
-    user.approver_passkey_hash = passkey_hash
     save_row(user)
 
 

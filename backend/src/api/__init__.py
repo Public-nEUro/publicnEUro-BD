@@ -6,12 +6,7 @@ from .get_user_info import get_user_info
 from .get_user_info_by_id import get_user_info_by_id
 from .get_users import get_approved_users, get_non_approved_users
 from .confirm_email import confirm_email_with_passkey
-from .approve_user import (
-    approve_user,
-    reject_user,
-    approve_user_with_passkey,
-    reject_user_with_passkey,
-)
+from .approve_user import approve_user, reject_user
 from .country import add_country, get_countries
 from .institution import get_institutions, update_institution
 from .scc import add_scc, get_sccs, get_scc
@@ -119,8 +114,6 @@ def init_endpoints(app):
         [approve_user, AuthType.ADMIN],
         [reject_user, AuthType.ADMIN],
         [confirm_email_with_passkey, AuthType.ALL],
-        [approve_user_with_passkey, AuthType.ALL],
-        [reject_user_with_passkey, AuthType.ALL],
         [add_country, AuthType.ADMIN],
         [get_countries, AuthType.ADMIN],
         [get_institutions, AuthType.ALL],

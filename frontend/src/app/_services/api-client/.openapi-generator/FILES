@@ -10,7 +10,6 @@ index.ts
 model/acceptance.ts
 model/accessInfo.ts
 model/approveUserRequest.ts
-model/approveUserWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyResponse.ts
 model/country.ts

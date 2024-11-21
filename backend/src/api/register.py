@@ -50,7 +50,6 @@ def register(request: RegisterRequestSchema) -> EmptySchema:
     user.updated_at = get_now()
     user.email_confirmation_passkey_hash = confirmation_hash
     user.email_confirmed_at = None
-    user.approver_passkey_hash = None
     user.approved_at = None
     user.password_hash = hash
     user.password_salt = salt
