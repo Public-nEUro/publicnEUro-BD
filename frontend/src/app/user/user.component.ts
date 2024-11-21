@@ -44,8 +44,8 @@ export class UserComponent implements OnInit {
 
     approve() {
         if (!this.userInfo) return;
-        const passkey = this.getUserId();
-        if (passkey === null) return;
+        const userId = this.getUserId();
+        if (userId === null) return;
         this.service.apiApproveUserPost({ user_id: this.userInfo.id }).subscribe(() => {
             this.refresh();
         });
@@ -53,8 +53,8 @@ export class UserComponent implements OnInit {
 
     reject() {
         if (!this.userInfo) return;
-        const passkey = this.getUserId();
-        if (passkey === null) return;
+        const userId = this.getUserId();
+        if (userId === null) return;
         this.service.apiRejectUserPost({ user_id: this.userInfo.id }).subscribe(() => {
             this.refresh();
         });
