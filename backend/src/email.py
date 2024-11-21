@@ -47,3 +47,11 @@ def send_approval_email(approver_passkey):
         {"link": create_frontend_url(f"approval/{approver_passkey}")},
         os.environ["APPROVER_EMAIL"],
     )
+
+
+def send_access_request_email():
+    send_email(
+        "access_request",
+        {},
+        os.environ["APPROVER_EMAIL"],
+    )

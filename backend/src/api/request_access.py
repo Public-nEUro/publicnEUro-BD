@@ -9,6 +9,7 @@ from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
 from ..dataset_access_check import perform_access_check
+from ..email import send_access_request_email
 
 
 class RequestAccessRequestSchema(Schema):
@@ -67,6 +68,7 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     existing_user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
     if existing_user_dataset is None:
         add_user_dataset_to_db(user_id, request["dataset_id"])
+        send_access_request_email()
 
     status_message = perform_access_check(user_id, request["dataset_id"])
 
