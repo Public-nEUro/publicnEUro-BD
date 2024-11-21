@@ -49,9 +49,9 @@ def send_approval_email(approver_passkey):
     )
 
 
-def send_access_request_email():
+def send_access_request_email(status: str):
     send_email(
         "access_request",
-        {},
+        {"status": status},
         os.environ["APPROVER_EMAIL"],
     )

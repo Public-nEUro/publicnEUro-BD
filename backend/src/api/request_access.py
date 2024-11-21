@@ -8,7 +8,7 @@ from ..database.user import get_user
 from ..database.dataset import get_db_dataset
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row
-from ..dataset_access_check import perform_access_check
+from ..dataset_access_check import is_allowed_to_access_data, perform_access_check
 from ..email import send_access_request_email
 
 
@@ -65,11 +65,17 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if dataset is None:
         abort(404)
 
+    is_allowed_access, reason = is_allowed_to_access_data(
+        user_id, request["dataset_id"]
+    )
+
     existing_user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
     if existing_user_dataset is None:
         add_user_dataset_to_db(user_id, request["dataset_id"])
-        send_access_request_email()
+        send_access_request_email(reason)
 
-    status_message = perform_access_check(user_id, request["dataset_id"])
+    status_message = perform_access_check(
+        user_id, request["dataset_id"], is_allowed_access, reason
+    )
 
     return {"status_message": status_message}

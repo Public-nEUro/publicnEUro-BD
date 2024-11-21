@@ -121,10 +121,8 @@ def set_delphi_share_created(user_dataset: UserDataset) -> None:
     save_row(user_dataset)
 
 
-def perform_access_check(user_id: str, dataset_id: str) -> str:
-    allowed, reason = is_allowed_to_access_data(user_id, dataset_id)
-
-    if not allowed:
+def perform_access_check(user_id: str, dataset_id: str,is_allowed_access:bool, reason:str) -> str:
+    if not is_allowed_access:
         return (
             f"Your access request has been received. Further action is needed: {reason}"
         )
