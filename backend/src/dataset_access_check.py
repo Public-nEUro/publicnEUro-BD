@@ -1,4 +1,5 @@
-from typing import Tuple, Union
+import enum
+from typing import Tuple, Union, Dict
 from flask import current_app
 from requests import HTTPError
 from .database.db_util import save_row
@@ -13,41 +14,70 @@ from .delphi_share import create_delphi_share
 from .datetime import get_now
 
 
-def is_allowed_to_access_data(
-    user_id: str, dataset_id: str
-) -> Tuple[bool, Union[str, None]]:
+class AccessRequestStatus(enum.Enum):
+    USER_NOT_FOUND = "USER_NOT_FOUND"
+    EMAIL_NOT_CONFIRMED = "EMAIL_NOT_CONFIRMED"
+    USER_NOT_APPROVED = "USER_NOT_APPROVED"
+    INSTITUTION_NOT_FOUND = "INSTITUTION_NOT_FOUND"
+    INSTITUTION_HAS_NO_COUNTRY = "INSTITUTION_HAS_NO_COUNTRY"
+    COUNTRY_NOT_FOUND = "COUNTRY_NOT_FOUND"
+    COUNTRY_HAS_NO_GEOLOCATION = "COUNTRY_HAS_NO_GEOLOCATION"
+    NOT_ACCESSIBLE_IN_GEOLOCATION = "NOT_ACCESSIBLE_IN_GEOLOCATION"
+    NEEDS_ADMIN_APPROVAL = "NEEDS_ADMIN_APPROVAL"
+    INSTITUTION_HAS_NOT_ACCEPTED_SCC = "INSTITUTION_HAS_NOT_ACCEPTED_SCC"
+    INSTITUTION_HAS_REJECTED_SCC = "INSTITUTION_HAS_REJECTED_SCC"
+    ACCESSIBLE = "ACCESSIBLE"
+
+
+access_request_status_to_message: Dict[AccessRequestStatus, str] = {
+    AccessRequestStatus.USER_NOT_FOUND: "User not found",
+    AccessRequestStatus.EMAIL_NOT_CONFIRMED: "Email is not confirmed",
+    AccessRequestStatus.USER_NOT_APPROVED: "User has not been approved",
+    AccessRequestStatus.INSTITUTION_NOT_FOUND: "Institution not found",
+    AccessRequestStatus.INSTITUTION_HAS_NO_COUNTRY: "Institution does not have a country",
+    AccessRequestStatus.COUNTRY_NOT_FOUND: "Country not found",
+    AccessRequestStatus.COUNTRY_HAS_NO_GEOLOCATION: "Country has no geolocation",
+    AccessRequestStatus.NOT_ACCESSIBLE_IN_GEOLOCATION: "Dataset is not accessible in geolocation",
+    AccessRequestStatus.NEEDS_ADMIN_APPROVAL: "Approval type is OVERSIGHT. Admin needs to approve.",
+    AccessRequestStatus.INSTITUTION_HAS_NOT_ACCEPTED_SCC: "Institution has not accepted the SCC",
+    AccessRequestStatus.INSTITUTION_HAS_REJECTED_SCC: "Institution has rejected the SCC",
+    AccessRequestStatus.ACCESSIBLE: "You will receive an email with a download link.",
+}
+
+
+def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
     db_dataset = get_db_dataset(dataset_id)
     if db_dataset.accessibility == Accessibility.PUBLIC:
-        return True, None
+        return AccessRequestStatus.ACCESSIBLE
 
     user = get_user(user_id)
     if user is None:
-        return False, "User not found"
+        return AccessRequestStatus.USER_NOT_FOUND
 
     if user.email_confirmed_at is None:
-        return False, "Email is not confirmed"
+        return AccessRequestStatus.EMAIL_NOT_CONFIRMED
 
     if user.approved_at is None:
-        return False, "User has not been approved"
+        return AccessRequestStatus.USER_NOT_APPROVED
 
     institution = get_db_institution(user.institution_id)
     if institution is None:
-        return False, "Institution not found"
+        return AccessRequestStatus.INSTITUTION_NOT_FOUND
 
     if institution.country_id is None:
-        return False, "Institution does not have a country"
+        return AccessRequestStatus.INSTITUTION_HAS_NO_COUNTRY
 
     country = get_db_country(institution.country_id)
     if country is None:
-        return False, "Country not found"
+        return AccessRequestStatus.COUNTRY_NOT_FOUND
 
     if country.geo_location is None:
-        return False, "Country has no geolocation"
+        return AccessRequestStatus.COUNTRY_HAS_NO_GEOLOCATION
 
     if not is_accessible_in_geo_location(
         db_dataset.accessibility, country.geo_location
     ):
-        return False, "Dataset is not accessible in geolocation"
+        return AccessRequestStatus.NOT_ACCESSIBLE_IN_GEOLOCATION
 
     institution_sccs = get_db_institution_sccs(institution.id)
     scc_id = str(db_dataset.scc_id)
@@ -61,18 +91,29 @@ def is_allowed_to_access_data(
             db_user_dataset is None
             or db_user_dataset.access_granted_by_admin_at is None
         ):
-            return False, "Approval type is OVERSIGHT. Admin needs to approve."
+            return AccessRequestStatus.NEEDS_ADMIN_APPROVAL
 
     if country.geo_location != GeoLocation.OTHER:
-        return True, None
+        return AccessRequestStatus.ACCESSIBLE
 
     if institution_scc is None:
-        return False, "Institution has not accepted the SCC"
+        return AccessRequestStatus.INSTITUTION_HAS_NOT_ACCEPTED_SCC
 
     if institution_scc.accepted is False:
-        return False, "Institution has rejected the SCC"
+        return AccessRequestStatus.INSTITUTION_HAS_REJECTED_SCC
 
-    return True, None
+    return AccessRequestStatus.ACCESSIBLE
+
+
+def is_allowed_to_access_data(
+    user_id: str, dataset_id: str
+) -> Tuple[bool, Union[str, None]]:
+    access_request_status = get_access_request_status(user_id, dataset_id)
+
+    return (
+        access_request_status is AccessRequestStatus.ACCESSIBLE,
+        access_request_status_to_message[access_request_status],
+    )
 
 
 def set_delphi_share_created(user_dataset: UserDataset) -> None:
