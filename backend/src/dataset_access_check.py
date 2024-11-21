@@ -45,6 +45,22 @@ access_request_status_to_message: Dict[AccessRequestStatus, str] = {
 }
 
 
+access_request_status_to_admin_message: Dict[AccessRequestStatus, str] = {
+    AccessRequestStatus.USER_NOT_FOUND: "User not found",
+    AccessRequestStatus.EMAIL_NOT_CONFIRMED: "Email is not confirmed",
+    AccessRequestStatus.USER_NOT_APPROVED: "User has not been approved",
+    AccessRequestStatus.INSTITUTION_NOT_FOUND: "Institution not found",
+    AccessRequestStatus.INSTITUTION_HAS_NO_COUNTRY: "Institution does not have a country",
+    AccessRequestStatus.COUNTRY_NOT_FOUND: "Country not found",
+    AccessRequestStatus.COUNTRY_HAS_NO_GEOLOCATION: "Country has no geolocation",
+    AccessRequestStatus.NOT_ACCESSIBLE_IN_GEOLOCATION: "Dataset is not accessible in geolocation",
+    AccessRequestStatus.NEEDS_ADMIN_APPROVAL: "Approval type is OVERSIGHT. The request needs approval.",
+    AccessRequestStatus.INSTITUTION_HAS_NOT_ACCEPTED_SCC: "Institution has not accepted the SCC",
+    AccessRequestStatus.INSTITUTION_HAS_REJECTED_SCC: "Institution has rejected the SCC",
+    AccessRequestStatus.ACCESSIBLE: "The user has received an email with a download link.",
+}
+
+
 def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
     db_dataset = get_db_dataset(dataset_id)
     if db_dataset.accessibility == Accessibility.PUBLIC:
@@ -105,23 +121,14 @@ def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
     return AccessRequestStatus.ACCESSIBLE
 
 
-def is_allowed_to_access_data(
-    user_id: str, dataset_id: str
-) -> Tuple[bool, Union[str, None]]:
-    access_request_status = get_access_request_status(user_id, dataset_id)
-
-    return (
-        access_request_status is AccessRequestStatus.ACCESSIBLE,
-        access_request_status_to_message[access_request_status],
-    )
-
-
 def set_delphi_share_created(user_dataset: UserDataset) -> None:
     user_dataset.delphi_share_created_at = get_now()
     save_row(user_dataset)
 
 
-def perform_access_check(user_id: str, dataset_id: str,is_allowed_access:bool, reason:str) -> str:
+def perform_access_check(
+    user_id: str, dataset_id: str, is_allowed_access: bool, reason: str
+) -> str:
     if not is_allowed_access:
         return (
             f"Your access request has been received. Further action is needed: {reason}"
