@@ -14,7 +14,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-userDataset>
         <tr>
-            <td>{{ userDataset.user_id }}</td>
+            <td>
+                <a href="/manage/admin/users/{{ userDataset.user_id }}">{{ userDataset.user_id }}</a>
+            </td>
             <td>{{ userDataset.user_email }}</td>
             <td>{{ userDataset.dataset_id }}</td>
             <td>{{ userDataset.access_requested_at | datetime }}</td>
