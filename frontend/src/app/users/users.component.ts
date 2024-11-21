@@ -19,22 +19,15 @@ export class UsersComponent implements OnInit {
     nonApprovedUsers: GetUsersResponse["users"] | undefined = undefined;
 
     ngOnInit(): void {
-        this.authenticationService.userInfo.subscribe(user => {
-            if (!user) return;
-            if (!user.is_admin) {
-                this.router.navigate(["/"]);
-                return;
-            }
-            this.refresh();
-        });
+        this.refresh();
     }
 
     refresh() {
         this.service.apiGetApprovedUsersPost({}).subscribe(res => {
             this.approvedUsers = res.users;
-        });
-        this.service.apiGetNonApprovedUsersPost({}).subscribe(res => {
-            this.nonApprovedUsers = res.users;
+            this.service.apiGetNonApprovedUsersPost({}).subscribe(res => {
+                this.nonApprovedUsers = res.users;
+            });
         });
     }
 

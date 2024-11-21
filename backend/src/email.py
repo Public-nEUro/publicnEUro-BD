@@ -41,10 +41,10 @@ def send_confirmation_email(user_email, email_confirmation_passkey):
     )
 
 
-def send_approval_email(approver_passkey):
+def send_approval_email(user_id):
     send_email(
         "approval",
-        {"link": create_frontend_url(f"approval/{approver_passkey}")},
+        {"link": create_frontend_url(f"admin/users/{user_id}")},
         os.environ["APPROVER_EMAIL"],
     )
 

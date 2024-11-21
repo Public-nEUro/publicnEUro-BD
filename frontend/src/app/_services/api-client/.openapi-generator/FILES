@@ -28,7 +28,7 @@ model/getSccResponse.ts
 model/getUserDatasetRequest.ts
 model/getUserDatasetsRequest.ts
 model/getUserDatasetsResponse.ts
-model/getUserInfoFromPasskeyRequest.ts
+model/getUserInfoByIdRequest.ts
 model/getUsersResponse.ts
 model/grantAccessRequest.ts
 model/id.ts

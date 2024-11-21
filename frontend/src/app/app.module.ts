@@ -31,9 +31,9 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { UserComponent } from "@user/user.component";
 import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { ApprovalComponent } from "./approval/approval.component";
 import { BASE_PATH } from "@services/api-client";
 import { environment } from "@environments/environment";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -63,6 +63,7 @@ import { AccessRequestsComponent } from "./access-requests/access-requests.compo
         LoginComponent,
         ProfileComponent,
         UsersComponent,
+        UserComponent,
         CountriesComponent,
         InstitutionsComponent,
         SccsComponent,
@@ -70,7 +71,6 @@ import { AccessRequestsComponent } from "./access-requests/access-requests.compo
         AccessRequestsComponent,
         HistoryComponent,
         ConfirmationComponent,
-        ApprovalComponent,
         RequestAccessComponent,
         StoragePipe,
         DatePipe,

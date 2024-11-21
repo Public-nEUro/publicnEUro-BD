@@ -51,7 +51,7 @@ import { GetUserDatasetsRequest } from '../model/getUserDatasetsRequest';
 // @ts-ignore
 import { GetUserDatasetsResponse } from '../model/getUserDatasetsResponse';
 // @ts-ignore
-import { GetUserInfoFromPasskeyRequest } from '../model/getUserInfoFromPasskeyRequest';
+import { GetUserInfoByIdRequest } from '../model/getUserInfoByIdRequest';
 // @ts-ignore
 import { GetUsersResponse } from '../model/getUsersResponse';
 // @ts-ignore
@@ -1356,14 +1356,14 @@ export class DefaultService {
     }
 
     /**
-     * @param getUserInfoFromPasskeyRequest 
+     * @param getUserInfoByIdRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<UserInfo>;
-    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<UserInfo>>;
-    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<UserInfo>>;
-    public apiGetUserInfoFromPasskeyPost(getUserInfoFromPasskeyRequest?: GetUserInfoFromPasskeyRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetUserInfoByIdPost(getUserInfoByIdRequest?: GetUserInfoByIdRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<UserInfo>;
+    public apiGetUserInfoByIdPost(getUserInfoByIdRequest?: GetUserInfoByIdRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<UserInfo>>;
+    public apiGetUserInfoByIdPost(getUserInfoByIdRequest?: GetUserInfoByIdRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<UserInfo>>;
+    public apiGetUserInfoByIdPost(getUserInfoByIdRequest?: GetUserInfoByIdRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1412,11 +1412,11 @@ export class DefaultService {
             }
         }
 
-        let localVarPath = `/api/get_user_info_from_passkey`;
+        let localVarPath = `/api/get_user_info_by_id`;
         return this.httpClient.request<UserInfo>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: getUserInfoFromPasskeyRequest,
+                body: getUserInfoByIdRequest,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

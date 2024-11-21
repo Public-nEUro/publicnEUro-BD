@@ -5,9 +5,9 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
+import { UserComponent } from "@user/user.component";
 import { CountriesComponent } from "./countries/countries.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { ApprovalComponent } from "./approval/approval.component";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
@@ -37,6 +37,10 @@ const routes: Routes = [
         component: UsersComponent
     },
     {
+        path: "admin/users/:user_id",
+        component: UserComponent
+    },
+    {
         path: "admin/countries",
         component: CountriesComponent
     },
@@ -63,10 +67,6 @@ const routes: Routes = [
     {
         path: "confirmation/:email_confirmation_passkey",
         component: ConfirmationComponent
-    },
-    {
-        path: "approval/:approver_passkey",
-        component: ApprovalComponent
     },
     {
         path: "request-access/:dataset_id",

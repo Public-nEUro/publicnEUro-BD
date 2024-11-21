@@ -19,7 +19,7 @@ export * from './getSccResponse';
 export * from './getUserDatasetRequest';
 export * from './getUserDatasetsRequest';
 export * from './getUserDatasetsResponse';
-export * from './getUserInfoFromPasskeyRequest';
+export * from './getUserInfoByIdRequest';
 export * from './getUsersResponse';
 export * from './grantAccessRequest';
 export * from './id';

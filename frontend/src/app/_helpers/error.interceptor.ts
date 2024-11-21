@@ -15,6 +15,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 400:
                         break;
                     case 401:
+                        this.router.navigate(["/login"], {
+                            queryParams: { redirect: window.location.pathname }
+                        });
                         break;
                     case 403:
                         window.alert("Unauthorized");
