@@ -20,4 +20,12 @@ export class AccessRequestsComponent implements OnInit {
             this.userDatasets = res.user_datasets;
         });
     }
+
+    grantAccess(userDataset: UserDataset) {
+        this.service
+            .apiGrantAccessPost({ user_id: userDataset.user_id, dataset_id: userDataset.dataset_id })
+            .subscribe(() => {
+                this.reload();
+            });
+    }
 }
