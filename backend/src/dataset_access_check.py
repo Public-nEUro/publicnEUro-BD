@@ -1,5 +1,5 @@
 import enum
-from typing import Tuple, Union, Dict
+from typing import Dict
 from flask import current_app
 from requests import HTTPError
 from .database.db_util import save_row
