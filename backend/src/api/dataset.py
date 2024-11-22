@@ -98,13 +98,14 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
     )
     json_dataset = get_json_dataset(request["id"])
     db_dataset = get_db_dataset(request["id"])
-    scc_id = str(db_dataset.scc_id)
+    dataset_info = merge_dataset_info(json_dataset, db_dataset)
+    scc_id = str(dataset_info["scc_id"])
     institution_scc = next(
         (scc for scc in institution_sccs if scc.scc_id == scc_id), None
     )
     scc = get_db_scc(scc_id)
     return {
-        **merge_dataset_info(json_dataset, db_dataset),
+        **dataset_info,
         "scc_file_name": scc.file_name if scc is not None else None,
         "institution_scc_accepted": (
             institution_scc.accepted if institution_scc is not None else None
