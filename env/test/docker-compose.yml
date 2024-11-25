@@ -3,8 +3,8 @@ services:
     image: nginx:latest
     container_name: data_manager_test_nginx
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "8080:8080"
+      - "8443:8443"
     volumes:
       - ./nginx:/etc/nginx
     depends_on:
