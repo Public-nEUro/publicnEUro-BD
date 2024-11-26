@@ -30,14 +30,14 @@ class DatasetSchema(Schema):
     delphi_share_url = fields.String(required=True)
 
 
-class DatasetDetailsSchema(DatasetSchema):
+class DatasetWithFileDataSchema(DatasetSchema):
+    dua_file_data = fields.String(required=True, allow_none=True)
+
+
+class DatasetDetailsSchema(DatasetWithFileDataSchema):
     scc_file_name = fields.String(required=True, allow_none=True)
     institution_scc_accepted = fields.Boolean(required=True, allow_none=True)
     access_info = fields.Nested(AccessInfo, required=True)
-
-
-class DatasetWithFileDataSchema(DatasetSchema):
-    dua_file_data = fields.String(required=True, allow_none=True)
 
 
 class GetDatasetsResponseSchema(Schema):
@@ -106,6 +106,7 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
     scc = get_db_scc(scc_id)
     return {
         **dataset_info,
+        "dua_file_data": db_dataset.dua_file_data,
         "scc_file_name": scc.file_name if scc is not None else None,
         "institution_scc_accepted": (
             institution_scc.accepted if institution_scc is not None else None
