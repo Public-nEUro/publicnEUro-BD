@@ -3,6 +3,7 @@
     <p-table [value]="nonApprovedUsers">
         <ng-template pTemplate="header">
             <tr>
+                <th>ID</th>
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Email</th>
@@ -16,16 +17,20 @@
         </ng-template>
         <ng-template pTemplate="body" let-user>
             <tr>
-                <td>{{user.first_name}}</td>
-                <td>{{user.last_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.address}}</td>
-                <td>{{user.storage_protection}}</td>
-                <td>{{user.access_protection}}</td>
-                <td>{{user.created_at | datetime}}</td>
-                <td><p-button label="Approve" (onClick)="approve(user.id)" styleClass="p-button-success"></p-button>
-                <td><p-button label="Delete" (onClick)="reject(user.id)" styleClass="p-button-danger"></p-button>
+                <td>
+                    <a href="/manage/admin/users/{{ user.id }}">{{ user.id }}</a>
                 </td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.storage_protection }}</td>
+                <td>{{ user.access_protection }}</td>
+                <td>{{ user.created_at | datetime }}</td>
+                <td>
+                    <p-button label="Approve" (onClick)="approve(user.id)" styleClass="p-button-success"></p-button>
+                </td>
+                <td><p-button label="Delete" (onClick)="reject(user.id)" styleClass="p-button-danger"></p-button></td>
             </tr>
         </ng-template>
     </p-table>
@@ -36,6 +41,7 @@
     <p-table [value]="approvedUsers">
         <ng-template pTemplate="header">
             <tr>
+                <th>ID</th>
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Email</th>
@@ -47,13 +53,16 @@
         </ng-template>
         <ng-template pTemplate="body" let-user>
             <tr>
-                <td>{{user.first_name}}</td>
-                <td>{{user.last_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.address}}</td>
-                <td>{{user.storage_protection}}</td>
-                <td>{{user.access_protection}}</td>
-                <td>{{user.approved_at | datetime}}</td>
+                <td>
+                    <a href="/manage/admin/users/{{ user.id }}">{{ user.id }}</a>
+                </td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.storage_protection }}</td>
+                <td>{{ user.access_protection }}</td>
+                <td>{{ user.approved_at | datetime }}</td>
             </tr>
         </ng-template>
     </p-table>
