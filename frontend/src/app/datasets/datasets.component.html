@@ -9,11 +9,10 @@
             <th>SCC</th>
             <th>Approval</th>
             <th>DELPHI share link</th>
-            <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-dataset>
-        <tr *ngIf="editingDataset !== dataset">
+    <ng-template pTemplate="body" let-dataset
+        ><tr>
             <td>
                 <a href="/manage/admin/datasets/{{ dataset.id }}">{{ dataset.id }}</a>
             </td>
@@ -35,77 +34,6 @@
             <td>
                 <a href="{{ dataset.delphi_share_url }}" target="_blank">{{ dataset.delphi_share_url }}</a>
             </td>
-            <td><p-button label="Edit" (onClick)="edit(dataset)"></p-button></td>
-        </tr>
-        <tr *ngIf="editingDataset !== undefined && editingDataset === dataset">
-            <td>{{ dataset.name }}</td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Accessibility</mat-label>
-                    <input
-                        #accessibilityInput
-                        matInput
-                        type="text"
-                        pInputText
-                        [matAutocomplete]="accessibilityAuto"
-                        (input)="onAccessibilityChange(accessibilityInput.value)"
-                        [(ngModel)]="editingDataset.accessibility"
-                    />
-                    <mat-autocomplete #accessibilityAuto="matAutocomplete">
-                        <mat-option *ngFor="let accessibility of filteredAccessibilities" [value]="accessibility">
-                            {{ accessibility }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </td>
-            <td>
-                <input type="file" pInputText (change)="onDuaFileSelected($event)" class="file-input" />
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>SCC</mat-label>
-                    <input
-                        #sccInput
-                        matInput
-                        type="text"
-                        pInputText
-                        [matAutocomplete]="sccAuto"
-                        (input)="onSccChange(sccInput.value)"
-                        [(ngModel)]="editingDataset.scc_id"
-                    />
-                    <mat-autocomplete #sccAuto="matAutocomplete" [displayWith]="getSccTitle.bind(this)">
-                        <mat-option *ngFor="let scc of filteredSccs" [value]="scc.id">
-                            {{ scc.title }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Oversight / automatic</mat-label>
-                    <input
-                        #approvalInput
-                        matInput
-                        type="text"
-                        pInputText
-                        [matAutocomplete]="approvalAuto"
-                        (input)="onApprovalChange(approvalInput.value)"
-                        [(ngModel)]="editingDataset.approval_type"
-                    />
-                    <mat-autocomplete #approvalAuto="matAutocomplete">
-                        <mat-option *ngFor="let approval of filteredApprovalTypes" [value]="approval">
-                            {{ approval }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>DELPHI share link</mat-label>
-                    <input matInput type="text" pInputText [(ngModel)]="dataset.delphi_share_url" />
-                </mat-form-field>
-            </td>
-            <td><p-button label="Save" (onClick)="save(dataset)"></p-button></td>
         </tr>
     </ng-template>
 </p-table>
