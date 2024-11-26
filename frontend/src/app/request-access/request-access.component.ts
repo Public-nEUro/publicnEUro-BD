@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/dataset";
 import { downloadBase64 } from "@helpers/utils/file";
-import { DatasetDetails, DefaultService, UserInfo } from "@services/api-client";
+import { Dataset, DatasetDetails, DefaultService, UserInfo } from "@services/api-client";
 
 @Component({
     selector: "app-request-access",
@@ -11,6 +11,7 @@ import { DatasetDetails, DefaultService, UserInfo } from "@services/api-client";
 })
 export class RequestAccessComponent implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
+    AccessibilityEnum = Dataset.AccessibilityEnum;
 
     userInfo: UserInfo | null | undefined = undefined;
 

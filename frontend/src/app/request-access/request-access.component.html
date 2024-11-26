@@ -9,20 +9,31 @@
                     </td>
                     <td *ngIf="['name', 'accessibility'].includes(datasetInfo.key)">{{ datasetInfo.value }}</td>
                     <td *ngIf="datasetInfo.key === 'dua_file_name'">
-                        <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
-                        <p-checkbox label="I accept the DUA" [(ngModel)]="acceptDua" [binary]="true"></p-checkbox>
+                        <ng-container *ngIf="datasetInfo.value !== null">
+                            <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
+                            <p-checkbox
+                                *ngIf="dataset.accessibility !== AccessibilityEnum.Private"
+                                label="I accept the DUA"
+                                [(ngModel)]="acceptDua"
+                                [binary]="true"
+                            ></p-checkbox
+                        ></ng-container>
+                        <ng-container *ngIf="datasetInfo.value === null">No DUA</ng-container>
                     </td>
                     <td *ngIf="datasetInfo.key === 'scc_file_name' && dataset.access_info.is_scc_relevant">
-                        <p-button (click)="downloadScc()">{{ datasetInfo.value }}</p-button>
-                        <ng-container *ngIf="dataset.institution_scc_accepted === true"
-                            >Your institution has accepted the SCC</ng-container
+                        <ng-container *ngIf="datasetInfo.value !== null">
+                            <p-button (click)="downloadScc()">{{ datasetInfo.value }}</p-button>
+                            <ng-container *ngIf="dataset.institution_scc_accepted === true"
+                                >Your institution has accepted the SCC</ng-container
+                            >
+                            <ng-container *ngIf="dataset.institution_scc_accepted === false"
+                                >Your institution has rejected the SCC</ng-container
+                            >
+                            <ng-container *ngIf="dataset.institution_scc_accepted === undefined"
+                                >Institution has not yet accepted the SCC</ng-container
+                            ></ng-container
                         >
-                        <ng-container *ngIf="dataset.institution_scc_accepted === false"
-                            >Your institution has rejected the SCC</ng-container
-                        >
-                        <ng-container *ngIf="dataset.institution_scc_accepted === undefined"
-                            >Institution has not yet accepted the SCC</ng-container
-                        >
+                        <ng-container *ngIf="datasetInfo.value === null">No SCC</ng-container>
                     </td>
                 </tr>
             </ng-template> </p-table
@@ -37,13 +48,22 @@
             You need to verify your email. Click the link in the welcome email you received.
         </div>
         <div *ngIf="dataset.access_info.needs_to_be_approved">Waiting for approval by admin</div>
-        <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
-        <div *ngIf="!dataset.access_info.is_accessible_in_country">This dataset is not available in your country</div>
-        <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
-        <div>
-            <p-button [disabled]="dataset.institution_scc_accepted === false || !acceptDua" (click)="requestAccess()"
-                >Request access</p-button
-            >
+        <div *ngIf="dataset.accessibility === AccessibilityEnum.Private">
+            You do not have access to this private repository (if you think you should, contact admin)
+        </div>
+        <div *ngIf="dataset.accessibility !== AccessibilityEnum.Private">
+            <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
+            <div *ngIf="!dataset.access_info.is_accessible_in_country">
+                This dataset is not available in your country
+            </div>
+            <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
+            <div>
+                <p-button
+                    [disabled]="dataset.institution_scc_accepted === false || !acceptDua"
+                    (click)="requestAccess()"
+                    >Request access</p-button
+                >
+            </div>
         </div>
     </div>
 </div>
