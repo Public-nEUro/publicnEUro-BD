@@ -2,6 +2,7 @@
 <p-table [value]="datasets">
     <ng-template pTemplate="header">
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Accessibility</th>
             <th>DUA</th>
@@ -13,6 +14,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-dataset>
         <tr *ngIf="editingDataset !== dataset">
+            <td>
+                <a href="/manage/admin/datasets/{{ dataset.id }}">{{ dataset.id }}</a>
+            </td>
             <td>{{ dataset.name }}</td>
             <td>{{ dataset.accessibility }}</td>
             <td>

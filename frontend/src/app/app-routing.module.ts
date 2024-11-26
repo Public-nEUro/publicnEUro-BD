@@ -11,6 +11,7 @@ import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
+import { DatasetComponent } from "./dataset/dataset.component";
 import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { AccessRequestsComponent } from "./access-requests/access-requests.component";
@@ -55,6 +56,10 @@ const routes: Routes = [
     {
         path: "admin/datasets",
         component: DatasetsComponent
+    },
+    {
+        path: "admin/datasets/:dataset_id",
+        component: DatasetComponent
     },
     {
         path: "admin/access-requests",

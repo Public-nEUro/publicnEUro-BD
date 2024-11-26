@@ -1,0 +1,16 @@
+<div *ngIf="dataset !== undefined" class="flex-container align-items-center justify-content-center">
+    <h1>Dataset</h1>
+    <div *ngIf="dataset === null">This dataset has been deleted</div>
+    <div *ngIf="dataset !== null">
+        <p-table [value]="dataset | datasetToSortedEntries">
+            <ng-template pTemplate="body" let-info>
+                <tr *ngIf="fieldKeyToLabel[info.key] !== undefined">
+                    <td>
+                        <b>{{ fieldKeyToLabel[info.key] }}</b>
+                    </td>
+                    <td>{{ info.value }}</td>
+                </tr>
+            </ng-template> </p-table
+        ><br />
+    </div>
+</div>

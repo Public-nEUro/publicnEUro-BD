@@ -50,6 +50,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
+import { DatasetComponent } from "./dataset/dataset.component";
 import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { DatasetToSortedEntriesPipe } from "@pipes/dataset.pipe";
@@ -68,6 +69,7 @@ import { AccessRequestsComponent } from "./access-requests/access-requests.compo
         InstitutionsComponent,
         SccsComponent,
         DatasetsComponent,
+        DatasetComponent,
         AccessRequestsComponent,
         HistoryComponent,
         ConfirmationComponent,
