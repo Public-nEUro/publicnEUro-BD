@@ -18,7 +18,9 @@
                 <a href="/manage/admin/users/{{ userDataset.user_id }}">{{ userDataset.user_id }}</a>
             </td>
             <td>{{ userDataset.user_email }}</td>
-            <td>{{ userDataset.dataset_id }}</td>
+            <td>
+                <a href="/manage/admin/datasets/{{ userDataset.dataset_id }}">{{ userDataset.dataset_id }}</a>
+            </td>
             <td>{{ userDataset.access_requested_at | datetime }}</td>
             <td>{{ userDataset.user_accepted_dua_at | datetime }}</td>
             <td>{{ userDataset.email_sent_to_admin_at | datetime }}</td>
