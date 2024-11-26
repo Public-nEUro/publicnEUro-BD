@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { DefaultService, GetUsersResponse } from "@services/api-client";
-import { AuthenticationService } from "@services/authentication.service";
 
 @Component({
     selector: "app-users",
@@ -9,11 +7,7 @@ import { AuthenticationService } from "@services/authentication.service";
     styleUrls: ["./users.component.scss"]
 })
 export class UsersComponent implements OnInit {
-    constructor(
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        private service: DefaultService
-    ) {}
+    constructor(private service: DefaultService) {}
 
     approvedUsers: GetUsersResponse["users"] | undefined = undefined;
     nonApprovedUsers: GetUsersResponse["users"] | undefined = undefined;
