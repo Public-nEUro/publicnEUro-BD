@@ -12,11 +12,7 @@ export class UsersComponent implements OnInit {
     approvedUsers: GetUsersResponse["users"] | undefined = undefined;
     nonApprovedUsers: GetUsersResponse["users"] | undefined = undefined;
 
-    ngOnInit(): void {
-        this.refresh();
-    }
-
-    refresh() {
+    ngOnInit() {
         this.service.apiGetApprovedUsersPost({}).subscribe(res => {
             this.approvedUsers = res.users;
             this.service.apiGetNonApprovedUsersPost({}).subscribe(res => {
