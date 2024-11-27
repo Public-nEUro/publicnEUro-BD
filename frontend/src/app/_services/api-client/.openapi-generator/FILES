@@ -25,6 +25,8 @@ model/getHistoryResponse.ts
 model/getInstitutionsResponse.ts
 model/getSccResponse.ts
 model/getUserDatasetRequest.ts
+model/getUserDatasetsForDatasetRequest.ts
+model/getUserDatasetsForDatasetResponse.ts
 model/getUserDatasetsRequest.ts
 model/getUserDatasetsResponse.ts
 model/getUserInfoByIdRequest.ts

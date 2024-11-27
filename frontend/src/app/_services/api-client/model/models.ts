@@ -16,6 +16,8 @@ export * from './getHistoryResponse';
 export * from './getInstitutionsResponse';
 export * from './getSccResponse';
 export * from './getUserDatasetRequest';
+export * from './getUserDatasetsForDatasetRequest';
+export * from './getUserDatasetsForDatasetResponse';
 export * from './getUserDatasetsRequest';
 export * from './getUserDatasetsResponse';
 export * from './getUserInfoByIdRequest';

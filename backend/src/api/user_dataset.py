@@ -4,6 +4,7 @@ from ..database.user import get_user
 from ..database.user_dataset import (
     get_db_user_dataset,
     get_db_user_datasets,
+    get_db_user_datasets_for_dataset,
     UserDataset,
 )
 
@@ -73,6 +74,26 @@ def get_user_datasets(
     request: GetUserDatasetsRequestSchema,
 ) -> GetUserDatasetsResponseSchema:
     db_user_datasets = get_db_user_datasets(request["offset"], request["limit"])
+    return {
+        "user_datasets": [
+            user_dataset_to_response(db_user_dataset)
+            for db_user_dataset in db_user_datasets
+        ]
+    }
+
+
+class GetUserDatasetsForDatasetRequestSchema(Schema):
+    dataset_id = fields.String(required=True)
+
+
+class GetUserDatasetsForDatasetResponseSchema(Schema):
+    user_datasets = fields.Nested(UserDatasetSchema, many=True, required=True)
+
+
+def get_user_datasets_for_dataset(
+    request: GetUserDatasetsForDatasetRequestSchema,
+) -> GetUserDatasetsForDatasetResponseSchema:
+    db_user_datasets = get_db_user_datasets_for_dataset(request["dataset_id"])
     return {
         "user_datasets": [
             user_dataset_to_response(db_user_dataset)

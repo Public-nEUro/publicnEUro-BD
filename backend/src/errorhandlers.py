@@ -22,6 +22,8 @@ def register_errorhandlers(app: Flask):
             return create_response(403, "Forbidden")
         if e.code == 404:
             return create_response(404, "Not found")
+        if e.code == 409:
+            return create_response(409, "Conflict")
         if e.code == 413:
             return create_response(413, "Content too large")
         return create_response(500, "Internal server error")

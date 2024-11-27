@@ -34,3 +34,12 @@ def get_db_user_datasets(offset: int, limit: int) -> List[UserDataset]:
         .limit(limit)
         .all()
     )
+
+
+def get_db_user_datasets_for_dataset(dataset_id: str) -> List[UserDataset]:
+    return (
+        db.session.query(UserDataset)
+        .filter(UserDataset.dataset_id == dataset_id)
+        .order_by(UserDataset.access_requested_at.desc())
+        .all()
+    )

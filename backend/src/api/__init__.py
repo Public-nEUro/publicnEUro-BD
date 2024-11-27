@@ -11,7 +11,11 @@ from .country import add_country, get_countries
 from .institution import get_institutions, update_institution
 from .scc import add_scc, get_sccs, get_scc
 from .dataset import get_datasets, get_dataset, get_dataset_dua, update_dataset
-from .user_dataset import get_user_dataset, get_user_datasets
+from .user_dataset import (
+    get_user_dataset,
+    get_user_datasets,
+    get_user_datasets_for_dataset,
+)
 from .request_access import request_access
 from .grant_access import grant_access
 from .history import get_history
@@ -124,6 +128,7 @@ def init_endpoints(app):
         [update_dataset, AuthType.ADMIN],
         [get_user_dataset, AuthType.ADMIN],
         [get_user_datasets, AuthType.ADMIN],
+        [get_user_datasets_for_dataset, AuthType.ADMIN],
         [request_access, AuthType.ALL],
         [grant_access, AuthType.ADMIN],
         [get_history, AuthType.ADMIN],

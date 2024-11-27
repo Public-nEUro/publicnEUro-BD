@@ -15,6 +15,7 @@ import { DatasetComponent } from "./dataset/dataset.component";
 import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { AccessRequestsComponent } from "./access-requests/access-requests.component";
+import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
 
 const routes: Routes = [
     {
@@ -60,6 +61,10 @@ const routes: Routes = [
     {
         path: "admin/datasets/:dataset_id",
         component: DatasetComponent
+    },
+    {
+        path: "admin/datasets/:dataset_id/users",
+        component: DatasetUsersComponent
     },
     {
         path: "admin/access-requests",

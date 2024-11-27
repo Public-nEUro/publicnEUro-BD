@@ -62,6 +62,13 @@ access_request_status_to_admin_message: Dict[AccessRequestStatus, str] = {
 
 
 def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
+    db_user_dataset = get_db_user_dataset(user_id, dataset_id)
+    if (
+        db_user_dataset is not None
+        and db_user_dataset.access_granted_by_admin_at is not None
+    ):
+        return AccessRequestStatus.ACCESSIBLE
+
     db_dataset = get_db_dataset(dataset_id)
     if db_dataset.accessibility == Accessibility.PUBLIC:
         return AccessRequestStatus.ACCESSIBLE
@@ -102,7 +109,6 @@ def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
     )
 
     if db_dataset.approval_type == ApprovalType.OVERSIGHT:
-        db_user_dataset = get_db_user_dataset(user_id, dataset_id)
         if (
             db_user_dataset is None
             or db_user_dataset.access_granted_by_admin_at is None

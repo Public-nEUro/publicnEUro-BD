@@ -24,6 +24,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                         break;
                     case 404:
                         break;
+                    case 409:
+                        window.alert("Conflict");
+                        break;
                     case 500: // Internal Server Error
                         window.alert("Internal server error");
                         break;

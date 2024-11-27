@@ -11,6 +11,7 @@ import { Dataset, DatasetDetails, DefaultService, SccWithId } from "@services/ap
 })
 export class DatasetComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
+    AccessibilityEnum = Dataset.AccessibilityEnum;
 
     constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
 
@@ -123,5 +124,9 @@ export class DatasetComponent implements OnInit {
         this.service.apiGetSccPost({ id: dataset.scc_id }).subscribe(res => {
             downloadBase64(res.file_data, res.file_name);
         });
+    }
+
+    gotoDatasetUsers() {
+        this.router.navigate([`/admin/datasets/${this.getDatasetId()}/users`]);
     }
 }

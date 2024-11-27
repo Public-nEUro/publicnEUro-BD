@@ -15,7 +15,14 @@
                         <td>
                             <b>{{ fieldKeyToLabel[info.key] }}</b>
                         </td>
-                        <td *ngIf="!editing">{{ dataset.accessibility }}</td>
+                        <td *ngIf="!editing">
+                            {{ dataset.accessibility }}
+                            <p-button
+                                *ngIf="dataset.accessibility === AccessibilityEnum.Private"
+                                label="Add users"
+                                (onClick)="gotoDatasetUsers()"
+                            ></p-button>
+                        </td>
                         <td *ngIf="editing">
                             <mat-form-field appearance="outline">
                                 <mat-label>Accessibility</mat-label>
