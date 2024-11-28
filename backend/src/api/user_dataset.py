@@ -8,6 +8,7 @@ from ..database.user_dataset import (
     get_db_user_datasets_for_dataset,
     UserDataset,
 )
+from .common_schemas import PaginationSchema
 
 
 class GetUserDatasetRequestSchema(Schema):
@@ -62,18 +63,13 @@ def get_user_dataset(
     return user_dataset_to_response(db_user_dataset)
 
 
-class GetUserDatasetsRequestSchema(Schema):
-    offset = fields.Integer(required=True)
-    limit = fields.Integer(required=True)
-
-
 class GetUserDatasetsResponseSchema(Schema):
     user_datasets = fields.Nested(UserDatasetSchema, many=True, required=True)
     total = fields.Integer(required=True)
 
 
 def get_user_datasets(
-    request: GetUserDatasetsRequestSchema,
+    request: PaginationSchema,
 ) -> GetUserDatasetsResponseSchema:
     db_user_datasets = get_db_user_datasets(request["offset"], request["limit"])
     return {

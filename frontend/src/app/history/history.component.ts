@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { DefaultService } from "@services/api-client";
-import * as moment from "moment";
 
 type HistoryEvent = {
     timestamp: string;
@@ -19,6 +18,9 @@ export class HistoryComponent implements OnInit {
 
     history: HistoryEvent[] = [];
 
+    offset = 0;
+    limit = 10;
+
     ngOnInit(): void {
         this.reload();
     }
@@ -26,8 +28,8 @@ export class HistoryComponent implements OnInit {
     reload() {
         this.service
             .apiGetHistoryPost({
-                start_date: moment().subtract(7, "day").toISOString(),
-                end_date: moment().toISOString()
+                offset: this.offset,
+                limit: this.limit
             })
             .subscribe(res => {
                 this.history = res.history.map(event => {

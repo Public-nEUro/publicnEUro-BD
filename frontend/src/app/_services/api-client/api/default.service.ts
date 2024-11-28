@@ -35,8 +35,6 @@ import { GetCountriesResponse } from '../model/getCountriesResponse';
 // @ts-ignore
 import { GetDatasetsResponse } from '../model/getDatasetsResponse';
 // @ts-ignore
-import { GetHistoryRequest } from '../model/getHistoryRequest';
-// @ts-ignore
 import { GetHistoryResponse } from '../model/getHistoryResponse';
 // @ts-ignore
 import { GetInstitutionsResponse } from '../model/getInstitutionsResponse';
@@ -48,8 +46,6 @@ import { GetUserDatasetRequest } from '../model/getUserDatasetRequest';
 import { GetUserDatasetsForDatasetRequest } from '../model/getUserDatasetsForDatasetRequest';
 // @ts-ignore
 import { GetUserDatasetsForDatasetResponse } from '../model/getUserDatasetsForDatasetResponse';
-// @ts-ignore
-import { GetUserDatasetsRequest } from '../model/getUserDatasetsRequest';
 // @ts-ignore
 import { GetUserDatasetsResponse } from '../model/getUserDatasetsResponse';
 // @ts-ignore
@@ -66,6 +62,8 @@ import { InstitutionWithAcceptance } from '../model/institutionWithAcceptance';
 import { LoginRequest } from '../model/loginRequest';
 // @ts-ignore
 import { LoginResponse } from '../model/loginResponse';
+// @ts-ignore
+import { Pagination } from '../model/pagination';
 // @ts-ignore
 import { RegisterRequest } from '../model/registerRequest';
 // @ts-ignore
@@ -790,14 +788,14 @@ export class DefaultService {
     }
 
     /**
-     * @param getHistoryRequest 
+     * @param pagination 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiGetHistoryPost(getHistoryRequest?: GetHistoryRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetHistoryResponse>;
-    public apiGetHistoryPost(getHistoryRequest?: GetHistoryRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetHistoryResponse>>;
-    public apiGetHistoryPost(getHistoryRequest?: GetHistoryRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetHistoryResponse>>;
-    public apiGetHistoryPost(getHistoryRequest?: GetHistoryRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetHistoryPost(pagination?: Pagination, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetHistoryResponse>;
+    public apiGetHistoryPost(pagination?: Pagination, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetHistoryResponse>>;
+    public apiGetHistoryPost(pagination?: Pagination, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetHistoryResponse>>;
+    public apiGetHistoryPost(pagination?: Pagination, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -850,7 +848,7 @@ export class DefaultService {
         return this.httpClient.request<GetHistoryResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: getHistoryRequest,
+                body: pagination,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -1287,14 +1285,14 @@ export class DefaultService {
     }
 
     /**
-     * @param getUserDatasetsRequest 
+     * @param pagination 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserDatasetsResponse>;
-    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserDatasetsResponse>>;
-    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserDatasetsResponse>>;
-    public apiGetUserDatasetsPost(getUserDatasetsRequest?: GetUserDatasetsRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public apiGetUserDatasetsPost(pagination?: Pagination, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<GetUserDatasetsResponse>;
+    public apiGetUserDatasetsPost(pagination?: Pagination, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<GetUserDatasetsResponse>>;
+    public apiGetUserDatasetsPost(pagination?: Pagination, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<GetUserDatasetsResponse>>;
+    public apiGetUserDatasetsPost(pagination?: Pagination, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1347,7 +1345,7 @@ export class DefaultService {
         return this.httpClient.request<GetUserDatasetsResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: getUserDatasetsRequest,
+                body: pagination,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

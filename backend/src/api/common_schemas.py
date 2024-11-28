@@ -53,3 +53,8 @@ class IdSchema(Schema):
 class FileSchema(Schema):
     file_name = fields.String(required=True, allow_none=True)
     file_data = fields.String(required=True, allow_none=True)
+
+
+class PaginationSchema(Schema):
+    offset = fields.Integer(required=True)
+    limit = fields.Integer(required=True)

@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -20,14 +21,12 @@ model/datasetWithFileData.ts
 model/event.ts
 model/getCountriesResponse.ts
 model/getDatasetsResponse.ts
-model/getHistoryRequest.ts
 model/getHistoryResponse.ts
 model/getInstitutionsResponse.ts
 model/getSccResponse.ts
 model/getUserDatasetRequest.ts
 model/getUserDatasetsForDatasetRequest.ts
 model/getUserDatasetsForDatasetResponse.ts
-model/getUserDatasetsRequest.ts
 model/getUserDatasetsResponse.ts
 model/getUserInfoByIdRequest.ts
 model/getUsersResponse.ts
@@ -38,6 +37,7 @@ model/loginRequest.ts
 model/loginResponse.ts
 model/modelFile.ts
 model/models.ts
+model/pagination.ts
 model/registerRequest.ts
 model/requestAccessRequest.ts
 model/requestAccessResponse.ts

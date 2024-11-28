@@ -1,3 +1,4 @@
+from typing import List
 import uuid
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID, JSONB
@@ -69,11 +70,11 @@ def add_history_row(object_id, object_data):
     db.session.commit()
 
 
-def get_db_history(start_date, end_date):
+def get_db_history(offset: int, limit: int) -> List[History]:
     return (
         db.session.query(History)
-        .filter(History.timestamp >= start_date)
-        .filter(History.timestamp <= end_date)
         .order_by(History.timestamp.desc())
+        .offset(offset)
+        .limit(limit)
         .all()
     )

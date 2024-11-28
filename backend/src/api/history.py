@@ -1,7 +1,7 @@
 from typing import List, Dict
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import UserInfo, extract_user_info
+from .common_schemas import UserInfo, extract_user_info, PaginationSchema
 from ..database.history import History, get_db_history
 from ..database.user import User, get_users_by_id
 
@@ -12,11 +12,6 @@ class EventSchema(Schema):
     user_info = fields.Nested(UserInfo, required=True, allow_none=True)
     object_id = fields.Raw(required=True)
     object_data = fields.Raw(required=True)
-
-
-class GetHistoryRequestSchema(Schema):
-    start_date = fields.DateTime(required=True)
-    end_date = fields.DateTime(required=True)
 
 
 class GetHistoryResponseSchema(Schema):
@@ -44,8 +39,8 @@ def history_array_to_response(
     }
 
 
-def get_history(request: GetHistoryRequestSchema) -> GetHistoryResponseSchema:
-    history = get_db_history(request["start_date"], request["end_date"])
+def get_history(request: PaginationSchema) -> GetHistoryResponseSchema:
+    history = get_db_history(request["offset"], request["limit"])
     user_ids = list(set([event.user_id for event in history]))
     users = get_users_by_id(user_ids)
     user_dict = {user.id: user for user in users}
