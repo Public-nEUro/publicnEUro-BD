@@ -71,7 +71,14 @@
             <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
             <div>
                 <p-button
-                    [disabled]="dataset.institution_scc_accepted === false || !acceptDua"
+                    [disabled]="
+                        dataset.institution_scc_accepted === false ||
+                        !acceptDua ||
+                        dataset.access_info.needs_to_log_in ||
+                        dataset.access_info.needs_to_confirm_email ||
+                        dataset.access_info.needs_to_be_approved ||
+                        !dataset.access_info.is_accessible_in_country
+                    "
                     (click)="requestAccess()"
                     >Request access</p-button
                 >
