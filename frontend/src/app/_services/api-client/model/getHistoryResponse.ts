@@ -14,5 +14,6 @@ import { Event } from './event';
 
 export interface GetHistoryResponse { 
     history: Array<Event>;
+    total: number;
 }
 

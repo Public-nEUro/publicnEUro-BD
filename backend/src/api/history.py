@@ -1,9 +1,8 @@
-from typing import List, Dict
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import UserInfo, extract_user_info, PaginationSchema
-from ..database.history import History, get_db_history
-from ..database.user import User, get_users_by_id
+from ..database.history import get_db_history, get_db_history_count
+from ..database.user import get_users_by_id
 
 
 class EventSchema(Schema):
@@ -16,11 +15,15 @@ class EventSchema(Schema):
 
 class GetHistoryResponseSchema(Schema):
     history = fields.Nested(EventSchema, required=True, many=True)
+    total = fields.Integer(required=True)
 
 
-def history_array_to_response(
-    db_history_array: List[History], user_dict: Dict[str, User]
-) -> GetHistoryResponseSchema:
+def get_history(request: PaginationSchema) -> GetHistoryResponseSchema:
+    history = get_db_history(request["offset"], request["limit"])
+    total = get_db_history_count()
+    user_ids = list(set([event.user_id for event in history]))
+    users = get_users_by_id(user_ids)
+    user_dict = {user.id: user for user in users}
     return {
         "history": [
             {
@@ -34,14 +37,7 @@ def history_array_to_response(
                 "object_id": row.object_id,
                 "object_data": row.object_data,
             }
-            for row in db_history_array
-        ]
+            for row in history
+        ],
+        "total": total,
     }
-
-
-def get_history(request: PaginationSchema) -> GetHistoryResponseSchema:
-    history = get_db_history(request["offset"], request["limit"])
-    user_ids = list(set([event.user_id for event in history]))
-    users = get_users_by_id(user_ids)
-    user_dict = {user.id: user for user in users}
-    return history_array_to_response(history, user_dict)

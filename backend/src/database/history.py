@@ -78,3 +78,7 @@ def get_db_history(offset: int, limit: int) -> List[History]:
         .limit(limit)
         .all()
     )
+
+
+def get_db_history_count() -> int:
+    return db.session.query(History).count()

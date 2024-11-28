@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { DefaultService } from "@services/api-client";
+import { TableLazyLoadEvent } from "primeng/table";
 
 type HistoryEvent = {
     timestamp: string;
@@ -13,23 +14,20 @@ type HistoryEvent = {
     templateUrl: "./history.component.html",
     styleUrls: ["./history.component.scss"]
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
     constructor(private service: DefaultService) {}
 
     history: HistoryEvent[] = [];
+    total = 0;
 
-    offset = 0;
-    limit = 10;
+    first = 0;
+    rows = 10;
 
-    ngOnInit(): void {
-        this.reload();
-    }
-
-    reload() {
+    loadData(offset: number, limit: number) {
         this.service
             .apiGetHistoryPost({
-                offset: this.offset,
-                limit: this.limit
+                offset,
+                limit
             })
             .subscribe(res => {
                 this.history = res.history.map(event => {
@@ -43,6 +41,11 @@ export class HistoryComponent implements OnInit {
                         objectData: JSON.stringify(event.object_data, null, 4)
                     };
                 });
+                this.total = res.total;
             });
+    }
+
+    onLazyLoad(event: TableLazyLoadEvent) {
+        this.loadData(event.first ?? 0, event.rows ?? 0);
     }
 }
