@@ -4,6 +4,7 @@ from ..database.user import get_user
 from ..database.user_dataset import (
     get_db_user_dataset,
     get_db_user_datasets,
+    get_db_user_datasets_count,
     get_db_user_datasets_for_dataset,
     UserDataset,
 )
@@ -68,6 +69,7 @@ class GetUserDatasetsRequestSchema(Schema):
 
 class GetUserDatasetsResponseSchema(Schema):
     user_datasets = fields.Nested(UserDatasetSchema, many=True, required=True)
+    total = fields.Integer(required=True)
 
 
 def get_user_datasets(
@@ -78,7 +80,8 @@ def get_user_datasets(
         "user_datasets": [
             user_dataset_to_response(db_user_dataset)
             for db_user_dataset in db_user_datasets
-        ]
+        ],
+        "total": get_db_user_datasets_count(),
     }
 
 

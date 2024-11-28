@@ -36,6 +36,10 @@ def get_db_user_datasets(offset: int, limit: int) -> List[UserDataset]:
     )
 
 
+def get_db_user_datasets_count() -> int:
+    return db.session.query(UserDataset).count()
+
+
 def get_db_user_datasets_for_dataset(dataset_id: str) -> List[UserDataset]:
     return (
         db.session.query(UserDataset)

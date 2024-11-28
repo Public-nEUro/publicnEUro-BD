@@ -1,5 +1,14 @@
 <h1>Access Requests</h1>
-<p-table [value]="userDatasets">
+<p-table
+    [value]="userDatasets"
+    [paginator]="true"
+    [(first)]="first"
+    [(rows)]="rows"
+    [rowsPerPageOptions]="[10, 50, 100]"
+    [lazy]="true"
+    [totalRecords]="total"
+    (onLazyLoad)="onLazyLoad($event)"
+>
     <ng-template pTemplate="header">
         <tr>
             <th>User ID</th>

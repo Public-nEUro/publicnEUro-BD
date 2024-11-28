@@ -13,6 +13,7 @@ import { UserDataset } from './userDataset';
 
 
 export interface GetUserDatasetsResponse { 
+    total: number;
     user_datasets: Array<UserDataset>;
 }
 
