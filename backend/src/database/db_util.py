@@ -5,9 +5,13 @@ from .history import add_history_row
 
 
 def get_object_identifier(object: Model):
+    primary_keys = inspect(object.__class__).primary_key
+    id = ",".join(
+        [str(getattr(object, primary_key.name)) for primary_key in primary_keys]
+    )
     return {
         "table": object.__class__.__tablename__,
-        "id": getattr(object, inspect(object.__class__).primary_key[0].name),
+        "id": id,
     }
 
 
