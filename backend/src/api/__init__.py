@@ -18,6 +18,7 @@ from .user_dataset import (
 )
 from .request_access import request_access
 from .grant_access import grant_access
+from .check_access import check_access
 from .history import get_history
 from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
 from ..auth.token import get_auth_user_id
@@ -131,6 +132,7 @@ def init_endpoints(app):
         [get_user_datasets_for_dataset, AuthType.ADMIN],
         [request_access, AuthType.ALL],
         [grant_access, AuthType.ADMIN],
+        [check_access, AuthType.ADMIN],
         [get_history, AuthType.ADMIN],
         [add_scc, AuthType.ADMIN],
         [get_sccs, AuthType.ADMIN],

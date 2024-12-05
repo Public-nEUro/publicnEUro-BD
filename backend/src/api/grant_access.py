@@ -19,7 +19,7 @@ class GrantAccessRequestSchema(Schema):
 
 
 class GrantAccessResponseSchema(Schema):
-    pass
+    status_message = fields.String(required=True)
 
 
 def grant_access(request: GrantAccessRequestSchema) -> GrantAccessResponseSchema:
@@ -38,15 +38,12 @@ def grant_access(request: GrantAccessRequestSchema) -> GrantAccessResponseSchema
     access_request_status = get_access_request_status(
         request["user_id"], request["dataset_id"]
     )
-    
-    print("access_request_status", flush=True)
-    print(access_request_status, flush=True)
 
-    perform_access_check(
+    status_message = perform_access_check(
         request["user_id"],
         request["dataset_id"],
         access_request_status is AccessRequestStatus.ACCESSIBLE,
         access_request_status_to_message[access_request_status],
     )
 
-    return {}
+    return {"status_message": status_message}

@@ -10,6 +10,8 @@ index.ts
 model/acceptance.ts
 model/accessInfo.ts
 model/approveUserRequest.ts
+model/checkAccessRequest.ts
+model/checkAccessResponse.ts
 model/confirmEmailWithPasskeyRequest.ts
 model/confirmEmailWithPasskeyResponse.ts
 model/country.ts
@@ -30,6 +32,7 @@ model/getUserDatasetsResponse.ts
 model/getUserInfoByIdRequest.ts
 model/getUsersResponse.ts
 model/grantAccessRequest.ts
+model/grantAccessResponse.ts
 model/id.ts
 model/institutionWithAcceptance.ts
 model/loginRequest.ts

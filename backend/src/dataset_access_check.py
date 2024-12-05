@@ -156,6 +156,8 @@ def perform_access_check(
         if e.response.status_code == 409:
             set_delphi_share_created(user_dataset)
             return already_received_message
+        if e.response.status_code == 403:
+            return "Permission error"
         current_app.logger.exception(str(e))
         return "An error occurred."
 

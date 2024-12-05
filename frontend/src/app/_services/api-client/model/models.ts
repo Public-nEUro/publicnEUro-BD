@@ -1,6 +1,8 @@
 export * from './acceptance';
 export * from './accessInfo';
 export * from './approveUserRequest';
+export * from './checkAccessRequest';
+export * from './checkAccessResponse';
 export * from './confirmEmailWithPasskeyRequest';
 export * from './confirmEmailWithPasskeyResponse';
 export * from './country';
@@ -21,6 +23,7 @@ export * from './getUserDatasetsResponse';
 export * from './getUserInfoByIdRequest';
 export * from './getUsersResponse';
 export * from './grantAccessRequest';
+export * from './grantAccessResponse';
 export * from './id';
 export * from './institutionWithAcceptance';
 export * from './loginRequest';

@@ -44,7 +44,17 @@
                     styleClass="p-button-success"
                 ></p-button>
             </td>
-            <td>{{ userDataset.delphi_share_created_at | datetime }}</td>
+            <td>
+                <ng-container *ngIf="userDataset.delphi_share_created_at">{{
+                    userDataset.delphi_share_created_at | datetime
+                }}</ng-container>
+                <p-button
+                    *ngIf="userDataset.access_granted_by_admin_at && !userDataset.delphi_share_created_at"
+                    label="Retry"
+                    (onClick)="checkAccess(userDataset)"
+                    styleClass="p-button-success"
+                ></p-button>
+            </td>
         </tr>
     </ng-template>
 </p-table>

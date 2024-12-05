@@ -30,7 +30,17 @@ export class AccessRequestsComponent {
     grantAccess(userDataset: UserDataset) {
         this.service
             .apiGrantAccessPost({ user_id: userDataset.user_id, dataset_id: userDataset.dataset_id })
-            .subscribe(() => {
+            .subscribe(res => {
+                alert(res.status_message);
+                this.loadData(this.first, this.rows);
+            });
+    }
+
+    checkAccess(userDataset: UserDataset) {
+        this.service
+            .apiCheckAccessPost({ user_id: userDataset.user_id, dataset_id: userDataset.dataset_id })
+            .subscribe(res => {
+                alert(res.status_message);
                 this.loadData(this.first, this.rows);
             });
     }
