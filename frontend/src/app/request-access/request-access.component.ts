@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/dataset";
 import { downloadBase64 } from "@helpers/utils/file";
-import { Dataset, DatasetDetails, DefaultService, UserInfo } from "@services/api-client";
+import { Dataset, DatasetDetails, DefaultService, UserDataset, UserInfo } from "@services/api-client";
 
 @Component({
     selector: "app-request-access",
@@ -18,6 +18,7 @@ export class RequestAccessComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
 
     dataset: DatasetDetails | undefined = undefined;
+    userDataset: UserDataset | null | undefined = undefined;
 
     acceptDua = false;
 
@@ -43,22 +44,27 @@ export class RequestAccessComponent implements OnInit {
 
     refresh() {
         this.service.apiGetUserInfoPost({}).subscribe({
-            next: res => {
-                this.userInfo = res;
+            next: userInfoRes => {
+                this.userInfo = userInfoRes;
+                const datasetId = this.getDatasetId();
+                if (datasetId === null) return;
+                this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
+                    next: datasetRes => {
+                        this.dataset = datasetRes;
+                        if (!this.userInfo) return;
+                        this.service
+                            .apiGetUserDatasetPost({ user_id: this.userInfo.id, dataset_id: datasetId })
+                            .subscribe(userDataset => {
+                                this.userDataset = userDataset;
+                            });
+                    },
+                    error: err => {
+                        if (err.status === 404) alert("Dataset not found");
+                    }
+                });
             },
             error: err => {
                 if (err.status === 401) this.userInfo = null;
-            }
-        });
-        const datasetId = this.getDatasetId();
-        if (datasetId === null) return;
-        this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
-            next: res => {
-                this.dataset = res;
-                console.log(this.dataset);
-            },
-            error: err => {
-                if (err.status === 404) alert("Dataset not found");
             }
         });
     }
@@ -83,5 +89,12 @@ export class RequestAccessComponent implements OnInit {
             .subscribe(res => {
                 alert(res.status_message);
             });
+    }
+
+    resendShareLink() {
+        if (!this.dataset) return;
+        this.service.apiResendShareLinkPost({ dataset_id: this.dataset.id }).subscribe(res => {
+            alert(res.status_message);
+        });
     }
 }

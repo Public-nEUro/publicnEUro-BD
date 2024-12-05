@@ -33,6 +33,8 @@ export * from './pagination';
 export * from './registerRequest';
 export * from './requestAccessRequest';
 export * from './requestAccessResponse';
+export * from './resendShareLinkRequest';
+export * from './resendShareLinkResponse';
 export * from './sccWithFileData';
 export * from './sccWithId';
 export * from './userDataset';

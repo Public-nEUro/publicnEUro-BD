@@ -43,6 +43,8 @@ model/pagination.ts
 model/registerRequest.ts
 model/requestAccessRequest.ts
 model/requestAccessResponse.ts
+model/resendShareLinkRequest.ts
+model/resendShareLinkResponse.ts
 model/sccWithFileData.ts
 model/sccWithId.ts
 model/userDataset.ts

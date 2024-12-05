@@ -142,7 +142,7 @@ def perform_access_check(
 
     user_dataset = get_db_user_dataset(user_id, dataset_id)
 
-    already_received_message = "You already received an email with a download link."
+    already_received_message = "You already received an email with a download link. You can't get a new share link before the previous one has expired."
 
     if user_dataset.delphi_share_created_at is not None:
         return already_received_message

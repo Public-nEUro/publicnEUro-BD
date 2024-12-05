@@ -18,7 +18,10 @@
                             <ng-container *ngIf="datasetInfo.value !== null">
                                 <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
                                 <p-checkbox
-                                    *ngIf="dataset.accessibility !== AccessibilityEnum.Private"
+                                    *ngIf="
+                                        dataset.accessibility !== AccessibilityEnum.Private &&
+                                        !userDataset?.access_requested_at
+                                    "
                                     label="I accept the DUA"
                                     [(ngModel)]="acceptDua"
                                     [binary]="true"
@@ -48,41 +51,49 @@
                         </td>
                     </ng-container>
                 </tr>
-            </ng-template> </p-table
-        ><br />
-        <div *ngIf="dataset.access_info.needs_to_log_in">
-            <div>You need to log in</div>
-            <p-button (click)="gotoLogin()">Login</p-button>
-            <div>Don't have an account yet?</div>
-            <p-button (click)="gotoRegister()">Register</p-button>
-        </div>
-        <div *ngIf="dataset.access_info.needs_to_confirm_email">
-            You need to verify your email. Click the link in the welcome email you received.
-        </div>
-        <div *ngIf="dataset.access_info.needs_to_be_approved">Waiting for approval by admin</div>
-        <div *ngIf="dataset.accessibility === AccessibilityEnum.Private">
-            You do not have access to this private repository (if you think you should, contact admin)
-        </div>
-        <div *ngIf="dataset.accessibility !== AccessibilityEnum.Private">
-            <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
-            <div *ngIf="!dataset.access_info.is_accessible_in_country">
-                This dataset is not available in your country
+            </ng-template></p-table
+        ><br /><ng-container *ngIf="userDataset?.access_requested_at"
+            ><ng-container *ngIf="userDataset?.access_granted_by_admin_at"
+                ><p>You have already been granted access to this dataset.</p>
+                <p-button (click)="resendShareLink()">Re-send share-link</p-button></ng-container
+            >
+            <p *ngIf="!userDataset?.access_granted_by_admin_at">Waiting for admin to grant access.</p></ng-container
+        >
+        <ng-container *ngIf="!userDataset?.access_requested_at">
+            <div *ngIf="dataset.access_info.needs_to_log_in">
+                <div>You need to log in</div>
+                <p-button (click)="gotoLogin()">Login</p-button>
+                <div>Don't have an account yet?</div>
+                <p-button (click)="gotoRegister()">Register</p-button>
             </div>
-            <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
-            <div>
-                <p-button
-                    [disabled]="
-                        dataset.institution_scc_accepted === false ||
-                        !acceptDua ||
-                        dataset.access_info.needs_to_log_in ||
-                        dataset.access_info.needs_to_confirm_email ||
-                        dataset.access_info.needs_to_be_approved ||
-                        !dataset.access_info.is_accessible_in_country
-                    "
-                    (click)="requestAccess()"
-                    >Request access</p-button
-                >
+            <div *ngIf="dataset.access_info.needs_to_confirm_email">
+                You need to verify your email. Click the link in the welcome email you received.
             </div>
-        </div>
+            <div *ngIf="dataset.access_info.needs_to_be_approved">Waiting for approval by admin</div>
+            <div *ngIf="dataset.accessibility === AccessibilityEnum.Private">
+                You do not have access to this private repository (if you think you should, contact admin)
+            </div>
+            <div *ngIf="dataset.accessibility !== AccessibilityEnum.Private">
+                <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
+                <div *ngIf="!dataset.access_info.is_accessible_in_country">
+                    This dataset is not available in your country
+                </div>
+                <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
+                <div>
+                    <p-button
+                        [disabled]="
+                            dataset.institution_scc_accepted === false ||
+                            !acceptDua ||
+                            dataset.access_info.needs_to_log_in ||
+                            dataset.access_info.needs_to_confirm_email ||
+                            dataset.access_info.needs_to_be_approved ||
+                            !dataset.access_info.is_accessible_in_country
+                        "
+                        (click)="requestAccess()"
+                        >Request access</p-button
+                    >
+                </div>
+            </div>
+        </ng-container>
     </div>
 </div>

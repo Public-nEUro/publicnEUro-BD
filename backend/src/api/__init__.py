@@ -17,6 +17,7 @@ from .user_dataset import (
     get_user_datasets_for_dataset,
 )
 from .request_access import request_access
+from .resend_share_link import resend_share_link
 from .grant_access import grant_access
 from .check_access import check_access
 from .history import get_history
@@ -130,7 +131,8 @@ def init_endpoints(app):
         [get_user_dataset, AuthType.ADMIN],
         [get_user_datasets, AuthType.ADMIN],
         [get_user_datasets_for_dataset, AuthType.ADMIN],
-        [request_access, AuthType.ALL],
+        [request_access, AuthType.USER],
+        [resend_share_link, AuthType.USER],
         [grant_access, AuthType.ADMIN],
         [check_access, AuthType.ADMIN],
         [get_history, AuthType.ADMIN],
