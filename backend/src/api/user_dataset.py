@@ -1,3 +1,4 @@
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..database.user import get_user
@@ -9,6 +10,7 @@ from ..database.user_dataset import (
     UserDataset,
 )
 from .common_schemas import PaginationSchema
+from .assertions import get_logged_in_user_or_abort
 
 
 class GetUserDatasetRequestSchema(Schema):
@@ -47,6 +49,11 @@ def user_dataset_to_response(
 def get_user_dataset(
     request: GetUserDatasetRequestSchema,
 ) -> UserDatasetSchema:
+    user = get_logged_in_user_or_abort()
+
+    if not user.is_admin and user.id != request["user_id"]:
+        abort(403)
+
     db_user_dataset = get_db_user_dataset(request["user_id"], request["dataset_id"])
 
     if db_user_dataset is None:

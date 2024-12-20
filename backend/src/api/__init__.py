@@ -128,7 +128,7 @@ def init_endpoints(app):
         [get_dataset, AuthType.ALL],
         [get_dataset_dua, AuthType.USER],
         [update_dataset, AuthType.ADMIN],
-        [get_user_dataset, AuthType.ADMIN],
+        [get_user_dataset, AuthType.USER],
         [get_user_datasets, AuthType.ADMIN],
         [get_user_datasets_for_dataset, AuthType.ADMIN],
         [request_access, AuthType.USER],
