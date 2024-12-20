@@ -1,12 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import {
-    AbstractControl,
-    FormControl,
-    UntypedFormBuilder,
-    UntypedFormGroup,
-    ValidationErrors,
-    Validators
-} from "@angular/forms";
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
@@ -81,9 +74,7 @@ export class RegisterComponent implements OnInit {
         }
     };
 
-    registerForm: UntypedFormGroup = new UntypedFormGroup(
-        Object.fromEntries(Object.keys(this.field_infos).map(key => [key, new FormControl("")]))
-    );
+    registerForm: UntypedFormGroup;
     submitted = false;
     recaptchaSiteKey: string;
     captchaResponse: string | null = null;
@@ -100,13 +91,13 @@ export class RegisterComponent implements OnInit {
         private service: DefaultService,
         @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string
     ) {
+        this.registerForm = this.formBuilder.group(
+            Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
+        );
         this.recaptchaSiteKey = recaptchaSiteKey;
     }
 
     ngOnInit() {
-        this.registerForm = this.formBuilder.group(
-            Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
-        );
         this.service.apiGetInstitutionsPost({}).subscribe(res => {
             this.allInstitutions = res.institutions;
             this.filteredInstitutionNames = this.registerForm.get("institution_name")!.valueChanges.pipe(
