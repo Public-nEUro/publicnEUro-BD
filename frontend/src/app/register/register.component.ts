@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
@@ -85,7 +85,6 @@ export class RegisterComponent implements OnInit {
     institution: InstitutionWithAcceptance | undefined;
 
     constructor(
-        private router: Router,
         private route: ActivatedRoute,
         private formBuilder: UntypedFormBuilder,
         private service: DefaultService,
