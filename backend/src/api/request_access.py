@@ -55,6 +55,9 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if access_info["has_rejected_scc"]:
         abort(403)
 
+    if not access_info["user_has_country"]:
+        abort(403)
+
     if not access_info["is_accessible_in_country"]:
         abort(403)
 

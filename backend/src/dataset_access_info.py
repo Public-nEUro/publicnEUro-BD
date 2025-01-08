@@ -14,6 +14,7 @@ class AccessInfo(Schema):
     needs_to_be_approved = fields.Boolean(required=True)
     is_scc_relevant = fields.Boolean(required=True)
     has_rejected_scc = fields.Boolean(required=True)
+    user_has_country = fields.Boolean(required=True)
     is_accessible_in_country = fields.Boolean(required=True)
 
 
@@ -48,6 +49,7 @@ def get_access_info(user_id: str, dataset_id: str) -> AccessInfo:
         and country.geo_location == GeoLocation.OTHER,
         "has_rejected_scc": institution_scc is not None
         and institution_scc.accepted is False,
+        "user_has_country": country is not None,
         "is_accessible_in_country": is_accessible_in_geo_location(
             db_dataset.accessibility,
             country.geo_location if country is not None else None,

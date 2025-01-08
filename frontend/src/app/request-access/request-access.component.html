@@ -75,6 +75,9 @@
             </div>
             <div *ngIf="dataset.accessibility !== AccessibilityEnum.Private">
                 <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
+                <div *ngIf="!dataset.access_info.user_has_country">
+                    Your institution is not assigned to a country
+                </div>
                 <div *ngIf="!dataset.access_info.is_accessible_in_country">
                     This dataset is not available in your country
                 </div>
@@ -87,6 +90,7 @@
                             dataset.access_info.needs_to_log_in ||
                             dataset.access_info.needs_to_confirm_email ||
                             dataset.access_info.needs_to_be_approved ||
+                            !dataset.access_info.user_has_country ||
                             !dataset.access_info.is_accessible_in_country
                         "
                         (click)="requestAccess()"

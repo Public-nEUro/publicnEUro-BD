@@ -18,5 +18,6 @@ export interface AccessInfo {
     needs_to_be_approved: boolean;
     needs_to_confirm_email: boolean;
     needs_to_log_in: boolean;
+    user_has_country: boolean;
 }
 
