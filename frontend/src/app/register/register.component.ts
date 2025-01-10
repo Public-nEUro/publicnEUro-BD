@@ -1,12 +1,19 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
+import {
+    AbstractControl,
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    ValidationErrors,
+    ValidatorFn,
+    Validators
+} from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 import { map, Observable, startWith } from "rxjs";
 
-type FieldKey = keyof RegisterRequest;
+type FieldKey = keyof RegisterRequest | "repeatEmail" | "repeatPassword";
 
 type FieldInfo = {
     type: string;
@@ -18,6 +25,16 @@ type FieldInfo = {
 type FieldInfos = Omit<Record<FieldKey, FieldInfo>, "captcha_response">;
 
 type RegisterRequestWithoutCaptcha = Omit<RegisterRequest, "captcha_response">;
+
+const matchFields =
+    (fieldKey: string, repeatFieldKey: string): ValidatorFn =>
+    (group: AbstractControl): ValidationErrors | null => {
+        const value = group.get(fieldKey)?.value;
+        const repeatValue = group.get(repeatFieldKey)?.value;
+        const error = value === repeatValue ? null : { repeatMismatch: true };
+        group.get(repeatFieldKey)?.setErrors(error);
+        return error;
+    };
 
 @Component({
     selector: "app-register",
@@ -43,12 +60,22 @@ export class RegisterComponent implements OnInit {
             autocomplete: "email",
             validators: [Validators.required, Validators.email]
         },
+        repeatEmail: {
+            type: "text",
+            autocomplete: "email",
+            validators: [Validators.required]
+        },
         address: {
             type: "text",
             autocomplete: "address-line1",
             validators: [Validators.required]
         },
         password: {
+            type: "password",
+            autocomplete: "new-password",
+            validators: [Validators.required]
+        },
+        repeatPassword: {
             type: "password",
             autocomplete: "new-password",
             validators: [Validators.required]
@@ -91,8 +118,14 @@ export class RegisterComponent implements OnInit {
         @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string
     ) {
         this.registerForm = this.formBuilder.group(
-            Object.fromEntries(Object.entries(this.field_infos).map(([key, { validators }]) => [key, ["", validators]]))
+            Object.fromEntries(
+                Object.entries(this.field_infos).map(([key, { validators }]) => {
+                    return [key, ["", validators]];
+                })
+            ),
+            { validators: [matchFields("password", "repeatPassword"), matchFields("email", "repeatEmail")] }
         );
+
         this.recaptchaSiteKey = recaptchaSiteKey;
     }
 
@@ -125,7 +158,9 @@ export class RegisterComponent implements OnInit {
         if (this.institutionName === "") return;
         if (this.registerForm.invalid) return;
         if (this.captchaResponse === null) return;
-        const entries = Object.keys(this.field_infos).map(key => [key, this.f[key].value]);
+        const entries = Object.keys(this.field_infos)
+            .filter(key => !["repeatEmail", "repeatPassword"].includes(key))
+            .map(key => [key, this.f[key].value]);
         const registerRequestWithoutCaptcha: RegisterRequestWithoutCaptcha = Object.fromEntries(entries);
         const registerRequest: RegisterRequest = {
             ...registerRequestWithoutCaptcha,

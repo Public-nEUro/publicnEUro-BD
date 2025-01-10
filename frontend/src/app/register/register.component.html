@@ -30,6 +30,15 @@
                     formControlName="{{ field_info.key }}"
                     [ngClass]="{ 'is-invalid': submitted && f[field_info.key].errors }"
                 />
+                <ng-container
+                    *ngIf="
+                        registerForm.controls[field_info.key].hasError('repeatMismatch') &&
+                        registerForm.controls[field_info.key].touched
+                    "
+                >
+                    <div *ngIf="field_info.key === 'repeatEmail'">Emails do not match.</div>
+                    <div *ngIf="field_info.key === 'repeatPassword'">Passwords do not match.</div>
+                </ng-container>
             </mat-form-field>
         </ng-container>
         <ng-container *ngFor="let field_info of field_infos | userInfoToSortedEntries">
