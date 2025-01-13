@@ -34,19 +34,20 @@ def get_user(id: str) -> User:
     return db.session.query(User).get(id)
 
 
-def confirm_email(id: str) -> User:
+def confirm_email(id: str) -> None:
     user = db.session.query(User).get(id)
     user.email_confirmed_at = get_now()
+    user.email_confirmation_passkey_hash = ""
     save_row(user)
 
 
-def approve_user(id: str) -> User:
+def approve_user(id: str) -> None:
     user = db.session.query(User).get(id)
     user.approved_at = get_now()
     save_row(user)
 
 
-def reject_user(id: str) -> User:
+def reject_user(id: str) -> None:
     user = db.session.query(User).get(id)
     delete_row(user)
 
