@@ -6,8 +6,16 @@
         <div class="form-content">
             <div class="field">
                 <label for="email" class="field-label">Email</label>
-                <input id="email" #emailInput type="text" autocomplete="email" pInputText formControlName="email"
-                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" class="field-input" />
+                <input
+                    id="email"
+                    #emailInput
+                    type="text"
+                    autocomplete="email"
+                    pInputText
+                    formControlName="email"
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                    class="field-input"
+                />
                 <div *ngIf="submitted && f['email'].errors" class="p-error mb-2 mt-2">
                     <div *ngIf="f['email'].errors['required']">Email is required</div>
                     <div *ngIf="f['email'].errors['email']">Not a valid email</div>
@@ -15,10 +23,18 @@
             </div>
             <div class="field">
                 <label for="password" class="field-label">Password</label>
-                <input id="password" type="password" autocomplete="current-password" pInputText
-                    formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
-                <div *ngIf="submitted && f['password'].errors && f['password'].errors['required']"
-                    class="p-error mb-2 mt-2">
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    pInputText
+                    formControlName="password"
+                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                />
+                <div
+                    *ngIf="submitted && f['password'].errors && f['password'].errors['required']"
+                    class="p-error mb-2 mt-2"
+                >
                     Password is required
                 </div>
             </div>
