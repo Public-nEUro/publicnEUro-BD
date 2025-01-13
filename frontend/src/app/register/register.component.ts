@@ -12,6 +12,7 @@ import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
 import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
 import { map, Observable, startWith } from "rxjs";
+import * as zxcvbn from "zxcvbn";
 
 type FieldKey = keyof RegisterRequest | "repeatEmail" | "repeatPassword";
 
@@ -36,6 +37,8 @@ const matchFields =
         return error;
     };
 
+const passwordStrengthNames = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
+
 @Component({
     selector: "app-register",
     templateUrl: "./register.component.html",
@@ -43,6 +46,14 @@ const matchFields =
 })
 export class RegisterComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
+    passwordStrength = "";
+
+    passwordStrengthValidator: ValidatorFn = ({ value }) => {
+        const strength = zxcvbn(value).score; // Between 0 and 4
+        this.passwordStrength = passwordStrengthNames[strength];
+        if (strength < 3) return { tooWeak: true };
+        return null;
+    };
 
     field_infos: FieldInfos = {
         first_name: {
@@ -73,7 +84,7 @@ export class RegisterComponent implements OnInit {
         password: {
             type: "password",
             autocomplete: "new-password",
-            validators: [Validators.required]
+            validators: [Validators.required, this.passwordStrengthValidator]
         },
         repeatPassword: {
             type: "password",
