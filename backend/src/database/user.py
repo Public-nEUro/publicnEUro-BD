@@ -5,6 +5,7 @@ from sqlalchemy.sql.expression import null, false
 from . import db
 from ..datetime import get_now
 from .db_util import add_row, save_row, delete_row
+from ..auth.password import gen_hash_and_salt
 
 
 class User(db.Model):
@@ -37,6 +38,15 @@ def get_user(id: str) -> User:
 def confirm_email(id: str) -> None:
     user = db.session.query(User).get(id)
     user.email_confirmed_at = get_now()
+    user.email_confirmation_passkey_hash = ""
+    save_row(user)
+
+
+def reset_password(id: str, new_password: str) -> None:
+    user = db.session.query(User).get(id)
+    hash, salt = gen_hash_and_salt(new_password)
+    user.password_hash = hash
+    user.password_salt = salt
     user.email_confirmation_passkey_hash = ""
     save_row(user)
 

@@ -29,6 +29,8 @@ import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home/home.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
 import { UserComponent } from "@user/user.component";
@@ -63,6 +65,8 @@ import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
         HomeComponent,
         RegisterComponent,
         LoginComponent,
+        ForgotPasswordComponent,
+        ResetPasswordComponent,
         ProfileComponent,
         UsersComponent,
         UserComponent,

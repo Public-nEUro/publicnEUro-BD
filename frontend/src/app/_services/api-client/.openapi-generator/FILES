@@ -20,6 +20,7 @@ model/dataset.ts
 model/datasetDetails.ts
 model/datasetWithFileData.ts
 model/event.ts
+model/forgotPasswordRequest.ts
 model/getCountriesResponse.ts
 model/getDatasetsResponse.ts
 model/getHistoryResponse.ts
@@ -45,6 +46,7 @@ model/requestAccessRequest.ts
 model/requestAccessResponse.ts
 model/resendShareLinkRequest.ts
 model/resendShareLinkResponse.ts
+model/resetPasswordWithPasskeyRequest.ts
 model/sccWithFileData.ts
 model/sccWithId.ts
 model/userDataset.ts

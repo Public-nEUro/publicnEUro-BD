@@ -2,6 +2,8 @@ import enum
 from flask import request, current_app
 from .register import register
 from .login import login
+from .forgot_password import forgot_password
+from .reset_password import reset_password_with_passkey
 from .get_user_info import get_user_info
 from .get_user_info_by_id import get_user_info_by_id
 from .get_users import get_approved_users, get_non_approved_users
@@ -113,6 +115,8 @@ def init_endpoints(app):
     func_list = [
         [register, AuthType.ALL],
         [login, AuthType.ALL],
+        [forgot_password, AuthType.ALL],
+        [reset_password_with_passkey, AuthType.ALL],
         [get_user_info, AuthType.USER],
         [get_user_info_by_id, AuthType.ADMIN],
         [get_approved_users, AuthType.ADMIN],

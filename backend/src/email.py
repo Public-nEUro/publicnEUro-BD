@@ -33,10 +33,18 @@ def send_email(template, variables, recipients):
         mailer.send_message(message)
 
 
-def send_confirmation_email(user_email, email_confirmation_passkey):
+def send_confirmation_email(user_email: str, email_confirmation_passkey: str):
     send_email(
         "confirmation",
         {"link": create_frontend_url(f"confirmation/{email_confirmation_passkey}")},
+        user_email,
+    )
+
+
+def send_reset_password_email(user_email: str, email_confirmation_passkey: str):
+    send_email(
+        "reset_password",
+        {"link": create_frontend_url(f"reset_password/{email_confirmation_passkey}")},
         user_email,
     )
 

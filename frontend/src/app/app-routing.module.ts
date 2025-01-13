@@ -16,6 +16,8 @@ import { HistoryComponent } from "./history/history.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { AccessRequestsComponent } from "./access-requests/access-requests.component";
 import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 const routes: Routes = [
     {
@@ -29,6 +31,14 @@ const routes: Routes = [
     {
         path: "login",
         component: LoginComponent
+    },
+    {
+        path: "forgot_password",
+        component: ForgotPasswordComponent
+    },
+    {
+        path: "reset_password/:email_confirmation_passkey",
+        component: ResetPasswordComponent
     },
     {
         path: "profile",
