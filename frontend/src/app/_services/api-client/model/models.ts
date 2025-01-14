@@ -10,6 +10,7 @@ export * from './countryWithoutId';
 export * from './dataset';
 export * from './datasetDetails';
 export * from './datasetWithFileData';
+export * from './deleteAccessRequestRequest';
 export * from './event';
 export * from './forgotPasswordRequest';
 export * from './getCountriesResponse';

@@ -19,6 +19,7 @@
             <th>Email sent to admin at</th>
             <th>Access granted by admin at</th>
             <th>DELPHI share created at</th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-userDataset>
@@ -53,6 +54,13 @@
                     label="Retry"
                     (onClick)="checkAccess(userDataset)"
                     styleClass="p-button-success"
+                ></p-button>
+            </td>
+            <td>
+                <p-button
+                    label="Delete"
+                    (onClick)="deleteAccessRequest(userDataset)"
+                    styleClass="p-button-danger"
                 ></p-button>
             </td>
         </tr>

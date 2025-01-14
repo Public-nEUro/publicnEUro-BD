@@ -19,6 +19,7 @@ model/countryWithoutId.ts
 model/dataset.ts
 model/datasetDetails.ts
 model/datasetWithFileData.ts
+model/deleteAccessRequestRequest.ts
 model/event.ts
 model/forgotPasswordRequest.ts
 model/getCountriesResponse.ts

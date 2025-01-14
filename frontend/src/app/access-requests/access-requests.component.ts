@@ -44,4 +44,18 @@ export class AccessRequestsComponent {
                 this.loadData(this.first, this.rows);
             });
     }
+
+    deleteAccessRequest(userDataset: UserDataset) {
+        if (
+            !confirm(
+                "You are about to delete this access request. The user will NOT be notified about this. After deletion, the user can create a new access request if they want to."
+            )
+        )
+            return;
+        this.service
+            .apiDeleteAccessRequestPost({ dataset_id: userDataset.dataset_id, user_id: userDataset.user_id })
+            .subscribe(() => {
+                this.loadData(this.first, this.rows);
+            });
+    }
 }

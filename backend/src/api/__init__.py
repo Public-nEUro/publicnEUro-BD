@@ -21,6 +21,7 @@ from .user_dataset import (
 from .request_access import request_access
 from .resend_share_link import resend_share_link
 from .grant_access import grant_access
+from .delete_access_request import delete_access_request
 from .check_access import check_access
 from .history import get_history
 from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
@@ -138,6 +139,7 @@ def init_endpoints(app):
         [request_access, AuthType.USER],
         [resend_share_link, AuthType.USER],
         [grant_access, AuthType.ADMIN],
+        [delete_access_request, AuthType.ADMIN],
         [check_access, AuthType.ADMIN],
         [get_history, AuthType.ADMIN],
         [add_scc, AuthType.ADMIN],
