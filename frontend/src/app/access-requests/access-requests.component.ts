@@ -48,7 +48,7 @@ export class AccessRequestsComponent {
     deleteAccessRequest(userDataset: UserDataset) {
         if (
             !confirm(
-                "You are about to delete this access request. The user will NOT be notified about this. After deletion, the user can create a new access request if they want to."
+                "You are about to delete this access request. The user will NOT be notified about this. Also, the DELPHI share will NOT be deleted by this action. After deleting this access request, the user can create a new access request if they want to."
             )
         )
             return;
