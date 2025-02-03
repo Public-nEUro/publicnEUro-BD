@@ -68,6 +68,7 @@
                                     "maximumError": "64kb"
                                 }
                             ],
+                            "buildOptimizer": false,
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -89,6 +90,7 @@
                                     "maximumError": "64kb"
                                 }
                             ],
+                            "buildOptimizer": false,
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
