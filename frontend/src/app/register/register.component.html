@@ -92,14 +92,7 @@
             </mat-card-content>
         </mat-card>
         <br />
-        <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="{{ recaptchaSiteKey }}"></re-captcha>
-        <br />
-        <p-button
-            type="submit"
-            [disabled]="captchaResponse === null"
-            label="Sign up"
-            icon="fal fa-arrow-circle-right"
-        ></p-button>
+        <p-button type="submit" label="Sign up" icon="fal fa-arrow-circle-right"></p-button>
         <br />
     </form>
 </div>

@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { matchFields, passwordStrengthValidator } from "@helpers/utils/form";
 import { fieldKeyToLabel } from "@helpers/utils/userInfo";
 import { DefaultService, InstitutionWithAcceptance, RegisterRequest } from "@services/api-client";
-import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2";
+import { RECAPTCHA_V3_SITE_KEY, ReCaptchaV3Service } from "ng-recaptcha-2";
 import { map, Observable, startWith } from "rxjs";
 
 type FieldKey = keyof RegisterRequest | "repeatEmail" | "repeatPassword";
@@ -100,7 +100,8 @@ export class RegisterComponent implements OnInit {
         private route: ActivatedRoute,
         private formBuilder: UntypedFormBuilder,
         private service: DefaultService,
-        @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string
+        @Inject(RECAPTCHA_V3_SITE_KEY) recaptchaSiteKey: string,
+        private recaptchaV3Service: ReCaptchaV3Service
     ) {
         this.registerForm = this.formBuilder.group(
             Object.fromEntries(
@@ -139,22 +140,23 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        this.submitted = true;
-        if (this.institutionName === "") return;
-        if (this.registerForm.invalid) return;
-        if (this.captchaResponse === null) return;
-        const entries = Object.keys(this.field_infos)
-            .filter(key => !["repeatEmail", "repeatPassword"].includes(key))
-            .map(key => [key, this.f[key].value]);
-        const registerRequestWithoutCaptcha: RegisterRequestWithoutCaptcha = Object.fromEntries(entries);
-        const registerRequest: RegisterRequest = {
-            ...registerRequestWithoutCaptcha,
-            institution_name: this.institutionName,
-            captcha_response: this.captchaResponse
-        };
-        this.service.apiRegisterPost(registerRequest).subscribe(() => {
-            const redirect = this.route.snapshot.queryParamMap.get("redirect");
-            window.location.replace(redirect ?? "/manage");
+        this.recaptchaV3Service.execute("register").subscribe(token => {
+            this.submitted = true;
+            if (this.institutionName === "") return;
+            if (this.registerForm.invalid) return;
+            const entries = Object.keys(this.field_infos)
+                .filter(key => !["repeatEmail", "repeatPassword"].includes(key))
+                .map(key => [key, this.f[key].value]);
+            const registerRequestWithoutCaptcha: RegisterRequestWithoutCaptcha = Object.fromEntries(entries);
+            const registerRequest: RegisterRequest = {
+                ...registerRequestWithoutCaptcha,
+                institution_name: this.institutionName,
+                captcha_response: token
+            };
+            this.service.apiRegisterPost(registerRequest).subscribe(() => {
+                const redirect = this.route.snapshot.queryParamMap.get("redirect");
+                window.location.replace(redirect ?? "/manage");
+            });
         });
     }
 }

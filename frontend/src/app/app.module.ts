@@ -48,7 +48,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatSelectModule } from "@angular/material/select";
-import { RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from "ng-recaptcha-2";
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from "ng-recaptcha-2";
 import { InstitutionsComponent } from "./institutions/institutions.component";
 import { SccsComponent } from "./sccs/sccs.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
@@ -110,7 +110,7 @@ import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
         MatToolbarModule,
         MatIconModule,
         MatListModule,
-        RecaptchaModule,
+        RecaptchaV3Module,
         MatFormFieldModule,
         MatInputModule,
         MatGridListModule,
