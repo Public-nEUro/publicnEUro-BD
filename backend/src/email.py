@@ -30,6 +30,9 @@ def send_email(template, variables, recipients):
         port=os.environ["SMTP_PORT"],
         timeout=SMTP_TIMEOUT,
     ) as mailer:
+        if os.environ["SMTP_USERNAME"] != "":
+            mailer.starttls()
+            mailer.login(os.environ["SMTP_USERNAME"], os.environ["SMTP_PASSWORD"])
         mailer.send_message(message)
 
 
