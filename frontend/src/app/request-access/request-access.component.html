@@ -8,26 +8,47 @@
                         <td>
                             <b>{{ fieldKeyToLabel[datasetInfo.key] }}</b>
                         </td>
-                        <td>{{ datasetInfo.value }}</td></ng-container
-                    >
-                    <ng-container *ngIf="datasetInfo.key === 'dua_file_name'"
-                        ><td>
+                        <td>{{ datasetInfo.value }}</td>
+                        <td></td>
+                        <td></td
+                    ></ng-container>
+                    <ng-container *ngIf="datasetInfo.key === 'dua_file_name'">
+                        <td>
                             <b>{{ fieldKeyToLabel[datasetInfo.key] }}</b>
                         </td>
                         <td>
                             <ng-container *ngIf="datasetInfo.value !== null">
                                 <p-button (click)="downloadDua()">{{ datasetInfo.value }}</p-button>
+                            </ng-container>
+                            <ng-container *ngIf="datasetInfo.value === null">No DUA</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="dataset.approval_type === ApprovalTypeEnum.Automated">
                                 <p-checkbox
                                     *ngIf="
+                                        datasetInfo.value !== null &&
                                         dataset.accessibility !== AccessibilityEnum.Private &&
                                         !userDataset?.access_requested_at
                                     "
                                     label="I accept the DUA"
                                     [(ngModel)]="acceptDua"
                                     [binary]="true"
-                                ></p-checkbox
-                            ></ng-container>
-                            <ng-container *ngIf="datasetInfo.value === null">No DUA</ng-container>
+                                ></p-checkbox>
+                                <ng-container *ngIf="datasetInfo.value === null">No DUA</ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="dataset.approval_type === ApprovalTypeEnum.Oversight">
+                                <b>Signed DUA</b>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="dataset.approval_type === ApprovalTypeEnum.Oversight">
+                                <input
+                                    type="file"
+                                    pInputText
+                                    (change)="onSignedDuaFileSelected($event)"
+                                    class="file-input"
+                                />
+                            </ng-container>
                         </td>
                     </ng-container>
                     <ng-container *ngIf="datasetInfo.key === 'scc_file_name' && dataset.access_info.is_scc_relevant"
@@ -75,18 +96,22 @@
             </div>
             <div *ngIf="dataset.accessibility !== AccessibilityEnum.Private">
                 <div *ngIf="dataset.access_info.has_rejected_scc">Your institution has rejected the SCC</div>
-                <div *ngIf="!dataset.access_info.user_has_country">
-                    Your institution is not assigned to a country
-                </div>
+                <div *ngIf="!dataset.access_info.user_has_country">Your institution is not assigned to a country</div>
                 <div *ngIf="!dataset.access_info.is_accessible_in_country">
                     This dataset is not available in your country
                 </div>
-                <div *ngIf="!acceptDua">You need to accept the DUA before requesting access</div>
+                <div *ngIf="dataset.approval_type === ApprovalTypeEnum.Automated && !acceptDua">
+                    You need to accept the DUA before requesting access
+                </div>
+                <div *ngIf="dataset.approval_type === ApprovalTypeEnum.Oversight && signedDuaFileName === null">
+                    You need to upload the signed DUA before requesting access
+                </div>
                 <div>
                     <p-button
                         [disabled]="
                             dataset.institution_scc_accepted === false ||
-                            !acceptDua ||
+                            (dataset.approval_type === ApprovalTypeEnum.Automated && !acceptDua) ||
+                                (dataset.approval_type === ApprovalTypeEnum.Oversight && signedDuaFileName === null) ||
                             dataset.access_info.needs_to_log_in ||
                             dataset.access_info.needs_to_confirm_email ||
                             dataset.access_info.needs_to_be_approved ||

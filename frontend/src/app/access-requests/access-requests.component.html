@@ -16,6 +16,7 @@
             <th>Dataset ID</th>
             <th>Access requested at</th>
             <th>User accepted DUA at</th>
+            <th>Signed DUA</th>
             <th>Email sent to admin at</th>
             <th>Access granted by admin at</th>
             <th>DELPHI share created at</th>
@@ -33,6 +34,12 @@
             </td>
             <td>{{ userDataset.access_requested_at | datetime }}</td>
             <td>{{ userDataset.user_accepted_dua_at | datetime }}</td>
+            <td>
+                <p-button *ngIf="userDataset.signed_dua_file_name !== null" (click)="downloadSignedDua(userDataset)">{{
+                    userDataset.signed_dua_file_name
+                }}</p-button>
+                <ng-container *ngIf="userDataset.signed_dua_file_name === null">None</ng-container>
+            </td>
             <td>{{ userDataset.email_sent_to_admin_at | datetime }}</td>
             <td>
                 <ng-container *ngIf="userDataset.access_granted_by_admin_at">{{

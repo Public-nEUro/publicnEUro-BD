@@ -17,6 +17,8 @@ export interface UserDataset {
     dataset_id: string;
     delphi_share_created_at: string | null;
     email_sent_to_admin_at: string | null;
+    signed_dua_file_data: string | null;
+    signed_dua_file_name: string | null;
     user_accepted_dua_at: string | null;
     user_email: string;
     user_id: string;

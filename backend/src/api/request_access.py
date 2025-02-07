@@ -5,7 +5,7 @@ from ..auth.token import get_auth_user_id
 from ..datetime import get_now
 from ..database.user_dataset import UserDataset, get_db_user_dataset
 from ..database.user import get_user
-from ..database.dataset import get_db_dataset
+from ..database.dataset import get_db_dataset, ApprovalType
 from ..dataset_access_info import get_access_info
 from ..database.db_util import add_row, save_row
 from ..dataset_access_check import (
@@ -21,18 +21,24 @@ from ..email import send_access_request_email
 class RequestAccessRequestSchema(Schema):
     dataset_id = fields.String(required=True)
     accept_dua = fields.Boolean(required=True)
+    signed_dua_file_name = fields.String(required=True, allow_none=True)
+    signed_dua_file_data = fields.String(required=True, allow_none=True)
 
 
 class RequestAccessResponseSchema(Schema):
     status_message = fields.String(required=True)
 
 
-def add_user_dataset_to_db(user_id: str, dataset_id: str):
+def add_user_dataset_to_db(
+    user_id: str, dataset_id: str, signed_dua_file_name: str, signed_dua_file_data: str
+):
     user_dataset = UserDataset()
     user_dataset.user_id = user_id
     user_dataset.dataset_id = dataset_id
     user_dataset.access_requested_at = get_now()
     user_dataset.user_accepted_dua_at = get_now()
+    user_dataset.signed_dua_file_name = signed_dua_file_name
+    user_dataset.signed_dua_file_data = signed_dua_file_data
     user_dataset.email_sent_to_admin_at = None
     user_dataset.access_granted_by_admin_at = None
     user_dataset.delphi_share_created_at = None
@@ -74,11 +80,22 @@ def request_access(request: RequestAccessRequestSchema) -> RequestAccessResponse
     if dataset is None:
         abort(404)
 
+    if dataset.approval_type == ApprovalType.OVERSIGHT and (
+        request["signed_dua_file_name"] is None
+        or request["signed_dua_file_data"] is None
+    ):
+        abort(403)
+
     access_request_status = get_access_request_status(user_id, request["dataset_id"])
 
     existing_user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
     if existing_user_dataset is None:
-        add_user_dataset_to_db(user_id, request["dataset_id"])
+        add_user_dataset_to_db(
+            user_id,
+            request["dataset_id"],
+            request["signed_dua_file_name"],
+            request["signed_dua_file_data"],
+        )
 
     user_dataset = get_db_user_dataset(user_id, request["dataset_id"])
     if user_dataset.email_sent_to_admin_at is None:

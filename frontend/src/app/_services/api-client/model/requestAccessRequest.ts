@@ -14,5 +14,7 @@
 export interface RequestAccessRequest { 
     accept_dua: boolean;
     dataset_id: string;
+    signed_dua_file_data: string | null;
+    signed_dua_file_name: string | null;
 }
 

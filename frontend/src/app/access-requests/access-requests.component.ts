@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { downloadBase64 } from "@helpers/utils/file";
 import { DefaultService, UserDataset } from "@services/api-client";
 import { TableLazyLoadEvent } from "primeng/table";
 
@@ -57,5 +58,10 @@ export class AccessRequestsComponent {
             .subscribe(() => {
                 this.loadData(this.first, this.rows);
             });
+    }
+
+    downloadSignedDua(userDataset: UserDataset) {
+        if (userDataset.signed_dua_file_name === null || userDataset.signed_dua_file_data === null) return;
+        downloadBase64(userDataset.signed_dua_file_data, userDataset.signed_dua_file_name);
     }
 }

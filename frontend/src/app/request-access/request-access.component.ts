@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { fieldKeyToLabel } from "@helpers/utils/dataset";
-import { downloadBase64 } from "@helpers/utils/file";
+import { downloadBase64, toBase64 } from "@helpers/utils/file";
 import { Dataset, DatasetDetails, DefaultService, UserDataset, UserInfo } from "@services/api-client";
 
 @Component({
@@ -21,6 +21,11 @@ export class RequestAccessComponent implements OnInit {
     userDataset: UserDataset | null | undefined = undefined;
 
     acceptDua = false;
+
+    ApprovalTypeEnum = DatasetDetails.ApprovalTypeEnum;
+
+    signedDuaFileName: string | null = null;
+    signedDuaFileData: string | null = null;
 
     ngOnInit(): void {
         this.refresh();
@@ -76,6 +81,13 @@ export class RequestAccessComponent implements OnInit {
         });
     }
 
+    async onSignedDuaFileSelected(event: Event) {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (file === undefined) return;
+        this.signedDuaFileName = file.name;
+        this.signedDuaFileData = await toBase64(file);
+    }
+
     downloadScc() {
         if (!this.dataset?.scc_id) return;
         this.service.apiGetSccPost({ id: this.dataset.scc_id }).subscribe(res => {
@@ -85,7 +97,12 @@ export class RequestAccessComponent implements OnInit {
 
     requestAccess() {
         this.service
-            .apiRequestAccessPost({ dataset_id: this.getDatasetId(), accept_dua: this.acceptDua })
+            .apiRequestAccessPost({
+                dataset_id: this.getDatasetId(),
+                accept_dua: this.acceptDua || this.signedDuaFileName !== null,
+                signed_dua_file_name: this.signedDuaFileName,
+                signed_dua_file_data: this.signedDuaFileData
+            })
             .subscribe(res => {
                 alert(res.status_message);
             });
