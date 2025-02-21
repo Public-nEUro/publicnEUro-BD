@@ -70,7 +70,7 @@ def get_access_request_status(user_id: str, dataset_id: str) -> Accessibility:
         return AccessRequestStatus.ACCESSIBLE
 
     db_dataset = get_db_dataset(dataset_id)
-    if db_dataset.accessibility == Accessibility.PUBLIC:
+    if db_dataset.accessibility == Accessibility.OPEN:
         return AccessRequestStatus.ACCESSIBLE
 
     user = get_user(user_id)

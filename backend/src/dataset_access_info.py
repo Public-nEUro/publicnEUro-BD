@@ -34,7 +34,7 @@ def get_access_info(user_id: str, dataset_id: str) -> AccessInfo:
     institution_scc = next(
         (scc for scc in institution_sccs if scc.scc_id == scc_id), None
     )
-    not_public = db_dataset.accessibility != Accessibility.PUBLIC
+    not_public = db_dataset.accessibility != Accessibility.OPEN
 
     return {
         "needs_to_log_in": not_public and user is None,

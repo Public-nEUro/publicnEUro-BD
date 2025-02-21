@@ -6,7 +6,7 @@ def is_accessible_in_geo_location(
     accessibility: Accessibility, geo_location: GeoLocation
 ) -> bool:
     match accessibility:
-        case Accessibility.PUBLIC:
+        case Accessibility.OPEN:
             return True
         case Accessibility.WORLDWIDE:
             return True

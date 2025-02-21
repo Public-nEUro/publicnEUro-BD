@@ -26,13 +26,13 @@ export interface DatasetDetails {
     scc_id: string | null;
 }
 export namespace DatasetDetails {
-    export type AccessibilityEnum = 'PRIVATE' | 'EU' | 'EU_AND_ADEQUATE' | 'WORLDWIDE' | 'PUBLIC';
+    export type AccessibilityEnum = 'PRIVATE' | 'EU' | 'EU_AND_ADEQUATE' | 'WORLDWIDE' | 'OPEN';
     export const AccessibilityEnum = {
         Private: 'PRIVATE' as AccessibilityEnum,
         Eu: 'EU' as AccessibilityEnum,
         EuAndAdequate: 'EU_AND_ADEQUATE' as AccessibilityEnum,
         Worldwide: 'WORLDWIDE' as AccessibilityEnum,
-        Public: 'PUBLIC' as AccessibilityEnum
+        Open: 'OPEN' as AccessibilityEnum
     };
     export type ApprovalTypeEnum = 'OVERSIGHT' | 'AUTOMATED';
     export const ApprovalTypeEnum = {

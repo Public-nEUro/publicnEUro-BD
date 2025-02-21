@@ -10,7 +10,7 @@ class Accessibility(enum.Enum):
     EU = "EU"
     EU_AND_ADEQUATE = "EU_AND_ADEQUATE"
     WORLDWIDE = "WORLDWIDE"
-    PUBLIC = "PUBLIC"
+    OPEN = "OPEN"
 
 
 class ApprovalType(enum.Enum):
