@@ -24,7 +24,7 @@ export class DatasetComponent implements OnInit {
     approvalTypes: Dataset.ApprovalTypeEnum[] = ["OVERSIGHT", "AUTOMATED"];
     filteredApprovalTypes: Dataset.ApprovalTypeEnum[] = [];
 
-    dataset: DatasetDetails | null | undefined = undefined;
+    dataset: (DatasetDetails & { delphi_share_url?: string }) | null | undefined = undefined;
 
     editing = false;
 
@@ -47,9 +47,11 @@ export class DatasetComponent implements OnInit {
         this.filteredApprovalTypes = this.approvalTypes;
         this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
             next: res => {
-                this.dataset = res;
-                this.service.apiGetSccsPost({}).subscribe(res => {
-                    this.sccs = res.sccs;
+                this.service.apiGetDelphiShareUrlPost({ id: datasetId }).subscribe(({ delphi_share_url }) => {
+                    this.dataset = { ...res, delphi_share_url };
+                    this.service.apiGetSccsPost({}).subscribe(res => {
+                        this.sccs = res.sccs;
+                    });
                 });
             },
             error: err => {
@@ -104,9 +106,12 @@ export class DatasetComponent implements OnInit {
     save() {
         if (!this.dataset) return;
         const { scc_file_name, access_info, institution_scc_accepted, ...datasetWithFileData } = this.dataset;
-        this.service.apiUpdateDatasetPost(datasetWithFileData).subscribe(() => {
-            this.refresh();
-        });
+        if (datasetWithFileData.delphi_share_url === undefined) return;
+        this.service
+            .apiUpdateDatasetPost({ ...datasetWithFileData, delphi_share_url: datasetWithFileData.delphi_share_url })
+            .subscribe(() => {
+                this.refresh();
+            });
     }
 
     cancel() {

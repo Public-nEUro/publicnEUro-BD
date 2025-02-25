@@ -12,7 +12,13 @@ from .approve_user import approve_user, reject_user
 from .country import add_country, get_countries
 from .institution import get_institutions, update_institution
 from .scc import add_scc, get_sccs, get_scc
-from .dataset import get_datasets, get_dataset, get_dataset_dua, update_dataset
+from .dataset import (
+    get_datasets,
+    get_dataset,
+    get_delphi_share_url,
+    get_dataset_dua,
+    update_dataset,
+)
 from .user_dataset import (
     get_user_dataset,
     get_user_datasets,
@@ -131,6 +137,7 @@ def init_endpoints(app):
         [update_institution, AuthType.ADMIN],
         [get_datasets, AuthType.ADMIN],
         [get_dataset, AuthType.ALL],
+        [get_delphi_share_url, AuthType.ALL],
         [get_dataset_dua, AuthType.USER],
         [update_dataset, AuthType.ADMIN],
         [get_user_dataset, AuthType.USER],

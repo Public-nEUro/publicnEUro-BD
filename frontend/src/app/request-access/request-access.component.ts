@@ -48,14 +48,20 @@ export class RequestAccessComponent implements OnInit {
     }
 
     refresh() {
-        this.service.apiGetUserInfoPost({}).subscribe({
-            next: userInfoRes => {
-                this.userInfo = userInfoRes;
-                const datasetId = this.getDatasetId();
-                if (datasetId === null) return;
-                this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
-                    next: datasetRes => {
-                        this.dataset = datasetRes;
+        const datasetId = this.getDatasetId();
+        if (datasetId === null) return;
+        this.service.apiGetDatasetPost({ id: datasetId }).subscribe({
+            next: datasetRes => {
+                this.dataset = datasetRes;
+                if (datasetRes.accessibility === DatasetDetails.AccessibilityEnum.Open) {
+                    this.service.apiGetDelphiShareUrlPost({ id: datasetId }).subscribe(({ delphi_share_url }) => {
+                        window.location.replace(delphi_share_url);
+                    });
+                    return;
+                }
+                this.service.apiGetUserInfoPost({}).subscribe({
+                    next: userInfoRes => {
+                        this.userInfo = userInfoRes;
                         if (!this.userInfo) return;
                         this.service
                             .apiGetUserDatasetPost({ user_id: this.userInfo.id, dataset_id: datasetId })
@@ -64,12 +70,12 @@ export class RequestAccessComponent implements OnInit {
                             });
                     },
                     error: err => {
-                        if (err.status === 404) alert("Dataset not found");
+                        if (err.status === 401) this.userInfo = null;
                     }
                 });
             },
             error: err => {
-                if (err.status === 401) this.userInfo = null;
+                if (err.status === 404) alert("Dataset not found");
             }
         });
     }

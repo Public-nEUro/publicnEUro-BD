@@ -20,6 +20,7 @@ model/dataset.ts
 model/datasetDetails.ts
 model/datasetWithFileData.ts
 model/deleteAccessRequestRequest.ts
+model/delphiShareUrl.ts
 model/event.ts
 model/forgotPasswordRequest.ts
 model/getCountriesResponse.ts

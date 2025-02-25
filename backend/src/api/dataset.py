@@ -3,6 +3,7 @@ from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema, IdSchema, FileSchema
+from .assertions import get_logged_in_admin_or_abort
 from ..auth.token import get_auth_user_id
 from ..database.user import get_user
 from ..database.institution import get_db_institution
@@ -27,17 +28,22 @@ class DatasetSchema(Schema):
     dua_file_name = fields.String(required=True, allow_none=True)
     scc_id = fields.UUID(required=True, allow_none=True)
     approval_type = fields.Enum(ApprovalType, by_value=True, required=True)
-    delphi_share_url = fields.String(required=True)
 
 
 class DatasetWithFileDataSchema(DatasetSchema):
     dua_file_data = fields.String(required=True, allow_none=True)
+    delphi_share_url = fields.String(required=True)
 
 
-class DatasetDetailsSchema(DatasetWithFileDataSchema):
+class DatasetDetailsSchema(DatasetSchema):
+    dua_file_data = fields.String(required=True, allow_none=True)
     scc_file_name = fields.String(required=True, allow_none=True)
     institution_scc_accepted = fields.Boolean(required=True, allow_none=True)
     access_info = fields.Nested(AccessInfo, required=True)
+
+
+class DelphiShareUrlSchema(Schema):
+    delphi_share_url = fields.String(required=True)
 
 
 class GetDatasetsResponseSchema(Schema):
@@ -64,7 +70,6 @@ def merge_dataset_info(
         "dua_file_name": db_dataset.dua_file_name,
         "scc_id": db_dataset.scc_id,
         "approval_type": db_dataset.approval_type,
-        "delphi_share_url": db_dataset.delphi_share_url,
     }
 
 
@@ -113,6 +118,18 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
         ),
         "access_info": get_access_info(user_id, request["id"]),
     }
+
+
+def get_delphi_share_url(request: IdSchema) -> DelphiShareUrlSchema:
+    db_dataset = get_db_dataset(request["id"])
+
+    if db_dataset is None:
+        abort(404)
+
+    if db_dataset.accessibility != Accessibility.OPEN:
+        get_logged_in_admin_or_abort()
+
+    return {"delphi_share_url": db_dataset.delphi_share_url}
 
 
 def get_dataset_dua(request: IdSchema) -> FileSchema:
