@@ -1,0 +1,39 @@
+<h1>Datasets</h1>
+<p-table [value]="datasets">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Accessibility</th>
+            <th>DUA</th>
+            <th>SCC</th>
+            <th>Approval</th>
+            <th>DELPHI share link</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dataset
+        ><tr>
+            <td>
+                <a href="/manage/admin/datasets/{{ dataset.id }}">{{ dataset.id }}</a>
+            </td>
+            <td>{{ dataset.name }}</td>
+            <td>{{ dataset.accessibility }}</td>
+            <td>
+                <p-button
+                    *ngIf="dataset.dua_file_name !== null && dataset.dua_file_data !== null"
+                    (click)="downloadDua(dataset)"
+                    >{{ dataset.dua_file_name }}</p-button
+                >
+            </td>
+            <td>
+                <p-button *ngIf="dataset.scc_id !== null" (click)="downloadScc(dataset)">{{
+                    getSccTitle.bind(this)(dataset.scc_id)
+                }}</p-button>
+            </td>
+            <td>{{ dataset.approval_type }}</td>
+            <td>
+                <a href="{{ dataset.delphi_share_url }}" target="_blank">{{ dataset.delphi_share_url }}</a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

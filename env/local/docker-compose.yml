@@ -1,0 +1,67 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: data_manager_local_nginx
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./nginx:/etc/nginx
+    depends_on:
+      - smtp_mock
+      - frontend
+      - backend
+      - datalad
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: local
+    container_name: "data_manager_local_frontend"
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: "data_manager_local_backend"
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ADDRESS}:${POSTGRES_PORT}/${POSTGRES_DB}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - SMTP_ADDRESS=${SMTP_ADDRESS}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_SENDER=${SMTP_SENDER}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - APPROVER_EMAIL=${APPROVER_EMAIL}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
+      - DELPHI_BACKEND_URL=${DELPHI_BACKEND_URL}
+      - DELPHI_FRONTEND_URL=${DELPHI_FRONTEND_URL}
+    volumes:
+      - ../../backend:/app
+  datalad:
+    build:
+      context: ../../datalad
+      dockerfile: Dockerfile
+    container_name: data_manager_local_datalad
+    volumes:
+      - ../../datalad/docker-mount:/root
+  db:
+    container_name: data_manager_local_db
+    image: postgres:16.3-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - '5433:${POSTGRES_PORT}'
+    volumes:
+      - data_manager_local_db:/var/lib/postgresql/data
+  smtp_mock:
+    container_name: "data_manager_local_smtp_mock"
+    image: dockage/mailcatcher
+    command:
+      - --http-path=/email
+volumes:
+  data_manager_local_db:
+    driver: local

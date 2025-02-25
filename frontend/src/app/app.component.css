@@ -1,0 +1,17 @@
+.container {
+    height: 100%;
+}
+
+.mat-sidenav-container,
+.mat-sidenav-content,
+.mat-sidenav {
+    height: 100%;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+mat-nav-list mat-nav-list {
+    padding-left: 16px;
+}

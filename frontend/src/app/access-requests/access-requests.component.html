@@ -1,0 +1,75 @@
+<h1>Access Requests</h1>
+<p-table
+    [value]="userDatasets"
+    [paginator]="true"
+    [(first)]="first"
+    [(rows)]="rows"
+    [rowsPerPageOptions]="[10, 50, 100]"
+    [lazy]="true"
+    [totalRecords]="total"
+    (onLazyLoad)="onLazyLoad($event)"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>User ID</th>
+            <th>User email</th>
+            <th>Dataset ID</th>
+            <th>Access requested at</th>
+            <th>User accepted DUA at</th>
+            <th>Signed DUA</th>
+            <th>Email sent to admin at</th>
+            <th>Access granted by admin at</th>
+            <th>DELPHI share created at</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userDataset>
+        <tr>
+            <td>
+                <a href="/manage/admin/users/{{ userDataset.user_id }}">{{ userDataset.user_id }}</a>
+            </td>
+            <td>{{ userDataset.user_email }}</td>
+            <td>
+                <a href="/manage/admin/datasets/{{ userDataset.dataset_id }}">{{ userDataset.dataset_id }}</a>
+            </td>
+            <td>{{ userDataset.access_requested_at | datetime }}</td>
+            <td>{{ userDataset.user_accepted_dua_at | datetime }}</td>
+            <td>
+                <p-button *ngIf="userDataset.signed_dua_file_name !== null" (click)="downloadSignedDua(userDataset)">{{
+                    userDataset.signed_dua_file_name
+                }}</p-button>
+                <ng-container *ngIf="userDataset.signed_dua_file_name === null">None</ng-container>
+            </td>
+            <td>{{ userDataset.email_sent_to_admin_at | datetime }}</td>
+            <td>
+                <ng-container *ngIf="userDataset.access_granted_by_admin_at">{{
+                    userDataset.access_granted_by_admin_at | datetime
+                }}</ng-container>
+                <p-button
+                    *ngIf="!userDataset.access_granted_by_admin_at"
+                    label="Grant access"
+                    (onClick)="grantAccess(userDataset)"
+                    styleClass="p-button-success"
+                ></p-button>
+            </td>
+            <td>
+                <ng-container *ngIf="userDataset.delphi_share_created_at">{{
+                    userDataset.delphi_share_created_at | datetime
+                }}</ng-container>
+                <p-button
+                    *ngIf="userDataset.access_granted_by_admin_at && !userDataset.delphi_share_created_at"
+                    label="Retry"
+                    (onClick)="checkAccess(userDataset)"
+                    styleClass="p-button-success"
+                ></p-button>
+            </td>
+            <td>
+                <p-button
+                    label="Delete"
+                    (onClick)="deleteAccessRequest(userDataset)"
+                    styleClass="p-button-danger"
+                ></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
