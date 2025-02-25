@@ -1,4 +1,4 @@
-[ "$(basename "$PWD")" = "data-manager" ] || {
+[ "$(basename "$PWD")" = "publicnEUro-BD" ] || {
     echo "This script should be run from the root of the git-project"
     exit 1
 }
