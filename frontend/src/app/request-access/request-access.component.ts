@@ -55,6 +55,7 @@ export class RequestAccessComponent implements OnInit {
                 this.dataset = datasetRes;
                 if (datasetRes.accessibility === DatasetDetails.AccessibilityEnum.Open) {
                     this.service.apiGetDelphiShareUrlPost({ id: datasetId }).subscribe(({ delphi_share_url }) => {
+                        if (!delphi_share_url) alert("This dataset is missing a URL");
                         window.location.replace(delphi_share_url);
                     });
                     return;
