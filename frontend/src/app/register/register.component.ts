@@ -140,7 +140,7 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        this.recaptchaV3Service.execute("register").subscribe(token => {
+        this.recaptchaV3Service.execute("register").subscribe((token: string | null) => {
             this.submitted = true;
             if (this.institutionName === "") return;
             if (this.registerForm.invalid) return;
@@ -151,7 +151,7 @@ export class RegisterComponent implements OnInit {
             const registerRequest: RegisterRequest = {
                 ...registerRequestWithoutCaptcha,
                 institution_name: this.institutionName,
-                captcha_response: token
+                captcha_response: token ?? ""
             };
             this.service.apiRegisterPost(registerRequest).subscribe(() => {
                 const redirect = this.route.snapshot.queryParamMap.get("redirect");
