@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Optional
 from sqlalchemy import Column, String, DateTime
 from . import db
 
@@ -21,5 +21,7 @@ def get_db_sccs() -> List[Scc]:
     )
 
 
-def get_db_scc(id: str) -> Union[Scc, None]:
+def get_db_scc(id: Optional[str]) -> Union[Scc, None]:
+    if id is None:
+        return None
     return db.session.query(Scc).get(id)
