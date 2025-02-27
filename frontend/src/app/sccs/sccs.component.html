@@ -4,6 +4,7 @@
         <tr>
             <th>Title</th>
             <th>File</th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-scc>
@@ -11,6 +12,9 @@
             <td>{{ scc.title }}</td>
             <td>
                 <p-button (click)="downloadScc(scc)">{{ scc.file_name }}</p-button>
+            </td>
+            <td>
+                <p-button label="Delete" (onClick)="deleteScc(scc)" styleClass="p-button-danger"></p-button>
             </td>
         </tr>
     </ng-template>

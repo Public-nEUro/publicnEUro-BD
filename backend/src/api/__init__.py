@@ -11,7 +11,7 @@ from .confirm_email import confirm_email_with_passkey
 from .approve_user import approve_user, reject_user
 from .country import add_country, delete_country, get_countries
 from .institution import get_institutions, update_institution
-from .scc import add_scc, get_sccs, get_scc
+from .scc import add_scc, delete_scc, get_sccs, get_scc
 from .dataset import (
     get_datasets,
     get_dataset,
@@ -151,6 +151,7 @@ def init_endpoints(app):
         [check_access, AuthType.ADMIN],
         [get_history, AuthType.ADMIN],
         [add_scc, AuthType.ADMIN],
+        [delete_scc, AuthType.ADMIN],
         [get_sccs, AuthType.ADMIN],
         [get_scc, AuthType.ADMIN],
     ]

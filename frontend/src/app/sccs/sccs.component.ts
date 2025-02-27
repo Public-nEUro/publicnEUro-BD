@@ -56,6 +56,17 @@ export class SccsComponent implements OnInit {
             });
     }
 
+    deleteScc(scc: SccWithId) {
+        if (!window.confirm(`You are about to delete "${scc.file_name}". Are you sure?`)) return;
+        this.service
+            .apiDeleteSccPost({
+                id: scc.id
+            })
+            .subscribe(() => {
+                this.reload();
+            });
+    }
+
     downloadScc(scc: SccWithId) {
         this.service.apiGetSccPost({ id: scc.id }).subscribe(res => {
             downloadBase64(res.file_data, res.file_name);

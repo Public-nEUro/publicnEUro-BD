@@ -1,11 +1,12 @@
 from typing import List
 from uuid import uuid4
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from .common_schemas import EmptySchema, IdSchema
 from ..datetime import get_now
 from ..database.scc import get_db_sccs, get_db_scc, Scc
-from ..database.db_util import add_row
+from ..database.db_util import add_row, delete_row
 
 
 class SccSchema(Schema):
@@ -29,6 +30,14 @@ def add_scc(request: SccWithFileDataSchema) -> EmptySchema:
     scc.file_data = request["file_data"]
     scc.timestamp = get_now()
     add_row(scc)
+
+
+def delete_scc(request: IdSchema) -> EmptySchema:
+    scc = get_db_scc(request["id"])
+    if scc is None:
+        abort(404)
+
+    delete_row(scc)
 
 
 class GetSccResponseSchema(Schema):
