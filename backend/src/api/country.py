@@ -1,10 +1,11 @@
 from typing import List
 from uuid import uuid4
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
-from ..database.country import get_db_countries, GeoLocation, Country
-from ..database.db_util import add_row
+from .common_schemas import EmptySchema, IdSchema
+from ..database.country import get_db_country, get_db_countries, GeoLocation, Country
+from ..database.db_util import add_row, delete_row
 
 
 class CountryWithoutIdSchema(Schema):
@@ -22,6 +23,14 @@ def add_country(request: CountryWithoutIdSchema) -> EmptySchema:
     country.name = request["name"]
     country.geo_location = request["geo_location"]
     add_row(country)
+
+
+def delete_country(request: IdSchema) -> EmptySchema:
+    country = get_db_country(request["id"])
+    if country is None:
+        abort(404)
+
+    delete_row(country)
 
 
 class GetCountriesResponseSchema(Schema):

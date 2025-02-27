@@ -52,4 +52,15 @@ export class CountriesComponent implements OnInit {
                 this.reload();
             });
     }
+
+    deleteCountry(country: Country) {
+        if (!window.confirm(`You are about to delete "${country.name}". Are you sure?`)) return;
+        this.service
+            .apiDeleteCountryPost({
+                id: country.id
+            })
+            .subscribe(() => {
+                this.reload();
+            });
+    }
 }
