@@ -142,22 +142,16 @@ def perform_access_check(
 
     user_dataset = get_db_user_dataset(user_id, dataset_id)
 
-    already_received_message = "You already received an email with a download link. You can't get a new share link before the previous one has expired."
-
-    if user_dataset.delphi_share_created_at is not None:
-        return already_received_message
-
     user = get_user(user_id)
     dataset = get_db_dataset(dataset_id)
 
     try:
         create_delphi_share(dataset.delphi_share_url, user.email)
     except HTTPError as e:
-        if e.response.status_code == 409:
-            set_delphi_share_created(user_dataset)
-            return already_received_message
         if e.response.status_code == 403:
             return "Permission error"
+        if e.response.status_code == 400:
+            return "Wrong input"
         current_app.logger.exception(str(e))
         return "An error occurred."
 
