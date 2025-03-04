@@ -1,5 +1,5 @@
 import enum
-from typing import Dict
+from typing import Dict, Tuple, Optional
 from flask import current_app
 from requests import HTTPError
 from .database.db_util import save_row
@@ -133,11 +133,16 @@ def set_delphi_share_created(user_dataset: UserDataset) -> None:
 
 
 def perform_access_check(
-    user_id: str, dataset_id: str, is_allowed_access: bool, reason: str
-) -> str:
+    user_id: str,
+    dataset_id: str,
+    is_allowed_access: bool,
+    reason: str,
+    should_send_email: bool,
+) -> Tuple[str, Optional[str]]:
     if not is_allowed_access:
         return (
-            f"Your access request has been received. Further action is needed: {reason}"
+            f"Your access request has been received. Further action is needed: {reason}",
+            None,
         )
 
     user_dataset = get_db_user_dataset(user_id, dataset_id)
@@ -146,15 +151,17 @@ def perform_access_check(
     dataset = get_db_dataset(dataset_id)
 
     try:
-        create_delphi_share(dataset.delphi_share_url, user.email)
+        share_link = create_delphi_share(
+            dataset.delphi_share_url, user.email, should_send_email
+        )
     except HTTPError as e:
         if e.response.status_code == 403:
-            return "Permission error"
+            return "Permission error", None
         if e.response.status_code == 400:
-            return "Wrong input"
+            return "Wrong input", None
         current_app.logger.exception(str(e))
-        return "An error occurred."
+        return "An error occurred.", None
 
     set_delphi_share_created(user_dataset)
 
-    return "You will receive an email with a download link."
+    return "You will receive an email with a download link.", share_link

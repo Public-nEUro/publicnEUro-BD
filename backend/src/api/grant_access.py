@@ -39,11 +39,12 @@ def grant_access(request: GrantAccessRequestSchema) -> GrantAccessResponseSchema
         request["user_id"], request["dataset_id"]
     )
 
-    status_message = perform_access_check(
+    status_message, _ = perform_access_check(
         request["user_id"],
         request["dataset_id"],
         access_request_status is AccessRequestStatus.ACCESSIBLE,
         access_request_status_to_message[access_request_status],
+        True,
     )
 
     return {"status_message": status_message}

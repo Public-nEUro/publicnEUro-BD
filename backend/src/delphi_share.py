@@ -6,7 +6,7 @@ from datetime import timedelta
 from .datetime import get_now
 
 
-def create_delphi_share(share_url: str, email: str) -> None:
+def create_delphi_share(share_url: str, email: str, should_send_email: bool) -> str:
     share_auth = urllib.parse.unquote(share_url.rsplit("/", 1)[-1])
     backend_url = (
         os.environ["DELPHI_BACKEND_URL"] + "/project_management/file_management/reshare"
@@ -20,9 +20,11 @@ def create_delphi_share(share_url: str, email: str) -> None:
         "permission_edit": False,
         "permission_download": True,
         "permission_upload": False,
+        "should_send_email": should_send_email,
     }
     headers = {"Content-Type": "application/json"}
     response = requests.post(
         backend_url, json.dumps(payload), verify=False, headers=headers
     )
     response.raise_for_status()
+    return response["share_link"]
