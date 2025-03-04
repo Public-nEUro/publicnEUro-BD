@@ -26,6 +26,7 @@ from .user_dataset import (
 )
 from .request_access import request_access
 from .resend_share_link import resend_share_link
+from .get_share_link import get_share_link
 from .grant_access import grant_access
 from .delete_access_request import delete_access_request
 from .check_access import check_access
@@ -118,6 +119,17 @@ def endpoint(
     return func
 
 
+def cli_endpoint(app, function, input_string):
+    @app.get(f"/api/{function.__name__}/{input_string}")
+    @change_name(f"api_{function.__name__}")
+    def func(*args, **kwargs):
+        input_data = {"args": args, "kwargs": kwargs}
+        log_api_call(None, request.url, hide_password(input_data))
+        return function(*args, **kwargs)
+
+    return func
+
+
 def init_endpoints(app):
     func_list = [
         [register, AuthType.ALL],
@@ -158,3 +170,5 @@ def init_endpoints(app):
 
     for func, auth_type in func_list:
         endpoint(app, func, auth_type)
+
+    cli_endpoint(app, get_share_link, "<string:dataset_id>")
