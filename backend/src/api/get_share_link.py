@@ -56,7 +56,7 @@ def get_share_link(dataset_id: str) -> str:
         dataset_id,
         access_request_status is AccessRequestStatus.ACCESSIBLE,
         access_request_status_to_message[access_request_status],
-        True,
+        False,
     )
 
     if share_link is None:
