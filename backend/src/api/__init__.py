@@ -123,8 +123,6 @@ def cli_endpoint(app, function, input_string):
     @app.get(f"/api/{function.__name__}/{input_string}")
     @change_name(f"api_{function.__name__}")
     def func(*args, **kwargs):
-        input_data = {"args": args, "kwargs": kwargs}
-        log_api_call(None, request.url, hide_password(input_data))
         return function(*args, **kwargs)
 
     return func

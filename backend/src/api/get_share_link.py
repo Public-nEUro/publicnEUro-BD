@@ -12,6 +12,7 @@ from ..dataset_access_check import (
     access_request_status_to_message,
     perform_access_check,
 )
+from ..database.api_call import log_api_call
 
 
 class GetShareLinkRequestSchema(Schema):
@@ -24,18 +25,31 @@ class GetShareLinkResponseSchema(Schema):
     share_link = fields.String(required=True)
 
 
-def get_share_link(dataset_id: str) -> str:
+def get_auth_user():
     if request.authorization is None:
-        abort(401)
+        return None
 
     user = get_user_by_email(request.authorization.username)
 
     if user is None:
-        abort(401)
+        return None
 
     if not check_password(
         request.authorization.password, user.password_hash, user.password_salt
     ):
+        return None
+
+    return user
+
+
+def get_share_link(dataset_id: str) -> str:
+    user = get_auth_user()
+
+    log_api_call(
+        user.id if user is not None else None, request.url, {"dataset_id": dataset_id}
+    )
+
+    if user is None:
         abort(401)
 
     dataset = get_db_dataset(dataset_id)
