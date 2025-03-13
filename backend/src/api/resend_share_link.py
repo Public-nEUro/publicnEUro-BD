@@ -2,9 +2,8 @@ from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.token import get_auth_user_id
-from ..datetime import get_now
-from ..database.user_dataset import UserDataset, get_db_user_dataset
-from ..database.db_util import add_row, save_row
+from ..database.user_dataset import get_db_user_dataset
+from ..database.db_util import save_row
 from ..dataset_access_check import (
     AccessRequestStatus,
     get_access_request_status,
