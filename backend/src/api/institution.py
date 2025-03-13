@@ -1,8 +1,9 @@
 from typing import List, Union
 from uuid import UUID
+from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
+from .common_schemas import EmptySchema, IdSchema
 from ..database.institution import get_db_institutions, get_db_institution, Institution
 from ..database.scc import get_db_sccs, Scc
 from ..database.institution_scc import (
@@ -114,3 +115,11 @@ def update_institution(request: InstitutionWithAcceptanceSchema) -> EmptySchema:
         institution_scc.accepted = scc_acceptance["accepted"]
         institution_scc.timestamp = get_now()
         add_row(institution_scc)
+
+
+def delete_institution(request: IdSchema) -> EmptySchema:
+    institution = get_db_institution(request["id"])
+    if institution is None:
+        abort(404)
+
+    delete_row(institution)

@@ -57,4 +57,15 @@ export class InstitutionsComponent implements OnInit {
             this.reload();
         });
     }
+
+    deleteInstitution(institution: InstitutionWithName) {
+        if (!window.confirm(`You are about to delete "${institution.name}". Are you sure?`)) return;
+        this.service
+            .apiDeleteInstitutionPost({
+                id: institution.id
+            })
+            .subscribe(() => {
+                this.reload();
+            });
+    }
 }

@@ -7,6 +7,7 @@
             <th>Country</th>
             <th *ngFor="let scc of sccs">Accept SCC: {{ scc.title }}</th>
             <th></th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-institution>
@@ -20,6 +21,13 @@
                 ><i *ngIf="institution.scc_acceptance[scc.id].accepted === null" class="fal fa-question"></i>
             </td>
             <td><p-button label="Edit" (onClick)="edit(institution)"></p-button></td>
+            <td>
+                <p-button
+                    label="Delete"
+                    (onClick)="deleteInstitution(institution)"
+                    styleClass="p-button-danger"
+                ></p-button>
+            </td>
         </tr>
         <tr *ngIf="editingInstitution !== undefined && editingInstitution === institution">
             <td>
@@ -64,6 +72,7 @@
                 </mat-form-field>
             </td>
             <td><p-button label="Save" (onClick)="save(institution)"></p-button></td>
+            <td></td>
         </tr>
     </ng-template>
 </p-table>

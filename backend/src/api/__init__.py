@@ -10,7 +10,7 @@ from .get_users import get_approved_users, get_non_approved_users
 from .confirm_email import confirm_email_with_passkey
 from .approve_user import approve_user, reject_user
 from .country import add_country, delete_country, get_countries
-from .institution import get_institutions, update_institution
+from .institution import get_institutions, update_institution, delete_institution
 from .scc import add_scc, delete_scc, get_sccs, get_scc
 from .dataset import (
     get_datasets,
@@ -146,6 +146,7 @@ def init_endpoints(app):
         [get_countries, AuthType.ADMIN],
         [get_institutions, AuthType.ALL],
         [update_institution, AuthType.ADMIN],
+        [delete_institution, AuthType.ADMIN],
         [get_datasets, AuthType.ADMIN],
         [get_dataset, AuthType.ALL],
         [get_delphi_share_url, AuthType.ALL],
