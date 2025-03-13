@@ -16,7 +16,9 @@ class User(db.Model):
     last_name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     address = Column(String, nullable=False)
-    institution_id = Column(UUID(as_uuid=True), nullable=False)
+    institution_id = Column(
+        UUID(as_uuid=True), db.ForeignKey("institution.id"), nullable=False
+    )
     storage_protection = Column(String, nullable=False)
     access_protection = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False)
