@@ -20,3 +20,8 @@ All emails being sent will be caught by MailCatcher locally and can be viewed at
 
 ## Calling the API
 
+User registration and DUA signing (and SSC if outside EU and adequate countries) happens via browser since in most cases, it requires admin interaction.  
+
+Once you have regustered, and requested a dataset and signed the DUA, you can download it via command line entering the PublicnEUro (PN) ID:  
+
+`curl -w "\n" -u email:password -L https://datacatalog.publicneuro.eu/api/get_share_link/PNXXXXXX`
