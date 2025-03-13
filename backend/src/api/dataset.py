@@ -104,7 +104,7 @@ def get_dataset(request: IdSchema) -> DatasetDetailsSchema:
     json_dataset = get_json_dataset(request["id"])
     db_dataset = get_db_dataset(request["id"])
     dataset_info = merge_dataset_info(json_dataset, db_dataset)
-    scc_id = str(dataset_info["scc_id"])
+    scc_id = dataset_info["scc_id"]
     institution_scc = next(
         (scc for scc in institution_sccs if scc.scc_id == scc_id), None
     )
