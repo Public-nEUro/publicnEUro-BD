@@ -1,5 +1,8 @@
 # publicnEUro-BD
 
+This repository exposes the database behind PublicnEUro.eu. You can reuse it for free under MIT licence.
+This work was funded by [Novo Nordisk Foundation](https://novonordiskfonden.dk/en/) (NNF20OC0063277).  
+
 ## Running a local environment
 
 Install docker.
