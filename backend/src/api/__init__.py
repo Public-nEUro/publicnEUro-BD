@@ -34,6 +34,7 @@ from .history import get_history
 from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
 from ..auth.token import get_auth_user_id
 from ..database.api_call import log_api_call
+from .cli import get_cli_script
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -171,3 +172,11 @@ def init_endpoints(app):
         endpoint(app, func, auth_type)
 
     cli_endpoint(app, get_share_link, "<string:dataset_id>")
+
+    @app.get(f"/api/cli.sh")
+    def cli():
+        return get_cli_script(False)
+
+    @app.get(f"/api/cli_insecure.sh")
+    def cli_insecure():
+        return get_cli_script(True)
