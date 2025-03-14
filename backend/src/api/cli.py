@@ -9,7 +9,7 @@ def get_cli_script(insecure: bool) -> str:
     return f"""#!/bin/bash
 
 read -p "Enter your email: " email
-read -p "Enter your password: " password
+read -s -p "Enter your password: " password; echo
 read -p "Enter the dataset ID: " dataset
 read -p "Enter the folder path to download: " folder_path
 
