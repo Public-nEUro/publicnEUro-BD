@@ -18,6 +18,12 @@ prepare_url="{delphi_backend_url}/project_management/file_management/download/pr
 
 share_link=$(curl{insecure_str} -w "\\n" -u "$email":"$password" -L "$get_share_link_url"/"$dataset")
 
+error_message=$(echo $share_link | grep -o '"message":"[^"]*' | cut -d'"' -f4)
+if [ -n "$error_message" ]; then
+    echo "$error_message"
+    exit 1
+fi
+
 share_auth=$(basename "$share_link")
 
 prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Content-Type: application/json' --data "{{\\"share_auth\\": \\""$share_auth"\\",\\"paths\\": [\\""$folder_path"\\"]}}")
