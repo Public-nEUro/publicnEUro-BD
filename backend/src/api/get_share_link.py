@@ -3,7 +3,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 from ..auth.password import check_password
 from ..database.user import get_user_by_email
-from ..database.dataset import get_db_dataset
+from ..database.dataset import get_db_dataset, Accessibility
 from ..database.user_dataset import get_db_user_dataset
 from ..database.db_util import save_row
 from ..dataset_access_check import (
@@ -55,6 +55,9 @@ def get_share_link(dataset_id: str) -> str:
     dataset = get_db_dataset(dataset_id)
     if dataset is None:
         abort(404)
+
+    if dataset.accessibility == Accessibility.OPEN:
+        return dataset.delphi_share_url
 
     user_dataset = get_db_user_dataset(user.id, dataset_id)
     if user_dataset is None:
