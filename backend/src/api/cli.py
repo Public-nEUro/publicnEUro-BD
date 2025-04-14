@@ -24,7 +24,8 @@ if [ -n "$error_message" ]; then
     exit 1
 fi
 
-share_auth=$(basename "$share_link")
+share_link_unescaped=$(printf '%b' "${{share_link//%/\\\\x}}")
+share_auth=$(basename "$share_link_unescaped")
 
 prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Content-Type: application/json' --data "{{\\"share_auth\\": \\""$share_auth"\\",\\"paths\\": [\\""$folder_path"\\"]}}")
 
