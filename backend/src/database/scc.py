@@ -1,12 +1,15 @@
-from typing import List, Union, Optional
-from sqlalchemy import Column, String, DateTime
+from typing import List, Optional, Union
+
+from sqlalchemy import Column, DateTime, String
+from sqlalchemy.dialects.postgresql import UUID
+
 from . import db
 
 
 class Scc(db.Model):
     __tablename__ = "scc"
 
-    id = Column(String, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True)
     title = Column(String, nullable=False)
     file_name = Column(String, nullable=False)
     file_data = Column(String, nullable=False)  # base 64
