@@ -23,7 +23,7 @@ class ApprovalType(enum.Enum):
 class Dataset(db.Model):
     __tablename__ = "dataset"
 
-    id = Column(UUID(as_uuid=True), primary_key=True)
+    id = Column(String, primary_key=True)
     accessibility = Column(ENUM(Accessibility), nullable=False)
     dua_file_name = Column(String, nullable=True)
     dua_file_data = Column(String, nullable=True)  # base 64
