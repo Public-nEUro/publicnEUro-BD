@@ -1,7 +1,9 @@
-from typing import List
 import uuid
-from sqlalchemy import Column, DateTime, String, Boolean
+from typing import List
+
+from sqlalchemy import Boolean, Column, DateTime
 from sqlalchemy.dialects.postgresql import UUID
+
 from . import db
 
 
@@ -11,7 +13,7 @@ class InstitutionScc(db.Model):
     institution_id = Column(
         UUID(as_uuid=True), db.ForeignKey("institution.id"), primary_key=True
     )
-    scc_id = Column(String, db.ForeignKey("scc.id"), primary_key=True)
+    scc_id = Column(UUID(as_uuid=True), db.ForeignKey("scc.id"), primary_key=True)
     accepted = Column(Boolean, nullable=False)
     timestamp = Column(DateTime(timezone=True), nullable=False)
 
