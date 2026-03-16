@@ -24,7 +24,7 @@ def create_delphi_share(share_url: str, email: str, should_send_email: bool) -> 
     }
     headers = {"Content-Type": "application/json"}
     response = requests.post(
-        backend_url, json.dumps(payload), verify=False, headers=headers
+        backend_url, json.dumps(payload), verify=True, headers=headers
     )
     response.raise_for_status()
     return response.json()["share_link"]
