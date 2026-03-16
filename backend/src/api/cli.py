@@ -32,5 +32,5 @@ prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Conten
 download_name=$(echo $prepare_response | grep -o '"file_name":"[^"]*' | cut -d'"' -f4)
 download_link=$(echo $prepare_response | grep -o '"url":"[^"]*' | cut -d'"' -f4)
 
-wget --no-check-certificate -O "$download_name" "$download_link"
+wget -O "$download_name" "$download_link"
 """
