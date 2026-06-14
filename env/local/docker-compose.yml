@@ -12,6 +12,9 @@ services:
             - frontend
             - backend
             - datalad
+        networks:
+            - default
+            - proxy-net
     frontend:
         build:
             context: ../../frontend
@@ -19,6 +22,8 @@ services:
             args:
                 ENVIRONMENT: local
         container_name: "data_manager_local_frontend"
+        networks:
+            - default
     backend:
         build:
             context: ../../backend
@@ -39,6 +44,8 @@ services:
             - DELPHI_FRONTEND_URL=${DELPHI_FRONTEND_URL}
         volumes:
             - ../../backend:/app
+        networks:
+            - default
     datalad:
         build:
             context: ../../datalad
@@ -46,6 +53,8 @@ services:
         container_name: data_manager_local_datalad
         volumes:
             - ../../datalad/docker-mount:/root
+        networks:
+            - default
     db:
         container_name: data_manager_local_db
         image: postgres:16.3-alpine
@@ -57,11 +66,18 @@ services:
             - "5433:${POSTGRES_PORT}"
         volumes:
             - data_manager_local_db:/var/lib/postgresql/data
+        networks:
+            - default
     smtp_mock:
         container_name: "data_manager_local_smtp_mock"
         image: dockage/mailcatcher
         command:
             - --http-path=/email
+        networks:
+            - default
 volumes:
     data_manager_local_db:
         driver: local
+networks:
+    proxy-net:
+        name: NB_proxynet
