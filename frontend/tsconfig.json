@@ -1,8 +1,6 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noImplicitOverride": false,
@@ -11,9 +9,8 @@
         "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "declaration": false,
-        "downlevelIteration": true,
         "experimentalDecorators": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "importHelpers": true,
         "target": "ES2022",
         "module": "es2020",
@@ -23,41 +20,38 @@
             "dom"
         ],
         "paths": {
-            "tslib": [
-                "node_modules/tslib/tslib.d.ts"
-            ],
             "@shared/*": [
-                "src/app/_shared/*"
+                "./src/app/_shared/*"
             ],
             "@models/*": [
-                "src/app/_models/*"
+                "./src/app/_models/*"
             ],
             "@helpers/*": [
-                "src/app/_helpers/*"
+                "./src/app/_helpers/*"
             ],
             "@pipes/*": [
-                "src/app/_pipes/*"
+                "./src/app/_pipes/*"
             ],
             "@services/*": [
-                "src/app/_services/*"
+                "./src/app/_services/*"
             ],
             "@planning/*": [
-                "src/app/planning/*"
+                "./src/app/planning/*"
             ],
             "@environments/*": [
-                "src/environments/*"
+                "./src/environments/*"
             ],
             "@fakefiles/*": [
-                "src/fake-files/*"
+                "./src/fake-files/*"
             ],
             "@user/*": [
-                "src/app/user/*"
+                "./src/app/user/*"
             ],
             "@modules/*": [
-                "src/app/_modules/*"
+                "./src/app/_modules/*"
             ],
             "@app/*": [
-                "src/app/*"
+                "./src/app/*"
             ]
         },
         "useDefineForClassFields": false,
