@@ -1,40 +1,42 @@
 import enum
-from flask import request, current_app
-from .register import register
-from .login import login
+
+from flask import current_app, request
+
+from ..auth.token import get_auth_user_id
+from ..database.api_call import log_api_call
+from .approve_user import approve_user, reject_user
+from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
+from .check_access import check_access
+from .cli import get_cli_script
+from .confirm_email import confirm_email_with_passkey
+from .country import add_country, delete_country, get_countries
+from .dataset import (
+    get_dataset,
+    get_dataset_dua,
+    get_datasets,
+    get_delphi_share_url,
+    update_dataset,
+)
+from .delete_access_request import delete_access_request
 from .forgot_password import forgot_password
-from .reset_password import reset_password_with_passkey
+from .get_share_link import get_share_link
 from .get_user_info import get_user_info
 from .get_user_info_by_id import get_user_info_by_id
 from .get_users import get_approved_users, get_non_approved_users
-from .confirm_email import confirm_email_with_passkey
-from .approve_user import approve_user, reject_user
-from .country import add_country, delete_country, get_countries
-from .institution import get_institutions, update_institution, delete_institution
-from .scc import add_scc, delete_scc, get_sccs, get_scc
-from .dataset import (
-    get_datasets,
-    get_dataset,
-    get_delphi_share_url,
-    get_dataset_dua,
-    update_dataset,
-)
+from .grant_access import grant_access
+from .history import get_history
+from .institution import delete_institution, get_institutions, update_institution
+from .login import login
+from .register import register
+from .request_access import request_access
+from .resend_share_link import resend_share_link
+from .reset_password import reset_password_with_passkey
+from .scc import add_scc, delete_scc, get_scc, get_sccs
 from .user_dataset import (
     get_user_dataset,
     get_user_datasets,
     get_user_datasets_for_dataset,
 )
-from .request_access import request_access
-from .resend_share_link import resend_share_link
-from .get_share_link import get_share_link
-from .grant_access import grant_access
-from .delete_access_request import delete_access_request
-from .check_access import check_access
-from .history import get_history
-from .assertions import get_logged_in_admin_or_abort, get_logged_in_user_or_abort
-from ..auth.token import get_auth_user_id
-from ..database.api_call import log_api_call
-from .cli import get_cli_script
 
 
 def docstring(description, input_schema, response_description, response_schema):
@@ -173,10 +175,10 @@ def init_endpoints(app):
 
     cli_endpoint(app, get_share_link, "<string:dataset_id>")
 
-    @app.get(f"/api/cli.sh")
+    @app.get("/api/cli.sh")
     def cli():
         return get_cli_script(False)
 
-    @app.get(f"/api/cli_insecure.sh")
+    @app.get("/api/cli_insecure.sh")
     def cli_insecure():
         return get_cli_script(True)
