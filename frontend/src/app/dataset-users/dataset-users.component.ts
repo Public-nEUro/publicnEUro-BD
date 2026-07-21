@@ -9,7 +9,10 @@ import { DefaultService, UserDataset, UserInfo } from "@services/api-client";
     styleUrls: ["./dataset-users.component.scss"]
 })
 export class DatasetUsersComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private service: DefaultService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private service: DefaultService
+    ) {}
 
     userDatasets: UserDataset[] = [];
 

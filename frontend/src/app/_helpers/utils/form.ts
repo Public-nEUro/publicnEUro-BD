@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
-import * as zxcvbn from "zxcvbn";
+import zxcvbn from "zxcvbn";
 
 export const passwordStrengthNames = ["Very Weak", "Weak", "Fair", "Good", "Strong"] as const;
 

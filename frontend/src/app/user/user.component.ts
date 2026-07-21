@@ -11,7 +11,11 @@ import { DefaultService, UserInfo } from "@services/api-client";
 export class UserComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
 
-    constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private service: DefaultService
+    ) {}
 
     userInfo: UserInfo | null | undefined = undefined;
 

@@ -12,7 +12,10 @@ import { AuthenticationService } from "@services/authentication.service";
 export class HomeComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
 
-    constructor(private router: Router, private authenticationService: AuthenticationService) {}
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {}
 
     userInfo: UserInfo | undefined = undefined;
 

@@ -1,23 +1,23 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { UserComponent } from "@user/user.component";
+import { AccessRequestsComponent } from "./access-requests/access-requests.component";
+import { ConfirmationComponent } from "./confirmation/confirmation.component";
+import { CountriesComponent } from "./countries/countries.component";
+import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
+import { DatasetComponent } from "./dataset/dataset.component";
+import { DatasetsComponent } from "./datasets/datasets.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { HistoryComponent } from "./history/history.component";
 import { HomeComponent } from "./home/home.component";
-import { RegisterComponent } from "./register/register.component";
+import { InstitutionsComponent } from "./institutions/institutions.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { UsersComponent } from "./users/users.component";
-import { UserComponent } from "@user/user.component";
-import { CountriesComponent } from "./countries/countries.component";
-import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { InstitutionsComponent } from "./institutions/institutions.component";
-import { SccsComponent } from "./sccs/sccs.component";
-import { DatasetsComponent } from "./datasets/datasets.component";
-import { DatasetComponent } from "./dataset/dataset.component";
-import { HistoryComponent } from "./history/history.component";
+import { RegisterComponent } from "./register/register.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
-import { AccessRequestsComponent } from "./access-requests/access-requests.component";
-import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
-import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { SccsComponent } from "./sccs/sccs.component";
+import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
     {

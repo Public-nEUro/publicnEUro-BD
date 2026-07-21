@@ -10,7 +10,11 @@ import { DefaultService } from "@services/api-client";
 export class ConfirmationComponent implements OnInit {
     response: string | undefined = undefined;
 
-    constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private service: DefaultService
+    ) {}
 
     ngOnInit(): void {
         this.confirm();

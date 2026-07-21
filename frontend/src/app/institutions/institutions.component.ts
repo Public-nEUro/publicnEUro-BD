@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { DefaultService, Country, SccWithId, InstitutionWithAcceptance } from "@services/api-client";
+import { Country, DefaultService, InstitutionWithAcceptance, SccWithId } from "@services/api-client";
 
 type InstitutionWithName = InstitutionWithAcceptance & { country_name: string };
 

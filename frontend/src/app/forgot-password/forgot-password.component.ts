@@ -15,7 +15,10 @@ export class ForgotPasswordComponent implements OnInit, AfterViewInit {
     submitted = false;
     sent = false;
 
-    constructor(private formBuilder: UntypedFormBuilder, private service: DefaultService) {}
+    constructor(
+        private formBuilder: UntypedFormBuilder,
+        private service: DefaultService
+    ) {}
 
     ngAfterViewInit(): void {
         this.emailInput.nativeElement.focus();

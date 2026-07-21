@@ -13,7 +13,11 @@ export class DatasetComponent implements OnInit {
     fieldKeyToLabel = fieldKeyToLabel;
     AccessibilityEnum = Dataset.AccessibilityEnum;
 
-    constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private service: DefaultService
+    ) {}
 
     accessibilities: Dataset.AccessibilityEnum[] = ["PRIVATE", "EU", "EU_AND_ADEQUATE", "WORLDWIDE", "OPEN"];
     filteredAccessibilities: Dataset.AccessibilityEnum[] = [];

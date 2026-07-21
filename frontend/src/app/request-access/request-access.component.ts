@@ -10,7 +10,11 @@ import { Dataset, DatasetDetails, DefaultService, UserDataset, UserInfo } from "
     styleUrls: ["./request-access.component.scss"]
 })
 export class RequestAccessComponent implements OnInit {
-    constructor(private router: Router, private route: ActivatedRoute, private service: DefaultService) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private service: DefaultService
+    ) {}
     AccessibilityEnum = Dataset.AccessibilityEnum;
 
     userInfo: UserInfo | null | undefined = undefined;
