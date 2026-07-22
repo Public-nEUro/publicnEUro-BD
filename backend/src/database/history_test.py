@@ -1,5 +1,6 @@
 import unittest
 from uuid import UUID
+
 from .history import make_json_friendly
 
 

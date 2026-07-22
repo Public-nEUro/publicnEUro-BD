@@ -1,12 +1,17 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
+
+from ..database.user import (
+    approve_user as approve_user_in_db,
+)
 from ..database.user import (
     get_user,
-    approve_user as approve_user_in_db,
+)
+from ..database.user import (
     reject_user as reject_user_in_db,
 )
 from ..email import send_approved_email
+from .common_schemas import EmptySchema
 
 
 class ApproveUserRequestSchema(Schema):

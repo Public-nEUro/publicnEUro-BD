@@ -1,7 +1,9 @@
-from typing import List, Union
 import enum
+from typing import List, Union
+
 from sqlalchemy import Column, String
-from sqlalchemy.dialects.postgresql import UUID, ENUM
+from sqlalchemy.dialects.postgresql import ENUM, UUID
+
 from . import db
 
 

@@ -1,9 +1,10 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
+
 from ..dataset_access_check import (
     AccessRequestStatus,
-    get_access_request_status,
     access_request_status_to_message,
+    get_access_request_status,
     perform_access_check,
 )
 

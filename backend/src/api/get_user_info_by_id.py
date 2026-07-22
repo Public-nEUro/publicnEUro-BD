@@ -1,8 +1,9 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import UserInfo, extract_user_info
+
 from ..database.user import get_user
+from .common_schemas import UserInfo, extract_user_info
 
 
 class GetUserInfoByIdRequestSchema(Schema):

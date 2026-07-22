@@ -1,7 +1,9 @@
 from uuid import uuid4
-from sqlalchemy.dialects.postgresql import UUID, JSON
-from . import db
+
+from sqlalchemy.dialects.postgresql import JSON, UUID
+
 from ..datetime import get_now
+from . import db
 from .db_util import add_row
 from .history import make_json_friendly
 

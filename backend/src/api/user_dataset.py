@@ -1,16 +1,17 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
+
 from ..database.user import get_user
 from ..database.user_dataset import (
+    UserDataset,
     get_db_user_dataset,
     get_db_user_datasets,
     get_db_user_datasets_count,
     get_db_user_datasets_for_dataset,
-    UserDataset,
 )
-from .common_schemas import PaginationSchema
 from .assertions import get_logged_in_user_or_abort
+from .common_schemas import PaginationSchema
 
 
 class GetUserDatasetRequestSchema(Schema):

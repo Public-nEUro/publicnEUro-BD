@@ -1,10 +1,13 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
+
+from ..auth.passkey import hash_passkey
 from ..database.user import (
-    get_user_by_email_confirmation_passkey_hash,
     confirm_email as confirm_email_in_db,
 )
-from ..auth.passkey import hash_passkey
+from ..database.user import (
+    get_user_by_email_confirmation_passkey_hash,
+)
 from ..email import send_approval_email
 
 

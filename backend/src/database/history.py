@@ -1,10 +1,11 @@
-from typing import List
 import uuid
 from datetime import datetime
-from sqlalchemy.dialects.postgresql import UUID, JSONB
-from . import db
-from ..auth.token import get_auth_user_id
+from typing import List
 
+from sqlalchemy.dialects.postgresql import JSONB, UUID
+
+from ..auth.token import get_auth_user_id
+from . import db
 
 MAX_STR_LENGTH = 1024
 

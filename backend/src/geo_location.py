@@ -1,5 +1,5 @@
-from .database.dataset import Accessibility
 from .database.country import GeoLocation
+from .database.dataset import Accessibility
 
 
 def is_accessible_in_geo_location(

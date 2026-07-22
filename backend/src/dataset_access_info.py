@@ -1,10 +1,11 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .database.dataset import get_db_dataset, Accessibility
-from .database.user import get_user
+
+from .database.country import GeoLocation, get_db_country
+from .database.dataset import Accessibility, get_db_dataset
 from .database.institution import get_db_institution
 from .database.institution_scc import get_db_institution_sccs
-from .database.country import get_db_country, GeoLocation
+from .database.user import get_user
 from .geo_location import is_accessible_in_geo_location
 
 

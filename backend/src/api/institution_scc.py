@@ -1,7 +1,9 @@
 from typing import List
+
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..database.institution_scc import get_db_institution_sccs, InstitutionScc
+
+from ..database.institution_scc import InstitutionScc, get_db_institution_sccs
 
 
 class GetInstitutionSccsRequestSchema(Schema):

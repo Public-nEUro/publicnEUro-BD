@@ -1,8 +1,8 @@
 from flask_marshmallow import Marshmallow, Schema
 from marshmallow import fields
-from ..database.user import User
-from ..database.institution import get_db_institution
 
+from ..database.institution import get_db_institution
+from ..database.user import User
 
 ma = Marshmallow()
 

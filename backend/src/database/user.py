@@ -1,11 +1,13 @@
-from typing import Union, List
-from sqlalchemy import Column, String, DateTime, UniqueConstraint, Boolean
+from typing import List, Union
+
+from sqlalchemy import Boolean, Column, DateTime, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.sql.expression import null, false
-from . import db
-from ..datetime import get_now
-from .db_util import add_row, save_row, delete_row
+from sqlalchemy.sql.expression import false, null
+
 from ..auth.password import gen_hash_and_salt
+from ..datetime import get_now
+from . import db
+from .db_util import add_row, delete_row, save_row
 
 
 class User(db.Model):

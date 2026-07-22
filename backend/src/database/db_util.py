@@ -1,5 +1,6 @@
-from sqlalchemy.inspection import inspect
 from flask_sqlalchemy.model import Model
+from sqlalchemy.inspection import inspect
+
 from . import db
 from .history import add_history_row
 

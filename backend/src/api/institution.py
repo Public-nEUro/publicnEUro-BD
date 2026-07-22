@@ -1,19 +1,21 @@
 from typing import List, Union
 from uuid import UUID
+
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema, IdSchema
-from ..database.institution import get_db_institutions, get_db_institution, Institution
-from ..database.scc import get_db_sccs, Scc
+
+from ..database.db_util import add_row, delete_row, save_row
+from ..database.institution import Institution, get_db_institution, get_db_institutions
 from ..database.institution_scc import (
-    get_db_institutions_sccs,
-    get_db_institution_sccs,
     InstitutionScc,
+    get_db_institution_sccs,
+    get_db_institutions_sccs,
 )
-from ..database.db_util import add_row, save_row, delete_row
-from .institution_scc import AcceptanceSchema
+from ..database.scc import Scc, get_db_sccs
 from ..datetime import get_now
+from .common_schemas import EmptySchema, IdSchema
+from .institution_scc import AcceptanceSchema
 
 
 class InstitutionWithoutIdSchema(Schema):

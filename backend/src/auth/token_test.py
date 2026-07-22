@@ -1,5 +1,7 @@
 import unittest
+
 import jwt
+
 from .token import create_token_from_client_secret, get_verified_payload_from_token
 
 

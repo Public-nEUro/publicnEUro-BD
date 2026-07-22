@@ -1,5 +1,5 @@
-from .common_schemas import EmptySchema, UserInfo, extract_user_info
 from .assertions import get_logged_in_user_or_abort
+from .common_schemas import EmptySchema, UserInfo, extract_user_info
 
 
 def get_user_info(request: EmptySchema) -> UserInfo:

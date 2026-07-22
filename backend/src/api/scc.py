@@ -1,12 +1,14 @@
 from typing import List
 from uuid import uuid4
+
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema, IdSchema
-from ..datetime import get_now
-from ..database.scc import get_db_sccs, get_db_scc, Scc
+
 from ..database.db_util import add_row, delete_row
+from ..database.scc import Scc, get_db_scc, get_db_sccs
+from ..datetime import get_now
+from .common_schemas import EmptySchema, IdSchema
 
 
 class SccSchema(Schema):

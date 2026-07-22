@@ -1,7 +1,8 @@
 from flask import abort
-from ..database.user import get_user
+
 from ..auth.token import get_auth_user_id
 from ..captcha import validate_captcha_response
+from ..database.user import get_user
 
 
 def get_logged_in_user_or_abort():

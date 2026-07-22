@@ -1,17 +1,19 @@
 from uuid import uuid4
+
 from flask_marshmallow import Schema
 from marshmallow import fields
-from ..auth.password import gen_hash_and_salt
+
 from ..auth.passkey import generate_passkey_and_hash
-from ..database.user import User, create_user, user_exists
+from ..auth.password import gen_hash_and_salt
 from ..database.institution import (
     create_institution_if_not_exists,
     get_institution_by_name,
 )
-from ..email import send_confirmation_email
+from ..database.user import User, create_user, user_exists
 from ..datetime import get_now
-from .common_schemas import EmptySchema
+from ..email import send_confirmation_email
 from .assertions import assert_correct_captcha_response
+from .common_schemas import EmptySchema
 
 
 class RegisterRequestSchema(Schema):

@@ -1,13 +1,14 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
+
 from ..auth.token import get_auth_user_id
-from ..database.user_dataset import get_db_user_dataset
 from ..database.db_util import save_row
+from ..database.user_dataset import get_db_user_dataset
 from ..dataset_access_check import (
     AccessRequestStatus,
-    get_access_request_status,
     access_request_status_to_message,
+    get_access_request_status,
     perform_access_check,
 )
 

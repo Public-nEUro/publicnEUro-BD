@@ -1,6 +1,7 @@
-from typing import List, Union
-import re
 import hashlib
+import re
+from typing import List, Union
+
 import requests
 from flask_marshmallow import Schema
 from marshmallow import fields

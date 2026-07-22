@@ -1,18 +1,19 @@
 from flask import abort, request
 from flask_marshmallow import Schema
 from marshmallow import fields
+
 from ..auth.password import check_password
-from ..database.user import get_user_by_email
-from ..database.dataset import get_db_dataset, Accessibility
-from ..database.user_dataset import get_db_user_dataset
+from ..database.api_call import log_api_call
+from ..database.dataset import Accessibility, get_db_dataset
 from ..database.db_util import save_row
+from ..database.user import get_user_by_email
+from ..database.user_dataset import get_db_user_dataset
 from ..dataset_access_check import (
     AccessRequestStatus,
-    get_access_request_status,
     access_request_status_to_message,
+    get_access_request_status,
     perform_access_check,
 )
-from ..database.api_call import log_api_call
 
 
 class GetShareLinkRequestSchema(Schema):

@@ -1,5 +1,6 @@
 import unittest
-from .password import gen_hash_and_salt, check_password
+
+from .password import check_password, gen_hash_and_salt
 
 
 class TestPassword(unittest.TestCase):

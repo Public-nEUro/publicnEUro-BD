@@ -1,15 +1,17 @@
-from swagger_ui import api_doc
+from logging.config import dictConfig
+
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
 from flask import Flask, jsonify
 from flask_cors import CORS
-from logging.config import dictConfig
-from .database import db
-from .api.common_schemas import ma
-from .errorhandlers import register_errorhandlers
+from swagger_ui import api_doc
+
 from .api import init_endpoints as init_api
+from .api.common_schemas import ma
 from .config import LOG_LEVEL
+from .database import db
+from .errorhandlers import register_errorhandlers
 
 dictConfig(
     {

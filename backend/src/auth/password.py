@@ -1,6 +1,6 @@
-from typing import Tuple
-import secrets
 import hashlib
+import secrets
+from typing import Tuple
 
 
 def hash_password(password: str, salt: str) -> str:

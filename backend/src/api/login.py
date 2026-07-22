@@ -1,8 +1,9 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
+
 from ..auth.password import check_password
-from ..database.user import get_user_by_email
 from ..auth.token import create_token
+from ..database.user import get_user_by_email
 
 
 class LoginRequestSchema(Schema):

@@ -1,10 +1,11 @@
-from typing import Union
 import os
-import jwt
 from datetime import timedelta
-from flask import request
-from ..datetime import get_now
+from typing import Union
 
+import jwt
+from flask import request
+
+from ..datetime import get_now
 
 EXPIRE_HOURS = 8
 SKEW_MINUTES = 5

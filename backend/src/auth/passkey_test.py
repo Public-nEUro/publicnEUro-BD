@@ -1,5 +1,6 @@
 import unittest
-from .passkey import hash_passkey, check_passkey
+
+from .passkey import check_passkey, hash_passkey
 
 
 class TestPasskey(unittest.TestCase):

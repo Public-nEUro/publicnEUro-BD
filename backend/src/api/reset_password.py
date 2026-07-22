@@ -1,12 +1,15 @@
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
+
+from ..auth.passkey import hash_passkey
 from ..database.user import (
     get_user_by_email_confirmation_passkey_hash,
+)
+from ..database.user import (
     reset_password as reset_password_in_db,
 )
-from ..auth.passkey import hash_passkey
+from .common_schemas import EmptySchema
 
 
 class ResetPasswordWithPasskeyRequestSchema(Schema):

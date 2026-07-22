@@ -1,8 +1,9 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import UserInfo, extract_user_info, PaginationSchema
+
 from ..database.history import get_db_history, get_db_history_count
 from ..database.user import get_users_by_id
+from .common_schemas import PaginationSchema, UserInfo, extract_user_info
 
 
 class EventSchema(Schema):

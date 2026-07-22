@@ -1,7 +1,9 @@
 from typing import List, Union
 from uuid import uuid4
+
 from sqlalchemy import Column, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
+
 from . import db
 from .db_util import add_row
 

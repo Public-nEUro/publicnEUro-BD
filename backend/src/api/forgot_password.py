@@ -1,10 +1,11 @@
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema
+
 from ..auth.passkey import generate_passkey_and_hash
 from ..database.db_util import save_row
 from ..database.user import get_user_by_email
 from ..email import send_reset_password_email
+from .common_schemas import EmptySchema
 
 
 class ForgotPasswordRequestSchema(Schema):

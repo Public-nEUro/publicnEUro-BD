@@ -1,11 +1,13 @@
 from typing import List
 from uuid import uuid4
+
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
-from .common_schemas import EmptySchema, IdSchema
-from ..database.country import get_db_country, get_db_countries, GeoLocation, Country
+
+from ..database.country import Country, GeoLocation, get_db_countries, get_db_country
 from ..database.db_util import add_row, delete_row
+from .common_schemas import EmptySchema, IdSchema
 
 
 class CountryWithoutIdSchema(Schema):

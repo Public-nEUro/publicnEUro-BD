@@ -1,7 +1,9 @@
+import os
 import smtplib
 from email.message import EmailMessage
-import os
+
 from flask import current_app, render_template
+
 from .url import create_frontend_url
 
 SMTP_TIMEOUT = 30
