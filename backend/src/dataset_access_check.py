@@ -154,7 +154,7 @@ def perform_access_check(
 
     try:
         share_link = create_delphi_share(
-            dataset.delphi_share_url, user.email, should_send_email
+            dataset.delphi_share_url, user.email, should_send_email, dataset_id
         )
     except HTTPError as e:
         if e.response.status_code == 403:

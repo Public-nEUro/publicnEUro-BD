@@ -1,0 +1,25 @@
+<h1>{{ datasetId }}</h1>
+
+<p-tree
+    [value]="files"
+    [lazy]="true"
+    selectionMode="multiple"
+    [(selection)]="selectedNodes"
+    (onNodeExpand)="onExpand($event)"
+>
+    <ng-template let-node pTemplate="default">
+        {{ node.label }}
+    </ng-template>
+</p-tree>
+
+<div>
+    @for (selectedNode of selectedNodes; track selectedNode.key) {
+        <strong>
+            {{ selectedNode.label }}
+        </strong>
+    }
+</div>
+
+@if (selectedNodes.length > 0) {
+    <p-button label="Download" icon="pi pi-download" (onClick)="download(selectedNodes)"> </p-button>
+}

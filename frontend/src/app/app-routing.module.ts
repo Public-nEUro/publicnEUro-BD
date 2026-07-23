@@ -7,6 +7,7 @@ import { CountriesComponent } from "./countries/countries.component";
 import { DatasetUsersComponent } from "./dataset-users/dataset-users.component";
 import { DatasetComponent } from "./dataset/dataset.component";
 import { DatasetsComponent } from "./datasets/datasets.component";
+import { FilesComponent } from "./files/files.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { HistoryComponent } from "./history/history.component";
 import { HomeComponent } from "./home/home.component";
@@ -91,6 +92,10 @@ const routes: Routes = [
     {
         path: "request-access/:dataset_id",
         component: RequestAccessComponent
+    },
+    {
+        path: "files/:dataset_id/:shared_key",
+        component: FilesComponent
     }
 ];
 

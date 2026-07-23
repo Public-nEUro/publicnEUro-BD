@@ -22,6 +22,7 @@ model/datasetWithFileData.ts
 model/deleteAccessRequestRequest.ts
 model/delphiShareUrl.ts
 model/event.ts
+model/fileDetails.ts
 model/forgotPasswordRequest.ts
 model/getCountriesResponse.ts
 model/getDatasetsResponse.ts
@@ -38,11 +39,15 @@ model/grantAccessRequest.ts
 model/grantAccessResponse.ts
 model/id.ts
 model/institutionWithAcceptance.ts
+model/listFilesRequest.ts
+model/listFilesResponse.ts
 model/loginRequest.ts
 model/loginResponse.ts
 model/modelFile.ts
 model/models.ts
 model/pagination.ts
+model/prepareZipRequest.ts
+model/prepareZipResponse.ts
 model/registerRequest.ts
 model/requestAccessRequest.ts
 model/requestAccessResponse.ts

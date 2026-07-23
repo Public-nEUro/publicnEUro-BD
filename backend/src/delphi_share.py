@@ -8,12 +8,14 @@ import requests
 from .datetime import get_now
 
 
-def create_delphi_share(share_url: str, email: str, should_send_email: bool) -> str:
+def create_delphi_share(
+    share_url: str, email: str, should_send_email: bool, dataset_id: str
+) -> str:
     share_auth = urllib.parse.unquote(share_url.rsplit("/", 1)[-1])
     backend_url = (
         os.environ["DELPHI_BACKEND_URL"] + "/project_management/file_management/reshare"
     )
-    frontend_url = os.environ["DELPHI_FRONTEND_URL"] + "/shared-files"
+    frontend_url = os.environ["FRONTEND_URL"] + f"/manage/files/{dataset_id}"
     payload = {
         "frontend_url": frontend_url,
         "share_auth": share_auth,

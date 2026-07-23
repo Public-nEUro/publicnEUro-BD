@@ -18,6 +18,7 @@ from .dataset import (
     update_dataset,
 )
 from .delete_access_request import delete_access_request
+from .download_zip import download_zip, prepare_zip
 from .forgot_password import forgot_password
 from .get_share_link import get_share_link
 from .get_user_info import get_user_info
@@ -26,6 +27,7 @@ from .get_users import get_approved_users, get_non_approved_users
 from .grant_access import grant_access
 from .history import get_history
 from .institution import delete_institution, get_institutions, update_institution
+from .list_files import list_files
 from .login import login
 from .register import register
 from .request_access import request_access
@@ -168,6 +170,8 @@ def init_endpoints(app):
         [delete_scc, AuthType.ADMIN],
         [get_sccs, AuthType.ADMIN],
         [get_scc, AuthType.ADMIN],
+        [list_files, AuthType.ALL],
+        [prepare_zip, AuthType.ALL],
     ]
 
     for func, auth_type in func_list:
@@ -182,3 +186,7 @@ def init_endpoints(app):
     @app.get("/api/cli_insecure.sh")
     def cli_insecure():
         return get_cli_script(True)
+
+    @app.get("/api/download_zip/<string:token>")
+    def download(token: str):
+        return download_zip(token)

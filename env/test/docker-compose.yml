@@ -41,7 +41,6 @@ services:
             - FRONTEND_URL=${FRONTEND_URL}
             - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
             - DELPHI_BACKEND_URL=${DELPHI_BACKEND_URL}
-            - DELPHI_FRONTEND_URL=${DELPHI_FRONTEND_URL}
         networks:
             - default
     datalad:
