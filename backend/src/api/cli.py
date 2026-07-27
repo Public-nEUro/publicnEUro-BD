@@ -4,7 +4,7 @@ import os
 def get_cli_script(insecure: bool) -> str:
     insecure_str = " --insecure" if insecure else ""
     no_check_certificate_str = " --no-check-certificate" if insecure else ""
-    frontend_url = os.environ["FRONTEND_URL"]
+    frontend_url = os.environ["APP_URL"]
 
     return f"""#!/bin/bash
 

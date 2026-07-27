@@ -15,7 +15,7 @@ def create_delphi_share(
     backend_url = (
         os.environ["DELPHI_BACKEND_URL"] + "/project_management/file_management/reshare"
     )
-    frontend_url = os.environ["FRONTEND_URL"] + f"/manage/files/{dataset_id}"
+    frontend_url = os.environ["APP_URL"] + f"/manage/files/{dataset_id}"
     payload = {
         "frontend_url": frontend_url,
         "share_auth": share_auth,

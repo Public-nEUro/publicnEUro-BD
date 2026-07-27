@@ -41,7 +41,7 @@ def prepare_zip(request: PrepareZipRequestSchema) -> PrepareZipResponseSchema:
 
     token = res["url"].rsplit("/", 1)[-1]
 
-    url = os.environ["FRONTEND_URL"] + f"/api/download_zip/{token}"
+    url = os.environ["APP_URL"] + f"/api/download_zip/{token}"
 
     return {"url": url, "file_name": res["file_name"]}
 
