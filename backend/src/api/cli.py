@@ -3,6 +3,7 @@ import os
 
 def get_cli_script(insecure: bool) -> str:
     insecure_str = " --insecure" if insecure else ""
+    no_check_certificate_str = " --no-check-certificate" if insecure else ""
     frontend_url = os.environ["FRONTEND_URL"]
     delphi_backend_url = os.environ["DELPHI_BACKEND_URL"]
 
@@ -32,5 +33,5 @@ prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Conten
 download_name=$(echo $prepare_response | grep -o '"file_name":"[^"]*' | cut -d'"' -f4)
 download_link=$(echo $prepare_response | grep -o '"url":"[^"]*' | cut -d'"' -f4)
 
-wget -O "$download_name" "$download_link"
+wget{no_check_certificate_str} -O "$download_name" "$download_link"
 """
