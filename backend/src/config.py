@@ -10,4 +10,4 @@ OPENAPI_SERVER_LIST = [
     {"url": "https://localhost/", "description": "Local"},
 ]
 
-UI_PATH = "/swagger/ui"
+UI_PATH = "/api/swagger/ui"
