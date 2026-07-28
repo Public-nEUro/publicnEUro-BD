@@ -40,10 +40,11 @@ services:
             - APPROVER_EMAIL=${APPROVER_EMAIL}
             - APP_URL=${APP_URL}
             - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
-            - DELPHI_BACKEND_URL=${DELPHI_BACKEND_URL}
             - DELPHI_FRONTEND_URL=${DELPHI_FRONTEND_URL}
+            - ENCRYPTION_KEY=${ENCRYPTION_KEY}
         volumes:
             - ../../backend:/app
+            - ${DATASETS_DIR}:/datasets
         networks:
             - default
     datalad:

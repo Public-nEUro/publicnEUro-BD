@@ -25,9 +25,9 @@ if [ -n "$error_message" ]; then
 fi
 
 share_link_unescaped=$(printf '%b' "${{share_link//%/\\\\x}}")
-share_auth=$(basename "$share_link_unescaped")
+token=$(basename "$share_link_unescaped")
 
-prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Content-Type: application/json' --data "{{\\"share_auth\\": \\""$share_auth"\\",\\"paths\\": [\\""$folder_path"\\"]}}")
+prepare_response=$(curl{insecure_str} --location "$prepare_url" --header 'Content-Type: application/json' --data "{{\\"dataset_id\\": \\""$dataset"\\",\\"token\\": \\""$token"\\",\\"paths\\": [\\""$folder_path"\\"]}}")
 
 download_name=$(echo $prepare_response | grep -o '"file_name":"[^"]*' | cut -d'"' -f4)
 download_link=$(echo $prepare_response | grep -o '"url":"[^"]*' | cut -d'"' -f4)

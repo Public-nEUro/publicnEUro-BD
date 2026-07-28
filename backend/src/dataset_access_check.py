@@ -1,9 +1,8 @@
 import enum
+import os
 from typing import Dict, Optional, Tuple
 
-from flask import current_app
-from requests import HTTPError
-
+from .api.encryption import encrypt_dict
 from .database.country import GeoLocation, get_db_country
 from .database.dataset import Accessibility, ApprovalType, get_db_dataset
 from .database.db_util import save_row
@@ -12,8 +11,9 @@ from .database.institution_scc import get_db_institution_sccs
 from .database.user import get_user
 from .database.user_dataset import UserDataset, get_db_user_dataset
 from .datetime import get_now
-from .delphi_share import create_delphi_share
+from .email import send_email
 from .geo_location import is_accessible_in_geo_location
+from .url import create_frontend_url
 
 
 class AccessRequestStatus(enum.Enum):
@@ -147,23 +147,21 @@ def perform_access_check(
             None,
         )
 
+    user = get_user(user_id)
     user_dataset = get_db_user_dataset(user_id, dataset_id)
 
-    user = get_user(user_id)
-    dataset = get_db_dataset(dataset_id)
-
-    try:
-        share_link = create_delphi_share(
-            dataset.delphi_share_url, user.email, should_send_email, dataset_id
-        )
-    except HTTPError as e:
-        if e.response.status_code == 403:
-            return "Permission error", None
-        if e.response.status_code == 400:
-            return "Wrong input", None
-        current_app.logger.exception(str(e))
-        return "An error occurred.", None
-
     set_delphi_share_created(user_dataset)
+
+    token = encrypt_dict(
+        os.environ["ENCRYPTION_KEY"],
+        {"created_at": get_now().isoformat()},
+    )
+
+    share_link = create_frontend_url(f"files/{dataset_id}/{token}")
+
+    if should_send_email:
+        send_email(
+            "download", {"dataset_id": dataset_id, "share_link": share_link}, user.email
+        )
 
     return "You will receive an email with a download link.", share_link

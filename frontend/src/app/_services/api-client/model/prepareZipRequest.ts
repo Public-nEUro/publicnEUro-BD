@@ -12,7 +12,8 @@
 
 
 export interface PrepareZipRequest { 
+    dataset_id: string;
     paths: Array<string>;
-    share_auth: string;
+    token: string;
 }
 

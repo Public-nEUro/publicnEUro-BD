@@ -14,6 +14,7 @@ from ..dataset_access_check import (
     get_access_request_status,
     perform_access_check,
 )
+from ..url import create_frontend_url
 
 
 class GetShareLinkRequestSchema(Schema):
@@ -58,7 +59,7 @@ def get_share_link(dataset_id: str) -> str:
         abort(404)
 
     if dataset.accessibility == Accessibility.OPEN:
-        return dataset.delphi_share_url
+        return create_frontend_url("files/{dataset_id}")
 
     user_dataset = get_db_user_dataset(user.id, dataset_id)
     if user_dataset is None:

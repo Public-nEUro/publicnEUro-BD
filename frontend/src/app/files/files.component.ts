@@ -21,26 +21,28 @@ export class FilesComponent implements OnInit {
     private service = inject(DefaultService);
 
     datasetId?: string;
+    token?: string;
 
     files: TreeNode[] = [];
 
     async ngOnInit() {
+        await this.loadParams();
         this.files = await this.loadChildren("");
     }
 
-    async getSharedKey() {
+    async loadParams() {
         const params = await firstValueFrom(this.route.paramMap);
         const dataset_id = params.get("dataset_id") ?? null;
         if (dataset_id === null) throw new Error("No dataset ID provided");
         this.datasetId = dataset_id;
-        const shared_key = params.get("shared_key") ?? null;
-        if (shared_key === null) throw new Error("No key provided");
-        return shared_key;
+        const token = params.get("token") ?? null;
+        if (token === null) throw new Error("No token provided");
+        this.token = token;
     }
 
     async getFiles(path: string) {
-        const shared_key = await this.getSharedKey();
-        const res = await firstValueFrom(this.service.apiListFilesPost({ share_auth: shared_key, path }));
+        if (this.datasetId === undefined) throw new Error("datasetId is undefined");
+        const res = await firstValueFrom(this.service.apiListFilesPost({ dataset_id: this.datasetId, path }));
         return res.files;
     }
 
@@ -72,14 +74,13 @@ export class FilesComponent implements OnInit {
     }
 
     async download(selectedNodes: TreeNode[]) {
+        if (this.datasetId === undefined) throw new Error("datasetId is undefined");
+        if (this.token === undefined) throw new Error("token is undefined");
         const rawPaths = selectedNodes.map(n => n.key).filter(key => key !== undefined);
         const paths = rawPaths.filter(path => !rawPaths.some(p => p !== path && isParentDir(p, path)));
         const res = await firstValueFrom(
-            this.service.apiPrepareZipPost({
-                share_auth: await this.getSharedKey(),
-                paths
-            })
+            this.service.apiPrepareZipPost({ dataset_id: this.datasetId, token: this.token, paths })
         );
-        downloadFromUrl(res.url, "qwe.zip");
+        downloadFromUrl(res.url);
     }
 }

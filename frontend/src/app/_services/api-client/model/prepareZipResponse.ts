@@ -12,7 +12,6 @@
 
 
 export interface PrepareZipResponse { 
-    file_name: string;
     url: string;
 }
 

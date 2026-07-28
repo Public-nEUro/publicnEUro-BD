@@ -1,13 +1,11 @@
-import json
-import os
+from pathlib import Path
 
-import requests
 from flask_marshmallow import Schema
 from marshmallow import fields
 
 
 class ListFilesRequestSchema(Schema):
-    share_auth = fields.String(required=True)
+    dataset_id = fields.String(required=True)
     path = fields.String(required=True)
 
 
@@ -24,32 +22,26 @@ class ListFilesResponseSchema(Schema):
 
 
 def list_files(request: ListFilesRequestSchema) -> ListFilesResponseSchema:
-    return {"files": list_files_delphi(request["share_auth"], request["path"])}
+    return {"files": list_files_delphi(request["dataset_id"], request["path"])}
 
 
-def list_files_delphi(share_auth: str, path: str):
-    backend_url = (
-        os.environ["DELPHI_BACKEND_URL"] + "/project_management/file_management/list"
-    )
-    payload = {
-        "authorization_header": None,
-        "path": path,
-        "project_id": None,
-        "share_auth": share_auth,
+def get_file_details(p: Path, requested_path: str):
+    is_file = p.is_file()
+    stat = p.stat()
+    return {
+        "name": p.name,
+        "path": Path(requested_path) / p.name,
+        "type": "-" if is_file else "d",
+        "modified_time": stat.st_mtime if is_file else None,
+        "size_bytes": stat.st_size if is_file else None,
     }
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(
-        backend_url, json.dumps(payload), verify=True, headers=headers
-    )
-    response.raise_for_status()
-    files = response.json()["files"]
-    return [
-        {
-            "modified_time": file["modified_time"],
-            "name": file["name"],
-            "path": file["path"],
-            "size_bytes": file["size_bytes"],
-            "type": file["type"],
-        }
-        for file in files
-    ]
+
+
+def list_files_delphi(dataset_id: str, path: str):
+    base_path = Path("/datasets") / dataset_id
+    abs_path = (base_path / path).resolve()
+
+    if not abs_path.is_relative_to(base_path):
+        raise ValueError("Invalid path")
+
+    return [get_file_details(p, path) for p in sorted(abs_path.iterdir())]

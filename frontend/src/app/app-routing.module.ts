@@ -94,7 +94,7 @@ const routes: Routes = [
         component: RequestAccessComponent
     },
     {
-        path: "files/:dataset_id/:shared_key",
+        path: "files/:dataset_id/:token",
         component: FilesComponent
     }
 ];

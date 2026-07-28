@@ -19,6 +19,7 @@ from ..database.scc import get_db_scc
 from ..database.user import get_user
 from ..dataset_access_info import AccessInfo, get_access_info
 from ..get_datasets import JsonDataset, get_json_dataset, get_json_datasets
+from ..url import create_frontend_url
 from .assertions import get_logged_in_admin_or_abort
 from .common_schemas import EmptySchema, FileSchema, IdSchema
 
@@ -131,7 +132,7 @@ def get_delphi_share_url(request: IdSchema) -> DelphiShareUrlSchema:
     if db_dataset.accessibility != Accessibility.OPEN:
         get_logged_in_admin_or_abort()
 
-    return {"delphi_share_url": db_dataset.delphi_share_url}
+    return {"delphi_share_url": create_frontend_url(f"files/{request['id']}")}
 
 
 def get_dataset_dua(request: IdSchema) -> FileSchema:
