@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angula
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "@services/authentication.service";
-import { InternalToastService } from "@services/internaltoast.service";
 
 @Component({
     selector: "app-login",
@@ -21,8 +20,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     constructor(
         private route: ActivatedRoute,
         private formBuilder: UntypedFormBuilder,
-        private authenticationService: AuthenticationService,
-        private ns: InternalToastService
+        private authenticationService: AuthenticationService
     ) {}
 
     ngAfterViewInit(): void {
@@ -48,15 +46,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.f["password"].value,
             this.route.snapshot.queryParamMap.get("redirect")
         );
-    }
-
-    throwError() {
-        this.ns.addMessage({
-            id: "errorAuth",
-            icon: "fal fa-exclamation-triangle",
-            summary: "Authentication error",
-            detail: this.error,
-            severity: "error"
-        });
     }
 }
