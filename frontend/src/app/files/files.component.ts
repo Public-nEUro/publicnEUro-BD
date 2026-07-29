@@ -41,8 +41,8 @@ export class FilesComponent implements OnInit {
     }
 
     async getFiles(path: string) {
-        if (this.datasetId === undefined) throw new Error("datasetId is undefined");
-        const res = await firstValueFrom(this.service.apiListFilesPost({ dataset_id: this.datasetId, path }));
+        if (this.token === undefined) throw new Error("token is undefined");
+        const res = await firstValueFrom(this.service.apiListFilesPost({ token: this.token, path }));
         return res.files;
     }
 

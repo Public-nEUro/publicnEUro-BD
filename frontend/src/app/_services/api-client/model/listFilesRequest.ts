@@ -12,7 +12,7 @@
 
 
 export interface ListFilesRequest { 
-    dataset_id: string;
     path: string;
+    token: string;
 }
 

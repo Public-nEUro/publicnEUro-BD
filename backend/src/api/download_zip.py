@@ -10,6 +10,7 @@ from marshmallow import fields
 
 from ..datetime import get_now
 from .encryption import decrypt_dict, encrypt_dict
+from .share_token import decrypt_and_validate_token
 
 
 class PrepareZipRequestSchema(Schema):
@@ -23,15 +24,7 @@ class PrepareZipResponseSchema(Schema):
 
 
 def prepare_zip(request: PrepareZipRequestSchema) -> PrepareZipResponseSchema:
-    token_data = decrypt_dict(
-        os.environ["ENCRYPTION_KEY"],
-        request["token"],
-    )
-
-    if get_now() - datetime.fromisoformat(token_data["created_at"]) > timedelta(
-        hours=72
-    ):
-        raise PermissionError("Data access expired")
+    token_data = decrypt_and_validate_token(request["token"])
 
     paths = [
         str(Path("/datasets") / token_data["dataset_id"] / p) for p in request["paths"]

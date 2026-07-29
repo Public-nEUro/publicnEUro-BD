@@ -3,9 +3,11 @@ from pathlib import Path
 from flask_marshmallow import Schema
 from marshmallow import fields
 
+from .share_token import decrypt_and_validate_token
+
 
 class ListFilesRequestSchema(Schema):
-    dataset_id = fields.String(required=True)
+    token = fields.String(required=True)
     path = fields.String(required=True)
 
 
@@ -22,7 +24,9 @@ class ListFilesResponseSchema(Schema):
 
 
 def list_files(request: ListFilesRequestSchema) -> ListFilesResponseSchema:
-    return {"files": list_files_delphi(request["dataset_id"], request["path"])}
+    token_data = decrypt_and_validate_token(request["token"])
+
+    return {"files": list_files_delphi(token_data["dataset_id"], request["path"])}
 
 
 def get_file_details(p: Path, requested_path: str):
