@@ -22,6 +22,7 @@ from ..get_datasets import JsonDataset, get_json_dataset, get_json_datasets
 from ..url import create_frontend_url
 from .assertions import get_logged_in_admin_or_abort
 from .common_schemas import EmptySchema, FileSchema, IdSchema
+from .share_token import create_share_token
 
 
 class DatasetSchema(Schema):
@@ -132,7 +133,9 @@ def get_delphi_share_url(request: IdSchema) -> DelphiShareUrlSchema:
     if db_dataset.accessibility != Accessibility.OPEN:
         get_logged_in_admin_or_abort()
 
-    return {"delphi_share_url": create_frontend_url(f"files/{request['id']}")}
+    token = create_share_token(request["id"])
+
+    return {"delphi_share_url": create_frontend_url(f"files/{request['id']}/{token}")}
 
 
 def get_dataset_dua(request: IdSchema) -> FileSchema:
