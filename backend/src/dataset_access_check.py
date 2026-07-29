@@ -1,8 +1,8 @@
 import enum
-import os
 from typing import Dict, Optional, Tuple
 
-from .api.encryption import encrypt_dict
+from backend.src.api.share_token import create_share_token
+
 from .database.country import GeoLocation, get_db_country
 from .database.dataset import Accessibility, ApprovalType, get_db_dataset
 from .database.db_util import save_row
@@ -152,12 +152,9 @@ def perform_access_check(
 
     set_delphi_share_created(user_dataset)
 
-    token = encrypt_dict(
-        os.environ["ENCRYPTION_KEY"],
-        {"dataset_id": dataset_id, "created_at": get_now().isoformat()},
-    )
+    share_token = create_share_token(dataset_id)
 
-    share_link = create_frontend_url(f"files/{dataset_id}/{token}")
+    share_link = create_frontend_url(f"files/{dataset_id}/{share_token}")
 
     if should_send_email:
         send_email(

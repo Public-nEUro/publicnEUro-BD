@@ -1,16 +1,14 @@
 import os
 import tarfile
 import threading
-from datetime import datetime, timedelta
 from pathlib import Path
 
 from flask import Response
 from flask_marshmallow import Schema
 from marshmallow import fields
 
-from ..datetime import get_now
-from .encryption import decrypt_dict, encrypt_dict
-from .share_token import decrypt_and_validate_token
+from .download_token import create_download_token, decrypt_and_validate_download_token
+from .share_token import decrypt_and_validate_share_token
 
 
 class PrepareZipRequestSchema(Schema):
@@ -24,19 +22,14 @@ class PrepareZipResponseSchema(Schema):
 
 
 def prepare_zip(request: PrepareZipRequestSchema) -> PrepareZipResponseSchema:
-    token_data = decrypt_and_validate_token(request["token"])
+    token_data = decrypt_and_validate_share_token(request["token"])
 
     paths = [
         str(Path("/datasets") / token_data["dataset_id"] / p) for p in request["paths"]
     ]
 
-    data = {
-        "requested_at": get_now().isoformat(),
-        "dataset_id": token_data["dataset_id"],
-        "paths": paths,
-    }
-    token = encrypt_dict(os.environ["ENCRYPTION_KEY"], data)
-    url = f"{os.environ['APP_URL']}/api/download_zip/{token}"
+    download_token = create_download_token(token_data["dataset_id"], paths)
+    url = f"{os.environ['APP_URL']}/api/download_zip/{download_token}"
 
     return {"url": url, "file_name": get_file_name(paths)}
 
@@ -62,10 +55,8 @@ def get_file_name(paths: list[str]):
     return f"{Path(os.path.commonpath([Path(p) for p in paths])).name}.tar.gz"
 
 
-def download_zip(token: str):
-    data = decrypt_dict(os.environ["ENCRYPTION_KEY"], token)
-    if get_now() - datetime.fromisoformat(data["requested_at"]) > timedelta(minutes=1):
-        raise PermissionError("Token has expired")
+def download_zip(download_token: str):
+    data = decrypt_and_validate_download_token(download_token)
 
     return Response(
         tar_gz_stream(data["paths"]),
