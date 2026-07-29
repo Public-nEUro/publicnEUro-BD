@@ -1,8 +1,7 @@
 import enum
 from typing import Dict, Optional, Tuple
 
-from backend.src.api.share_token import create_share_token
-
+from .api.share_token import create_share_token
 from .database.country import GeoLocation, get_db_country
 from .database.dataset import Accessibility, ApprovalType, get_db_dataset
 from .database.db_util import save_row
