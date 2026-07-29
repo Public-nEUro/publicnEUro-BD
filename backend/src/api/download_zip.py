@@ -13,7 +13,6 @@ from .encryption import decrypt_dict, encrypt_dict
 
 
 class PrepareZipRequestSchema(Schema):
-    dataset_id = fields.String(required=True)
     token = fields.String(required=True)
     paths = fields.List(fields.String(required=True), required=True)
 
@@ -24,21 +23,23 @@ class PrepareZipResponseSchema(Schema):
 
 
 def prepare_zip(request: PrepareZipRequestSchema) -> PrepareZipResponseSchema:
-    token = decrypt_dict(
+    token_data = decrypt_dict(
         os.environ["ENCRYPTION_KEY"],
         request["token"],
     )
 
-    if get_now() - datetime.fromisoformat(token["created_at"]) > timedelta(hours=72):
+    if get_now() - datetime.fromisoformat(token_data["created_at"]) > timedelta(
+        hours=72
+    ):
         raise PermissionError("Data access expired")
 
     paths = [
-        str(Path("/datasets") / request["dataset_id"] / p) for p in request["paths"]
+        str(Path("/datasets") / token_data["dataset_id"] / p) for p in request["paths"]
     ]
 
     data = {
         "requested_at": get_now().isoformat(),
-        "dataset_id": request["dataset_id"],
+        "dataset_id": token_data["dataset_id"],
         "paths": paths,
     }
     token = encrypt_dict(os.environ["ENCRYPTION_KEY"], data)

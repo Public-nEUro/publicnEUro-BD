@@ -154,7 +154,7 @@ def perform_access_check(
 
     token = encrypt_dict(
         os.environ["ENCRYPTION_KEY"],
-        {"created_at": get_now().isoformat()},
+        {"dataset_id": dataset_id, "created_at": get_now().isoformat()},
     )
 
     share_link = create_frontend_url(f"files/{dataset_id}/{token}")

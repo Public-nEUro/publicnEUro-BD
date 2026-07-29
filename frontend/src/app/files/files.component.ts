@@ -74,13 +74,10 @@ export class FilesComponent implements OnInit {
     }
 
     async download(selectedNodes: TreeNode[]) {
-        if (this.datasetId === undefined) throw new Error("datasetId is undefined");
         if (this.token === undefined) throw new Error("token is undefined");
         const rawPaths = selectedNodes.map(n => n.key).filter(key => key !== undefined);
         const paths = rawPaths.filter(path => !rawPaths.some(p => p !== path && isParentDir(p, path)));
-        const res = await firstValueFrom(
-            this.service.apiPrepareZipPost({ dataset_id: this.datasetId, token: this.token, paths })
-        );
+        const res = await firstValueFrom(this.service.apiPrepareZipPost({ token: this.token, paths }));
         downloadFromUrl(res.url);
     }
 }
