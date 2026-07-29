@@ -8,6 +8,7 @@ from flask_marshmallow import Schema
 from marshmallow import fields
 
 from .download_token import create_download_token, decrypt_and_validate_download_token
+from .file_path import resolve_path
 from .share_token import decrypt_and_validate_share_token
 
 
@@ -24,9 +25,7 @@ class PrepareZipResponseSchema(Schema):
 def prepare_zip(request: PrepareZipRequestSchema) -> PrepareZipResponseSchema:
     token_data = decrypt_and_validate_share_token(request["token"])
 
-    paths = [
-        str(Path("/datasets") / token_data["dataset_id"] / p) for p in request["paths"]
-    ]
+    paths = [resolve_path(token_data["dataset_id"], p) for p in request["paths"]]
 
     download_token = create_download_token(token_data["dataset_id"], paths)
     url = f"{os.environ['APP_URL']}/api/download_zip/{download_token}"

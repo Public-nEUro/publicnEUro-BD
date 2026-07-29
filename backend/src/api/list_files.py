@@ -3,6 +3,7 @@ from pathlib import Path
 from flask_marshmallow import Schema
 from marshmallow import fields
 
+from .file_path import resolve_path
 from .share_token import decrypt_and_validate_share_token
 
 
@@ -42,10 +43,6 @@ def get_file_details(p: Path, requested_path: str):
 
 
 def list_files_delphi(dataset_id: str, path: str):
-    base_path = Path("/datasets") / dataset_id
-    abs_path = (base_path / path).resolve()
+    abs_path = resolve_path(dataset_id, path)
 
-    if not abs_path.is_relative_to(base_path):
-        raise ValueError("Invalid path")
-
-    return [get_file_details(p, path) for p in sorted(abs_path.iterdir())]
+    return [get_file_details(p, path) for p in sorted(Path(abs_path).iterdir())]
