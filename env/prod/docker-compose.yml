@@ -41,6 +41,8 @@ services:
             - APP_URL=${APP_URL}
             - RECAPTCHA_V3_SECRET_KEY=${RECAPTCHA_V3_SECRET_KEY}
             - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+        volumes:
+            - ${DATASETS_DIR}:/datasets
         networks:
             - default
     datalad:
