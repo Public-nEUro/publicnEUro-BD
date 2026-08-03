@@ -59,7 +59,7 @@ def get_share_link(dataset_id: str) -> str:
         abort(404)
 
     if dataset.accessibility == Accessibility.OPEN:
-        return create_frontend_url("files/{dataset_id}")
+        return create_frontend_url(f"files/{dataset_id}")
 
     user_dataset = get_db_user_dataset(user.id, dataset_id)
     if user_dataset is None:
