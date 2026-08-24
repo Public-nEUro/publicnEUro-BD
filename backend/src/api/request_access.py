@@ -1,3 +1,5 @@
+from typing import Optional
+
 from flask import abort
 from flask_marshmallow import Schema
 from marshmallow import fields
@@ -31,7 +33,10 @@ class RequestAccessResponseSchema(Schema):
 
 
 def add_user_dataset_to_db(
-    user_id: str, dataset_id: str, signed_dua_file_name: str, signed_dua_file_data: str
+    user_id: str,
+    dataset_id: str,
+    signed_dua_file_name: Optional[str],
+    signed_dua_file_data: Optional[str],
 ):
     user_dataset = UserDataset()
     user_dataset.user_id = user_id

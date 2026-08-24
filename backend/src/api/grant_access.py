@@ -27,7 +27,7 @@ def grant_access(request: GrantAccessRequestSchema) -> GrantAccessResponseSchema
     db_user_dataset = get_db_user_dataset(request["user_id"], request["dataset_id"])
 
     if db_user_dataset is None:
-        add_user_dataset_to_db(request["user_id"], request["dataset_id"])
+        add_user_dataset_to_db(request["user_id"], request["dataset_id"], None, None)
         db_user_dataset = get_db_user_dataset(request["user_id"], request["dataset_id"])
 
     if db_user_dataset.access_granted_by_admin_at is not None:
